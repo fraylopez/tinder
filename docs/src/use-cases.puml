@@ -1,0 +1,12 @@
+@startuml
+
+actor User
+usecase Register
+usecase Like
+usecase Dismiss
+
+User --> Register
+User --> Like
+User --> Dismiss
+
+@enduml

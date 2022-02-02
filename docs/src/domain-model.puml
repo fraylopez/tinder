@@ -1,0 +1,28 @@
+@startuml
+
+class Tinder
+class Match
+class Like
+class Action
+class UserList
+
+Tinder *--> User
+User *--> Gender
+User *--> Age
+User *--> Name
+
+Like --|> Action
+Dismiss --|> Action
+UserList o-down-> User
+
+User ..> UserList
+User ..> Chat
+Chat --> Match
+
+UserList *-down-> Action
+Match o--> "2" User
+
+Like --> User
+Like "2" <-- Match
+
+@enduml
