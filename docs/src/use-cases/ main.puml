@@ -1,0 +1,35 @@
+@startuml
+left to right direction
+
+actor User
+
+usecase Login
+usecase CreateProfile 
+usecase ReadProfile 
+usecase EditProfile 
+usecase DeleteProfile 
+usecase StartSwipping
+usecase Like
+usecase Dismiss
+usecase SendMessage
+usecase ReadMatches
+usecase ReadMessages
+usecase Unmatch
+
+
+User --> Login
+User --> CreateProfile
+User --> DeleteProfile
+User --> EditProfile
+User --> ReadProfile
+User --> SendMessage
+User --> ReadMessages
+User --> ReadMatches
+User --> Unmatch
+User --> StartSwipping
+User --> Like
+User --> Dismiss
+
+
+
+@enduml

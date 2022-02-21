@@ -1,0 +1,63 @@
+@startuml
+
+state INITIAL
+state SWIPPING
+state CONVERSATION
+state PROFILE
+
+' Que estados faltan?
+' Como nos movemos entre SWIPPING - CONVERSATION - PROFILE
+' Back use case?
+
+[*] --> INITIAL
+INITIAL --> IN_APP
+note on link
+Login
+CreateProfile
+end note
+IN_APP --> SWIPPING
+note on link
+StartSwipping
+endnote
+SWIPPING --> SWIPPING
+note on link
+Like
+Dismiss
+endnote
+IN_APP --> IN_APP
+note on link
+...
+end note
+IN_APP --> CONVERSATION
+note on link
+ReadMatches
+endnote
+CONVERSATION --> CONVERSATION
+note on link
+SendMessage
+ReadMessage
+end note
+IN_APP --> PROFILE
+note on link
+ReadProfile
+end note
+PROFILE --> PROFILE
+note on link
+EditProfile
+end note
+PROFILE --> INITIAL
+note on link
+DeleteProfile
+end note
+
+CONVERSATION --> PROFILE
+note on link
+ReadProfile
+end note
+SWIPPING --> PROFILE
+note on link
+ReadProfile
+end note
+
+
+@enduml
