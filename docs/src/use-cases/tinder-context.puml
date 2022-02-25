@@ -5,10 +5,6 @@ state SWIPPING
 state CONVERSATION
 state PROFILE
 
-' Que estados faltan?
-' Como nos movemos entre SWIPPING - CONVERSATION - PROFILE
-' Back use case?
-
 [*] --> INITIAL
 INITIAL --> IN_APP
 note on link
@@ -58,6 +54,16 @@ SWIPPING --> PROFILE
 note on link
 ReadProfile
 end note
+PROFILE -[#3B76C6]-> SWIPPING
+PROFILE -[#3B76C6]-> CONVERSATION
+PROFILE -[#3B76C6]-> IN_APP
+SWIPPING -[#3B76C6]-> IN_APP
+CONVERSATION -[#3B76C6]-> IN_APP
+
+legend right
+    | Color | Use case |
+    |<#3B76C6>| Go back|
+endlegend
 
 
 @enduml
