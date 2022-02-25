@@ -5,15 +5,15 @@ actor User
 
 usecase Login
 usecase CreateProfile 
-usecase ReadProfile 
+usecase GetProfile 
 usecase EditProfile 
 usecase DeleteProfile 
 usecase StartSwipping
 usecase Like
 usecase Dismiss
 usecase SendMessage
-usecase ReadMatches
-usecase ReadMessages
+usecase GetMatches
+usecase OpenConversation
 usecase Unmatch
 
 
@@ -21,10 +21,10 @@ User --> Login
 User --> CreateProfile
 User --> DeleteProfile
 User --> EditProfile
-User --> ReadProfile
+User --> GetProfile
 User --> SendMessage
-User --> ReadMessages
-User --> ReadMatches
+User --> OpenConversation
+User --> GetMatches
 User --> Unmatch
 User --> StartSwipping
 User --> Like

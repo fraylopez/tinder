@@ -1,12 +1,13 @@
 @startuml
 
 state INITIAL
-state SWIPPING
+state SWIPING
 state CONVERSATION
 state PROFILE
+state MATCH_LIST
 
 ' Que estados faltan?
-' Como nos movemos entre SWIPPING - CONVERSATION - PROFILE
+' Como nos movemos entre SWIPING - CONVERSATION - PROFILE
 ' Back use case?
 
 [*] --> INITIAL
@@ -15,11 +16,11 @@ note on link
 Login
 CreateProfile
 end note
-IN_APP --> SWIPPING
+IN_APP --> SWIPING
 note on link
-StartSwipping
+StartSwiping
 endnote
-SWIPPING --> SWIPPING
+SWIPING --> SWIPING
 note on link
 Like
 Dismiss
@@ -28,9 +29,17 @@ IN_APP --> IN_APP
 note on link
 ...
 end note
-IN_APP --> CONVERSATION
+IN_APP --> MATCH_LIST
 note on link
-ReadMatches
+GetMatches
+endnote
+MATCH_LIST --> CONVERSATION
+note on link
+OpenConversation
+endnote
+CONVERSATION ---> MATCH_LIST
+note on link
+GetMatches
 endnote
 CONVERSATION --> CONVERSATION
 note on link
@@ -54,10 +63,19 @@ CONVERSATION --> PROFILE
 note on link
 ReadProfile
 end note
-SWIPPING --> PROFILE
+SWIPING --> PROFILE
 note on link
 ReadProfile
 end note
+SWIPING --> CONVERSATION
+note on link
+OpenConversation
+end note
+CONVERSATION --> SWIPING
+note on link
+StartSwiping
+end note
+
 
 
 @enduml
