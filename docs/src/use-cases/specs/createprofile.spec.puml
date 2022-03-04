@@ -1,0 +1,34 @@
+@startuml
+
+' request
+' allow
+' introduce
+
+state INITIAL
+state IN_APP
+state is_valid_data <<choice>>
+state SHOW_VALIDATION_ERROR
+
+
+[*] --> INITIAL
+INITIAL --> CREATE_PROFILE: User requests to create a profile
+' note on link
+' Login
+' CreateProfile
+' end note
+CREATE_PROFILE --> INTRODUCE_DATA: System requests to introduce profile data
+INTRODUCE_DATA -right-> is_valid_data: User introduces profile data
+
+is_valid_data --> CREATED_PROFILE: System allows creating a profile
+CREATED_PROFILE --> IN_APP: System logs in the user
+
+is_valid_data --> SHOW_VALIDATION_ERROR: [incorrect profile data]
+SHOW_VALIDATION_ERROR --> INTRODUCE_DATA
+' is_valid_data --> INITIAL
+' note on link
+' StartSwiping
+' endnote
+IN_APP --> [*]
+
+
+@enduml
