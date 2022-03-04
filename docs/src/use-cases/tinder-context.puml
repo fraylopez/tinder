@@ -1,9 +1,10 @@
 @startuml
 
 state INITIAL
-state SWIPPING
+state SWIPING
 state CONVERSATION
 state PROFILE
+state MATCH_LIST
 
 [*] --> INITIAL
 INITIAL --> IN_APP
@@ -11,11 +12,11 @@ note on link
 Login
 CreateProfile
 end note
-IN_APP --> SWIPPING
+IN_APP --> SWIPING
 note on link
-StartSwipping
+StartSwiping
 endnote
-SWIPPING --> SWIPPING
+SWIPING --> SWIPING
 note on link
 Like
 Dismiss
@@ -24,9 +25,17 @@ IN_APP --> IN_APP
 note on link
 ...
 end note
-IN_APP --> CONVERSATION
+IN_APP --> MATCH_LIST
 note on link
-ReadMatches
+GetMatches
+endnote
+MATCH_LIST --> CONVERSATION
+note on link
+OpenConversation
+endnote
+CONVERSATION ---> MATCH_LIST
+note on link
+GetMatches
 endnote
 CONVERSATION --> CONVERSATION
 note on link
@@ -50,20 +59,19 @@ CONVERSATION --> PROFILE
 note on link
 ReadProfile
 end note
-SWIPPING --> PROFILE
+SWIPING --> PROFILE
 note on link
 ReadProfile
 end note
-PROFILE -[#3B76C6]-> SWIPPING
-PROFILE -[#3B76C6]-> CONVERSATION
-PROFILE -[#3B76C6]-> IN_APP
-SWIPPING -[#3B76C6]-> IN_APP
-CONVERSATION -[#3B76C6]-> IN_APP
+SWIPING --> CONVERSATION
+note on link
+OpenConversation
+end note
+CONVERSATION --> SWIPING
+note on link
+StartSwiping
+end note
 
-legend right
-    | Color | Use case |
-    |<#3B76C6>| Go back|
-endlegend
 
 
 @enduml
