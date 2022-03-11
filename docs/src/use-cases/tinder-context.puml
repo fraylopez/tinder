@@ -6,10 +6,6 @@ state CONVERSATION
 state PROFILE
 state MATCH_LIST
 
-' Que estados faltan?
-' Como nos movemos entre SWIPING - CONVERSATION - PROFILE
-' Back use case?
-
 [*] --> INITIAL
 INITIAL --> IN_APP
 note on link

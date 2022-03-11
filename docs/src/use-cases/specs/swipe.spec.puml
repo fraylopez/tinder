@@ -1,4 +1,5 @@
-@startuml
+@startuml SwippingSpecification
+title SwippingSpecification
 
 state SWIPPING
 state STATE_1 as " "

@@ -9,3 +9,10 @@ Diagrama donde vemos el ciclo de vida de la aplicación y los casos de uso que t
 Estado:
 Dados unos datos, que cosas puedo hacer y que no
 Un modelo
+
+TIPOS DE MANTENIMIENTO
+
+Perfectivo (añade o modifica funcionalidad)
+Correctivo (arregla funcionalidad)
+Adaptativo (compatibilidad)
+

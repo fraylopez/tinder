@@ -4,27 +4,31 @@ object Tinder
 object Match
 object Like
 object Dismiss
-object Action
+object Swipe
 object Candidates
 object User
+note right
+User is the human
+Profile represents the user (Could be fake)
+end note
 object Profile
 object Name
 object Conversation
 
-User ..> Action
+User ..> Swipe
 User *--> Profile
 
 Tinder *--> "2..n" User
 Profile *--> Name
 
-Like -up-|> Action
-Dismiss -up-|> Action
+Like -up-|> Swipe
+Dismiss -up-|> Swipe
 Candidates "0..n" o-down-> Profile
 
 Profile ..> Candidates
 Conversation --> Match
 
-Action --> Profile
+Swipe --> Profile
 Match *--> "2" Profile
 Match <--> "2" Like
 
