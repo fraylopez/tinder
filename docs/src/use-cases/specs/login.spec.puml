@@ -1,0 +1,31 @@
+@startuml LoginSpecification
+title LoginSpecification
+
+skinparam NoteBackgroundColor white
+
+state IN_APP
+state STATE1 as " "
+state are_credentials_correct <<choice>>
+
+[*] --> INITIAL
+INITIAL -[#green]-> STATE1
+note on link
+System requests credentials
+end note
+
+STATE1 -[#green]-> are_credentials_correct
+note on link
+User provides credentials
+end note
+
+are_credentials_correct -[#red]up-> STATE1
+note on link
+[Wrong Credentials] 
+System show wrong credentials
+end note
+
+are_credentials_correct -[#green]-> IN_APP
+
+IN_APP -[#green]-> [*]
+
+@enduml
