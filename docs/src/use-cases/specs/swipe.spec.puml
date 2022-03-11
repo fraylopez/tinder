@@ -1,5 +1,6 @@
 @startuml SwippingSpecification
 title SwippingSpecification
+
 state SWIPPING
 state STATE_1 as " "
 state SHOW_MATCH_CREATED as " "
