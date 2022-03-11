@@ -2,13 +2,14 @@
 
 state CONVERSATION
 state PROFILE
-state STATE_1
+state READING_PROFILE as " "
 
-[*] --> CONVERSATION 
-CONVERSATION --> STATE_1 : User requires to open a profile
-STATE_1 --> PROFILE : System shows the profile
 
-PROFILE  --> [*]
+[*] --> CONVERSATION
+CONVERSATION --> READING_PROFILE: User request to read a profile
+READING_PROFILE --> PROFILE: System allows to read a profile
+
+PROFILE --> [*]
 
 
 @enduml

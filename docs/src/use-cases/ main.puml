@@ -13,7 +13,6 @@ usecase Swipe
 usecase SendMessage
 usecase GetMatches
 usecase OpenConversation
-usecase Unmatch
 
 
 User --> Login
@@ -24,7 +23,6 @@ User --> GetProfile
 User --> SendMessage
 User --> OpenConversation
 User --> GetMatches
-User --> Unmatch
 User --> StartSwipping
 User --> Swipe
 
