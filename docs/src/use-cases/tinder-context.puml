@@ -18,8 +18,7 @@ StartSwiping
 endnote
 SWIPING --> SWIPING
 note on link
-Like
-Dismiss
+Swipe
 endnote
 IN_APP --> IN_APP
 note on link
@@ -71,6 +70,12 @@ CONVERSATION --> SWIPING
 note on link
 StartSwiping
 end note
+
+SWIPING --> IN_APP
+note on link
+Swipe
+end note
+
 
 
 
