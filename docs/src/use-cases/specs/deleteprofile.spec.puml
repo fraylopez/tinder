@@ -1,12 +1,18 @@
-@startuml
+@startuml DeleteProfileSpecification
+
+title DeleteProfileSpecification
 
 state INITIAL
 state PROFILE
 state DELETING_PROFILE as " "
+state WAITING_PROFILE as " "
+state IN_PROFILE as " "
 
 [*] --> PROFILE
-PROFILE --> DELETING_PROFILE: User request to delete a profile
-DELETING_PROFILE --> INITIAL: System allows to delete a profile
+PROFILE --> WAITING_PROFILE: User request his profile
+WAITING_PROFILE -->IN_PROFILE: System shows user's profile
+IN_PROFILE -->DELETING_PROFILE:User request to delete the profile
+DELETING_PROFILE --> INITIAL: System allows to delete a profile ?
 
 INITIAL --> [*]
 

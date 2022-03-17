@@ -1,14 +1,15 @@
-@startuml
+@startuml EditProfileSpecification
+
+title EditProfileSpecification
 
 state CONVERSATION
 state PROFILE
-state READING_PROFILE as " "
+state WAITING_PROFILE as " "
 
 
 [*] --> CONVERSATION
-CONVERSATION --> READING_PROFILE: User request to read a profile
-READING_PROFILE --> PROFILE: System allows to read a profile
-
+CONVERSATION --> WAITING_PROFILE: User requests a profile
+WAITING_PROFILE --> PROFILE: System shows the requested profile
 PROFILE --> [*]
 
 
