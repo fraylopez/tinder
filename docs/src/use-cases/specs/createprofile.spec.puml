@@ -1,34 +1,31 @@
-@startuml
+@startuml CreateProfileSpecification
+title CreateProfileSpecification
 
-' request
-' allow
-' introduce
+skinparam NoteBackgroundColor white
 
-state INITIAL
 state IN_APP
-state is_valid_data <<choice>>
-state SHOW_VALIDATION_ERROR
-
+state STATE1 as " "
+state is_required_data_provided <<choice>>
 
 [*] --> INITIAL
-INITIAL --> CREATE_PROFILE: User requests to create a profile
-' note on link
-' Login
-' CreateProfile
-' end note
-CREATE_PROFILE --> INTRODUCE_DATA: System requests to introduce profile data
-INTRODUCE_DATA -right-> is_valid_data: User introduces profile data
+INITIAL -[#green]-> STATE1
+note on link
+System requests profile data
+end note
 
-is_valid_data --> CREATED_PROFILE: System allows creating a profile
-CREATED_PROFILE --> IN_APP: System logs in the user
+STATE1 -[#green]-> is_required_data_provided
+note on link
+User provides data
+end note
 
-is_valid_data --> SHOW_VALIDATION_ERROR: [incorrect profile data]
-SHOW_VALIDATION_ERROR --> INTRODUCE_DATA
-' is_valid_data --> INITIAL
-' note on link
-' StartSwiping
-' endnote
-IN_APP --> [*]
+is_required_data_provided -[#red]up-> STATE1
+note on link
+[Missing information] 
+System shows missing information
+end note
 
+is_required_data_provided -[#green]-> IN_APP
+
+IN_APP -[#green]-> [*]
 
 @enduml
