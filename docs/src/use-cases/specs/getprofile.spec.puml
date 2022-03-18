@@ -1,15 +1,17 @@
-@startuml EditProfileSpecification
+@startuml GetProfileSpecification
 
-title EditProfileSpecification
+title GetProfileSpecification
 
+state IN_APP
+state SWIPE
 state CONVERSATION
 state PROFILE
 state WAITING_PROFILE as " "
 
-[*] --> CONVERSATION
+IN_APP --> WAITING_PROFILE
+SWIPE --> WAITING_PROFILE
 CONVERSATION --> WAITING_PROFILE: User requests a profile
 WAITING_PROFILE --> PROFILE: System shows the requested profile
-PROFILE --> [*]
 
 
 @enduml
