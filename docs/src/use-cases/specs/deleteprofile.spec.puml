@@ -11,7 +11,6 @@ state is_profile_from_user <<choice>>
 state PROFILE_END as "PROFILE"
 state INITIAL
 
-[*] --> PROFILE
 PROFILE -[#green]-> CONFIRMATION
 note on link
 User request to delete the profile
@@ -28,7 +27,5 @@ note on link
 [Profile is from user]
 System allows deletion
 end note
-
-INITIAL --> [*]
 
 @enduml

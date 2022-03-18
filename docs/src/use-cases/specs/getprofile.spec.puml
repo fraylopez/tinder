@@ -6,7 +6,6 @@ state CONVERSATION
 state PROFILE
 state WAITING_PROFILE as " "
 
-
 [*] --> CONVERSATION
 CONVERSATION --> WAITING_PROFILE: User requests a profile
 WAITING_PROFILE --> PROFILE: System shows the requested profile
