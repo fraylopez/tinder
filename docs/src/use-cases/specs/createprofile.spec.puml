@@ -20,8 +20,8 @@ end note
 
 is_required_data_provided -[#red]up-> STATE1
 note on link
-[Missing information] 
-System shows missing information
+[Wrong data format] 
+System shows wrong data format
 end note
 
 is_required_data_provided -[#green]-> IN_APP
