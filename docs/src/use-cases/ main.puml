@@ -4,12 +4,13 @@ left to right direction
 actor User
 
 usecase Login
+usecase Swipe
 usecase CreateProfile 
+
 usecase GetProfile 
 usecase EditProfile 
 usecase DeleteProfile 
 usecase StartSwipping
-usecase Swipe
 usecase SendMessage
 usecase GetMatches
 usecase OpenConversation
