@@ -9,12 +9,10 @@ usecase GetProfile
 usecase EditProfile 
 usecase DeleteProfile 
 usecase StartSwipping
-usecase Like
-usecase Dismiss
+usecase Swipe
 usecase SendMessage
 usecase GetMatches
 usecase OpenConversation
-usecase Unmatch
 
 
 User --> Login
@@ -25,10 +23,8 @@ User --> GetProfile
 User --> SendMessage
 User --> OpenConversation
 User --> GetMatches
-User --> Unmatch
 User --> StartSwipping
-User --> Like
-User --> Dismiss
+User --> Swipe
 
 
 

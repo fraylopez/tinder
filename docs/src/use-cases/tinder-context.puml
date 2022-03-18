@@ -6,10 +6,6 @@ state CONVERSATION
 state PROFILE
 state MATCH_LIST
 
-' Que estados faltan?
-' Como nos movemos entre SWIPING - CONVERSATION - PROFILE
-' Back use case?
-
 [*] --> INITIAL
 INITIAL --> IN_APP
 note on link
@@ -22,8 +18,7 @@ StartSwiping
 endnote
 SWIPING --> SWIPING
 note on link
-Like
-Dismiss
+Swipe
 endnote
 IN_APP --> IN_APP
 note on link
@@ -75,6 +70,12 @@ CONVERSATION --> SWIPING
 note on link
 StartSwiping
 end note
+
+SWIPING --> IN_APP
+note on link
+Swipe
+end note
+
 
 
 

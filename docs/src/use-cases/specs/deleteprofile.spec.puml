@@ -1,0 +1,14 @@
+@startuml
+
+state INITIAL
+state PROFILE
+state DELETING_PROFILE as " "
+
+[*] --> PROFILE
+PROFILE --> DELETING_PROFILE: User request to delete a profile
+DELETING_PROFILE --> INITIAL: System allows to delete a profile
+
+INITIAL --> [*]
+
+
+@enduml
