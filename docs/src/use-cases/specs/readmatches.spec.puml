@@ -1,0 +1,28 @@
+@startuml ReadMatchesSpecificaction
+title ReadMatchesSpecificaction 
+
+skinparam NoteBackgroundColor white
+state IN_APP
+state system as " "
+
+[*] --> IN_APP 
+[*] --> CONVERSATION 
+
+IN_APP --> system
+note on link 
+user requests matches
+end note
+
+CONVERSATION --> system
+note on link
+user requests matches
+end note
+
+system --> MATCH_LIST 
+note on link
+system shows match-list
+end note
+
+MATCH_LIST --> [*]
+
+@enduml
