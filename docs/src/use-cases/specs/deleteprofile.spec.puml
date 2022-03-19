@@ -1,14 +1,31 @@
-@startuml
+@startuml DeleteProfileSpecification
 
-state INITIAL
+title DeleteProfileSpecification
+
+skinparam NoteBackgroundColor white
+
 state PROFILE
-state DELETING_PROFILE as " "
+state CONFIRMATION
+state confirms <<choice>>
+state is_profile_from_user <<choice>>
+state PROFILE_END as "PROFILE"
+state INITIAL
 
-[*] --> PROFILE
-PROFILE --> DELETING_PROFILE: User request to delete a profile
-DELETING_PROFILE --> INITIAL: System allows to delete a profile
-
-INITIAL --> [*]
-
+PROFILE -[#green]-> CONFIRMATION
+note on link
+User request to delete the profile
+end note
+CONFIRMATION -[#green]-> confirms
+note on link
+System asks for comfirmation
+end note
+confirms -[#green]-> is_profile_from_user
+confirms --> PROFILE_END
+is_profile_from_user --> PROFILE_END
+is_profile_from_user -[#green]-> INITIAL
+note on link
+[Profile is from user]
+System allows deletion
+end note
 
 @enduml

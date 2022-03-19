@@ -1,0 +1,38 @@
+@startuml CreateProfileSpecification
+title CreateProfileSpecification
+
+skinparam NoteBackgroundColor white
+
+state IN_APP
+state STATE1 as " "
+state STATE2 as " "
+state is_required_data_provided <<choice>>
+
+[*] --> INITIAL
+INITIAL -[#green]-> STATE1
+note on link
+User request to create a profile
+end note
+STATE1 -[#green]-> STATE2
+note on link
+System requests profile data
+- User credentials
+- User profile data
+end note
+
+STATE2 -[#green]-> is_required_data_provided
+note on link
+User provides data
+end note
+
+is_required_data_provided -[#red]up-> STATE2
+note on link
+[Wrong data format] 
+System shows wrong data format
+end note
+
+is_required_data_provided -[#green]-> IN_APP
+
+IN_APP -[#green]-> [*]
+
+@enduml
