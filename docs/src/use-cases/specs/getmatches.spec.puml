@@ -1,0 +1,24 @@
+@startuml GetMatchesSpecificaction
+title GetMatchesSpecificaction 
+
+skinparam NoteBackgroundColor white
+
+state IN_APP
+state system as " "
+
+IN_APP -[#green]-> system
+note on link 
+user requests matches
+end note
+
+CONVERSATION -[#green]-> system
+note on link
+user requests matches
+end note
+
+system -[#green]-> MATCH_LIST 
+note on link
+system shows match list
+end note
+
+@enduml

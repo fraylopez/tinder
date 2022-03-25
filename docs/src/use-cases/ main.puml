@@ -8,13 +8,15 @@ usecase Swipe
 usecase CreateProfile 
 
 usecase GetProfile 
-usecase EditProfile 
 usecase DeleteProfile 
 usecase StartSwipping
 usecase SendMessage
 usecase GetMatches
-usecase OpenConversation
 
+usecase EditProfile 
+usecase StartSwipping
+usecase SendMessage
+usecase OpenConversation
 
 User --> Login
 User --> CreateProfile

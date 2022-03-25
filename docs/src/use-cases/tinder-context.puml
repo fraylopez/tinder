@@ -43,7 +43,7 @@ ReadMessage
 end note
 IN_APP --> PROFILE
 note on link
-ReadProfile
+GetProfile
 end note
 PROFILE --> PROFILE
 note on link
@@ -56,11 +56,11 @@ end note
 
 CONVERSATION --> PROFILE
 note on link
-ReadProfile
+GetProfile
 end note
 SWIPING --> PROFILE
 note on link
-ReadProfile
+GetProfile
 end note
 SWIPING --> CONVERSATION
 note on link
