@@ -1,15 +1,15 @@
-import { GetUserProfileView } from "./views/user-view/GetUserProfileView";
+import { UserInterfaceView } from "./views/UserInterfaceView";
 
 export class Tinder {
-    private getUserProfileView: GetUserProfileView;
+  private uiView: UserInterfaceView;
 
-    constructor() {
-        this.getUserProfileView = new GetUserProfileView();
-    }
+  constructor() {
+    this.uiView = new UserInterfaceView();
+  }
 
-    public render(): void {
-        this.getUserProfileView.render();
-    }
+  public render(): void {
+    this.uiView.render();
+  }
 }
 
 new Tinder().render();
