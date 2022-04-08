@@ -22,15 +22,15 @@ export class UserInterfaceView {
   }
 
   public async render(): Promise<void> {
-    console.log("[WELCOME TO TINDER]");
+    console.log("\n[WELCOME TO TINDER]\n\n");
 
     let option = await this.readString(
-      "Please, choose the option you want to perform [1/2]:\n 1- Create a profile \n 2-Login with an existing profile \n"
+      "Please, choose the option you want to perform [1/2]:\n\n 1- Create a profile \n 2- Login with an existing profile \n\n"
     );
 
     while (option !== "1" && option !== "2") {
       option = await this.readString(
-        "Wrong input selected. Please, choose the option you want to perform [1/2]:\n 1- Create a profile \n 2-Login with an existing profile \n"
+        "\nWrong input selected. \n\n Please, choose the option you want to perform [1/2]:\n\n 1- Create a profile \n 2- Login with an existing profile \n"
       );
     }
     if (option === "1") {

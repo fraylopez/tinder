@@ -19,7 +19,7 @@ export class CreateProfileView {
   }
 
   public async render(): Promise<void> {
-    console.log("[CREATE PROFILE]");
+    console.log("\n\n[CREATE PROFILE]\n");
 
     const name = await this.readString("1- Enter your name:\n");
     const age = await this.readString("2- Enter your age:\n");
