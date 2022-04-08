@@ -19,9 +19,9 @@ export class LoginView {
   }
 
   public async render(): Promise<void> {
-    console.log("[LOGIN]");
+    console.log("\n[LOGIN]\n\n");
 
-    const name = await this.readString("Enter your name to login:\n");
+    const name = await this.readString("\nEnter your name to login:\n");
     this.loginController.control(name);
   }
 }

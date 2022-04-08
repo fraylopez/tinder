@@ -20,10 +20,10 @@ export class LoginController {
         );
         console.log(`Logging in...`);
       } else {
-        console.warn("User not found. Create an account first");
+        console.log("User not found. Create an account first");
       }
     } else {
-      console.error("Cannot found any profile in the DB");
+      console.log("Cannot found any profile in the DB");
     }
   }
 }
