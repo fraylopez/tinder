@@ -10,4 +10,16 @@ export class Profile {
   getName() {
     return this.name;
   }
+
+  serialize(): ProfileDocument {
+    return {
+      name: this.name,
+      age: this.age,
+    };
+  }
+}
+
+export interface ProfileDocument {
+  name: string;
+  age: number;
 }
