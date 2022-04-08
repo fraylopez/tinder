@@ -1,5 +1,5 @@
 import { createInterface } from "readline";
-import { LoginController } from "../controllers/LoginController";
+import { LoginController } from "../../controllers/LoginController";
 
 export class LoginView {
   private loginController: LoginController;
@@ -21,7 +21,11 @@ export class LoginView {
   public async render(): Promise<void> {
     console.log("\n[LOGIN]\n\n");
 
-    const name = await this.readString("\nEnter your name to login:\n");
-    this.loginController.control(name);
+    let name = await this.readString("\nEnter your name to login:\n");
+    while(!this.loginController.control(name)) {
+      console.log("wrong credentials");
+      name = await this.readString("\nEnter your name to login:\n");
+    }
+    console.log(`Logged in :pikachu_dancing:`);
   }
 }

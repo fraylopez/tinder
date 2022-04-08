@@ -1,5 +1,5 @@
 import { createInterface } from "readline";
-import { CreateProfileController } from "../controllers/CreateProfileController";
+import { CreateProfileController } from "../../controllers/CreateProfileController";
 
 export class CreateProfileView {
   private createProfileController: CreateProfileController;

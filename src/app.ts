@@ -1,10 +1,10 @@
-import { UserInterfaceView } from "./views/UserInterfaceView";
+import { InitialView } from "./views/console/InitialView";
 
 export class Tinder {
-  private uiView: UserInterfaceView;
+  private uiView: InitialView;
 
   constructor() {
-    this.uiView = new UserInterfaceView();
+    this.uiView = new InitialView();
   }
 
   public render(): void {

@@ -6,5 +6,4 @@ export class GetProfileController {
        const profiles = fs.readFileSync('./src/data/profiles.json', 'utf8');
        return JSON.parse(profiles).find((profile: any) => profile.name === name);
     }
-
 }

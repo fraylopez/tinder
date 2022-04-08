@@ -2,7 +2,7 @@ import { createInterface } from "readline";
 import { CreateProfileView } from "./CreateProfileView";
 import { LoginView } from "./LoginView";
 
-export class UserInterfaceView {
+export class InitialView {
   private createProfileView: CreateProfileView;
   private loginView: LoginView;
   constructor() {
