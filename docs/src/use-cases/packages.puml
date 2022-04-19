@@ -1,0 +1,13 @@
+@startuml
+  package Views {
+    boundary TinderView
+  }
+
+  package Controllers {
+    control GetProfileController
+  }
+
+  package Models {
+    entity Swipe
+  }
+@enduml

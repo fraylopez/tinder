@@ -18,7 +18,6 @@ usecase StartSwipping
 usecase SendMessage
 usecase OpenConversation
 
-User --> Login
 User --> CreateProfile
 User --> DeleteProfile
 User --> EditProfile
@@ -29,6 +28,13 @@ User --> GetMatches
 User --> StartSwipping
 User --> Swipe
 
-
+DeleteProfile --> Login: includes
+EditProfile --> Login: includes
+GetProfile --> Login: includes
+SendMessage --> Login: includes
+OpenConversation --> Login: includes
+GetMatches --> Login: includes
+StartSwipping --> Login: includes
+Swipe --> Login: includes
 
 @enduml

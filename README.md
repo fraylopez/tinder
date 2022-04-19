@@ -17,5 +17,5 @@ Correctivo (arregla funcionalidad)
 Adaptativo (compatibilidad)
 
 RUP
-Una vista por actor y un controlador por caso de uso
+Una vista por actor/caso de uso y un controlador por caso de uso
 Si esta bn el 80% nos sirve de inspiracion para sacar modelos
