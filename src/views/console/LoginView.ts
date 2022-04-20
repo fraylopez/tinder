@@ -1,21 +1,13 @@
 import { createInterface } from "readline";
 import { LoginController } from "../../controllers/LoginController";
+import { Console } from "./Console";
 
 export class LoginView {
+  private console: Console;
   private loginController: LoginController;
   constructor() {
     this.loginController = new LoginController();
-  }
-
-  public async readString(msg: string): Promise<string> {
-    const rl = createInterface(process.stdin, process.stdout);
-    return new Promise<string>((res, rej) => {
-      rl.question(msg, (input) => {
-        // check input?
-        res(input);
-        rl.close();
-      });
-    });
+    this.console = new Console();
   }
 
   public async render(): Promise<void> {
@@ -26,7 +18,7 @@ export class LoginView {
       logged = this.loginController.control(name);
       if(!logged) {
         this.console.printString("Wrong name, try again");
-    }
+      }
     }
     while (!logged);
     console.log(`Logged in :pikachu_dancing:`);
