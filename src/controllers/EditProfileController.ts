@@ -1,5 +1,4 @@
 import { Profile } from "../models/Profile";
-import * as fs from "fs";
 import { FileSystemProfilePersistenceService } from "../infrastructure/file-system/FileSystemProfilePersistenceService";
 
 export class EditProfileController {
