@@ -1,27 +1,17 @@
-import { createInterface } from "readline";
 import { LoginController } from "../../controllers/LoginController";
+import { Console } from "./Console";
 import { EditProfileView } from "./EditProfileView";
 
 export class LoginView {
 
+  private console: Console;
   private editProfileView: EditProfileView;
   private loginController: LoginController;
-  private name: string | null = null;
 
   constructor() {
+    this.console = new Console();
     this.loginController = new LoginController();
     this.editProfileView = new EditProfileView();
-  }
-
-  public async readString(msg: string): Promise<string> {
-    const rl = createInterface(process.stdin, process.stdout);
-    return new Promise<string>((res, rej) => {
-      rl.question(msg, (input) => {
-        // check input?
-        res(input);
-        rl.close();
-      });
-    });
   }
 
   public async render(): Promise<void> {
@@ -30,23 +20,33 @@ export class LoginView {
   }
 
   private async loginAction() {
-    console.log("\n[LOGIN]\n\n");
-
-    this.name = await this.readString("\nEnter your name to login:\n");
-    while(!this.loginController.control(this.name)) {
-      console.log("wrong credentials");
-      this.name = await this.readString("\nEnter your name to login:\n");
+    this.console.printString("[LOGIN]");
+    var logged = false;
+    do {
+      let name = await this.console.readString(["Enter your name to login:"]);
+      logged = this.loginController.control(name);
+      if(!logged) {
+        this.console.printString("Wrong name, try again");
+      }
     }
-    console.log(`Logged in :pikachu_dancing:\n`);
+    while (!logged);
+    console.log(`Logged in :pikachu_dancing:`);
   }
 
   private async askForNextAction() {
-    let option = await this.readString(`[UIVIEW] - Please, choose the option you want to perform [1]:\n\n1- Update profile \n\n`);
+    let option = await this.console.readString([
+      "",
+      "[UIVIEW] - Please, choose the option you want to perform [1]:",
+      "",
+      "1- Edit profile"
+    ]);
 
     while (option !== "1") {
-      option = await this.readString(
-        "\n[UIVIEW] - Wrong input selected. \n\n Please, choose the option you want to perform [1]:\n\n 1- Update profile \n\n"
-      );
+      option = await this.console.readString([
+        "[UIVIEW] - Wrong input selected.",
+        "Please, choose the option you want to perform [1]:",
+        "1- Edit profile"
+      ]);
     }
 
     this.editProfileView.render();
