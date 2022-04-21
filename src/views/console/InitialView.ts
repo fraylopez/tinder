@@ -1,42 +1,33 @@
-import { createInterface } from "readline";
 import { CreateProfileView } from "./CreateProfileView";
+import { InAppView } from "./InAppView";
 import { LoginView } from "./LoginView";
+import { WithConsoleView } from "./WithConsoleView";
 
-export class InitialView {
+export class InitialView extends WithConsoleView {
   private createProfileView: CreateProfileView;
   private loginView: LoginView;
+  private inAppView: InAppView;
+
   constructor() {
+    super();
     this.createProfileView = new CreateProfileView();
     this.loginView = new LoginView();
-  }
-
-  public async readString(msg: string): Promise<string> {
-    const rl = createInterface(process.stdin, process.stdout);
-    return new Promise<string>((res, rej) => {
-      rl.question(msg, (input) => {
-        // check input?
-        res(input);
-        rl.close();
-      });
-    });
+    this.inAppView = new InAppView();
   }
 
   public async render(): Promise<void> {
-    console.log("\n[UIVIEW] - [WELCOME TO TINDER🔥]\n\n");
-
-    let option = await this.readString(
-      "[UIVIEW] - Please, choose the option you want to perform [1/2]:\n\n 1- Create a profile \n 2- Login with an existing profile \n\n"
-    );
+    this.console.print("WELCOME TO TINDER🔥]\nPlease, choose the option you want to perform [1/2]:\n");
+    let option = await this.console.readString("1- Create a profile\n2- Login with an existing profile\n");
 
     while (option !== "1" && option !== "2") {
-      option = await this.readString(
-        "\n[UIVIEW] - Wrong input selected. \n\n Please, choose the option you want to perform [1/2]:\n\n 1- Create a profile \n 2- Login with an existing profile \n\n"
-      );
+      this.console.print("Wrong input selected. Please, choose again [1/2]:\n");
+      option = await this.console.readString("1- Create a profile\n2- Login with an existing profile\n");
     }
     if (option === "1") {
       this.createProfileView.render();
     } else {
-      this.loginView.render();
+      await this.loginView.render();
+      await this.inAppView.render();
     }
   }
 }
