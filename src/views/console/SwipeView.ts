@@ -10,8 +10,8 @@ export class SwipeView extends WithConsoleView {
     this.swipeController = new SwipeController();
   }
 
-  public async render(profile: Profile): Promise<boolean> {
-    this.console.print(`skibidii here it is: ${profile.getName()}`);
+  public async render(candidate: Profile): Promise<boolean> {
+    this.console.print(`skibidii here it is: ${candidate.getName()}`);
     const swipeRight = await this.console.yesNoDialog("Swipe right?");
     this.console.print(`swipped ${swipeRight ? "right" : "left"} ... to be continue: `);
     return swipeRight;

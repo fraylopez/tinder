@@ -15,9 +15,9 @@ export class InAppView extends WithConsoleView {
   public async render(): Promise<void> {
     this.console.print("Actually, u just only will be able to swipe :P");
     do {
-      const profiles = this.startSwippingView.interact();
-      for (const profile of profiles) {
-        await this.swipeView.render(profile);
+      const candidates = this.startSwippingView.interact();
+      for (const candidate of candidates) {
+        await this.swipeView.render(candidate);
       }
     } while(await this.console.yesNoDialog("wanna start swipping again?"));
   }
