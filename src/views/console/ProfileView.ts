@@ -30,7 +30,8 @@ export class ProfileView {
       );
     }
     if (option === "1") {
-      throw new Error("EditProfileNotImplemented")
+      throw new Error("EditProfileNotImplemented");
+      // Call editProfileView with current profile
     } else if (option === "2") {
       throw new Error("DeleteProfileNotImplemented")
     }
