@@ -15,23 +15,23 @@ object Profile
 object Name
 object Conversation
 
-User ..> Swipe
-User *--> Profile
+User ..> Swipe : " Usa"
+User *--> Profile : " Consists"
 
-Tinder *--> "2..n" User
-Profile *--> Name
+Tinder *--> "2..n" User : " Consists"
+Profile *--> Name : " Consists"
 
-Like -up-|> Swipe
+Like -up-|> Swipe: " Inherits"
 Dismiss -up-|> Swipe
-Candidates "0..n" o-down-> Profile
+Candidates "0..n" o-down-> Profile: " Aggregate"
 
 Profile ..> Candidates
-Conversation --> Match
+Conversation --> Match: " Has"
 
-Swipe --> Profile
+Swipe --> Profile: " Has"
 Match *--> "2" Profile
 Match <--> "2" Like
 
-User --> Conversation
+User --> Conversation: " Has"
 
 @enduml
