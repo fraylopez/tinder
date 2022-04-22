@@ -8,7 +8,6 @@ export class LoginView {
   constructor() {
     this.loginController = new LoginController();
     this.console = new Console();
-    this.loginController = new LoginController();
   }
 
   public async render(): Promise<void> {
