@@ -1,10 +1,11 @@
 import { createInterface } from "readline";
 import { EditProfileController } from "../../controllers/EditProfileController";
+import { LoginController } from "../../controllers/LoginController";
 import { Profile } from "../../models/Profile";
 
 export class EditProfileView {
-
   private editProfileController: EditProfileController;
+  private loginController: LoginController;
 
   constructor() {
     this.editProfileController = new EditProfileController();
@@ -29,9 +30,9 @@ export class EditProfileView {
     let existingName = await this.readString(ENTER_YOUR_EXISTING_NAME_STR);
     let profileExists = false;
     while (profileExists === false) {
-      profileExists = await this.editProfileController.profileExistsByName(existingName)
+      profileExists = await this.loginController.control(existingName);
 
-      if( profileExists === false ) {
+      if (profileExists === false) {
         console.log("Profile dont exists\n");
         existingName = await this.readString(ENTER_YOUR_EXISTING_NAME_STR);
       }
@@ -44,6 +45,6 @@ export class EditProfileView {
     );
 
     // TODO: 4 Parameters, check how to refactor, because VIEW cant know the model Profile
-    this.editProfileController.editProfileData(existingName, name, Number(age), gender);
+    this.editProfileController.control(existingName, name, Number(age), gender);
   }
 }
