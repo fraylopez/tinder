@@ -5,10 +5,9 @@ import { ProfileView } from "./ProfileView";
 export class GetProfileView {
   private controller: GetProfileController;
   private console: Console;
-  private profileView: ProfileView;
+
   constructor() {
     this.controller = new GetProfileController();
-    this.profileView = new ProfileView();
     this.console = new Console();
   }
 
@@ -17,8 +16,6 @@ export class GetProfileView {
       "What profile do you want to get? (Name)",
     ]);
     const profile = this.controller.control(name);
-
-
-    this.profileView.render(profile);
+    new ProfileView(profile).render();
   }
 }
