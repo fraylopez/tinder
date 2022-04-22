@@ -15,7 +15,7 @@ object Profile
 object Name
 object Conversation
 
-User ..> Swipe : " Usa"
+User ..> Swipe : " Uses"
 User *--> Profile : " Consists"
 
 Tinder *--> "2..n" User : " Consists"
