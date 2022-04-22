@@ -24,7 +24,7 @@ export class Profile {
   getAge() {
     return this.age;
   }
-  
+
   getGender() {
     return this.gender;
   }
@@ -35,5 +35,9 @@ export class Profile {
       age: this.age,
       gender: this.gender,
     }
+  }
+
+  public updateWithPrimitives(profilePrimitives: ProfilePrimitives) {
+    // TODO: implement
   }
 }

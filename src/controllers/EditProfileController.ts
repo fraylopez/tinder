@@ -1,19 +1,23 @@
 import { Profile } from "../models/Profile";
 import { FileSystemProfilePersistenceService } from "../infrastructure/file-system/FileSystemProfilePersistenceService";
 import { ProfilePrimitives } from "../models/ProfilePrimitives";
+import { GetProfileController } from "./GetProfileController";
 
 export class EditProfileController {
   private persistenceService: FileSystemProfilePersistenceService;
 
-  constructor() {
+  constructor(
+    private getProfileController: GetProfileController,
+  ) {
     this.persistenceService = new FileSystemProfilePersistenceService();
   }
 
   public control(
-    existingName: string,
+    name: string,
     profilePrimitives: ProfilePrimitives
   ) {
-    const profile = Profile.fromPrimitives(profilePrimitives);
-    this.persistenceService.update(existingName, profile);
+    const profile = this.getProfileController.control(name);
+    profile.updateWithPrimitives(profilePrimitives);
+    this.persistenceService.update(profile);
   }
 }

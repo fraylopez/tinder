@@ -40,30 +40,19 @@ export class FileSystemProfilePersistenceService {
     }
   }
 
-  public update(existingName: string, profile: Profile): void {
-    const primitives = profile.toPrimitives();
-    const model: FileSystemProfile = {
-      name: primitives.name,
-      age: primitives.age,
-      gender: primitives.gender,
-    };
-
+  public update(profile: Profile): void {
     const stringifiedProfiles = fs.readFileSync(
       "./src/data/profiles.json",
       "utf8"
     );
-    if (stringifiedProfiles) {
-      const parsedJson = JSON.parse(stringifiedProfiles);
+    const parsedJson = JSON.parse(stringifiedProfiles);
 
-      parsedJson.forEach((profile: FileSystemProfile, index: number) => {
-        if(profile.name === existingName) {
-          parsedJson[index] = model;
-        }
-      });
+    parsedJson.forEach((profileItem: FileSystemProfile, index: number) => {
+      if(profileItem.name === profile.getName()) {
+        parsedJson[index] = profile.toPrimitives();
+      }
+    });
 
-      fs.writeFileSync("./src/data/profiles.json", JSON.stringify(parsedJson));
-    } else {
-      fs.writeFileSync("./src/data/profiles.json", JSON.stringify([model]));
-    }
+    fs.writeFileSync("./src/data/profiles.json", JSON.stringify(parsedJson));
   }
 }
