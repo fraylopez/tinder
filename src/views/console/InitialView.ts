@@ -6,13 +6,11 @@ import { WithConsoleView } from "./WithConsoleView";
 export class InitialView extends WithConsoleView {
   private createProfileView: CreateProfileView;
   private loginView: LoginView;
-  private inAppView: InAppView;
 
   constructor() {
     super();
     this.createProfileView = new CreateProfileView();
     this.loginView = new LoginView();
-    this.inAppView = new InAppView();
   }
 
   public async render(): Promise<void> {
@@ -26,8 +24,8 @@ export class InitialView extends WithConsoleView {
     if (option === "1") {
       this.createProfileView.render();
     } else {
-      await this.loginView.render();
-      await this.inAppView.render();
+      const profile = await this.loginView.render();
+      await new InAppView(profile).render();
     }
   }
 }
