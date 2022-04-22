@@ -39,4 +39,19 @@ export class FileSystemProfilePersistenceService {
       fs.writeFileSync("./src/data/profiles.json", JSON.stringify([model]));
     }
   }
+
+  public delete(profile: Profile): void {
+    const stringifiedProfiles = fs.readFileSync(
+      "./src/data/profiles.json",
+      "utf8"
+    );
+    const parsedJson = JSON.parse(stringifiedProfiles);
+    const filteredJson = parsedJson.filter(
+      (p: FileSystemProfile) => p.name !== profile.getName()
+    );
+    fs.writeFileSync(
+      "./src/data/profiles.json",
+      JSON.stringify(filteredJson)
+    );
+  }
 }
