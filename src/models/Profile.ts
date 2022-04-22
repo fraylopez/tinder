@@ -22,11 +22,23 @@ export class Profile {
     return this.name;
   }
 
+  getAge() {
+    return this.age;
+  }
+
+  getGender() {
+    return this.gender;
+  }
+
   public toPrimitives(): ProfilePrimitives {
     return {
       name: this.name,
       age: this.age,
       gender: this.gender,
     }
+  }
+
+  public updateWithPrimitives(profilePrimitives: ProfilePrimitives) {
+    // TODO: implement
   }
 }

@@ -1,36 +1,34 @@
-import { createInterface } from "readline";
+import { Console } from "./Console";
 import { CreateProfileView } from "./CreateProfileView";
 import { LoginView } from "./LoginView";
 
 export class InitialView {
+  private console: Console;
   private createProfileView: CreateProfileView;
   private loginView: LoginView;
+
   constructor() {
+    this.console = new Console();
     this.createProfileView = new CreateProfileView();
     this.loginView = new LoginView();
   }
 
-  public async readString(msg: string): Promise<string> {
-    const rl = createInterface(process.stdin, process.stdout);
-    return new Promise<string>((res, rej) => {
-      rl.question(msg, (input) => {
-        // check input?
-        res(input);
-        rl.close();
-      });
-    });
-  }
-
   public async render(): Promise<void> {
-    console.log("\n[UIVIEW] - [WELCOME TO TINDER🔥]\n\n");
+    this.console.printString("[UIVIEW] - [WELCOME TO TINDER🔥]");
+    this.console.printString("[UIVIEW] - Please, choose the option you want to perform [1/2]:");
 
-    let option = await this.readString(
-      "[UIVIEW] - Please, choose the option you want to perform [1/2]:\n\n 1- Create a profile \n 2- Login with an existing profile \n\n"
+    let option = await this.console.readString(
+      [
+        "1- Create a profile",
+        "2- Login with an existing profile"
+      ]
     );
 
     while (option !== "1" && option !== "2") {
-      option = await this.readString(
-        "\n[UIVIEW] - Wrong input selected. \n\n Please, choose the option you want to perform [1/2]:\n\n 1- Create a profile \n 2- Login with an existing profile \n\n"
+      this.console.printString("[UIVIEW] - Wrong input selected. Please, choose again [1/2]:");
+      option = await this.console.readString(
+        ["1- Create a profile\n",
+          "2- Login with an existing profile"]
       );
     }
     if (option === "1") {

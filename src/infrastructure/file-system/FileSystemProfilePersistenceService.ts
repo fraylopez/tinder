@@ -5,7 +5,7 @@ import { FileSystemProfile } from "./models/FileSystemProfile";
 export class FileSystemProfilePersistenceService {
   public find(name: string): Profile | null {
     const profiles = fs.readFileSync("./src/data/profiles.json", "utf8");
-    const array: FileSystemProfile[] = JSON.parse(profiles);    
+    const array: FileSystemProfile[] = JSON.parse(profiles);
     const foundUser = array.find(
       (profile: FileSystemProfile) => profile.name === name
     );
@@ -38,5 +38,21 @@ export class FileSystemProfilePersistenceService {
     } else {
       fs.writeFileSync("./src/data/profiles.json", JSON.stringify([model]));
     }
+  }
+
+  public update(profile: Profile): void {
+    const stringifiedProfiles = fs.readFileSync(
+      "./src/data/profiles.json",
+      "utf8"
+    );
+    const parsedJson = JSON.parse(stringifiedProfiles);
+
+    parsedJson.forEach((profileItem: FileSystemProfile, index: number) => {
+      if(profileItem.name === profile.getName()) {
+        parsedJson[index] = profile.toPrimitives();
+      }
+    });
+
+    fs.writeFileSync("./src/data/profiles.json", JSON.stringify(parsedJson));
   }
 }
