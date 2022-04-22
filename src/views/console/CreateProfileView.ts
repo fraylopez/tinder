@@ -1,5 +1,6 @@
 import { createInterface } from "readline";
 import { CreateProfileController } from "../../controllers/CreateProfileController";
+import { UnderAgeError } from "../../models/UnderAgeError";
 
 export class CreateProfileView {
   private createProfileController: CreateProfileController;
@@ -27,6 +28,13 @@ export class CreateProfileView {
       "3- Enter your gender [male/female]:\n"
     );
 
-    this.createProfileController.control(name, Number(age), gender);
+    try {
+      this.createProfileController.control(name, Number(age), gender);
+    } catch (error) {
+      if(error instanceof UnderAgeError) {
+        console.log("Controled under age user");
+      }
+    }
+    
   }
 }

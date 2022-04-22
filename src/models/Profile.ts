@@ -1,5 +1,6 @@
 import { assert } from "console";
 import { ProfilePrimitives } from "./ProfilePrimitives";
+import { UnderAgeError } from "./UnderAgeError";
 
 export class Profile {
   private name: string;
@@ -7,7 +8,7 @@ export class Profile {
   private gender: string;
 
   constructor(name: string, age: number, gender: string) {
-    assert(age >= 18, "under age");
+    assert(age >= 18, new UnderAgeError());
     this.name = name;
     this.age = age;
     this.gender = gender;

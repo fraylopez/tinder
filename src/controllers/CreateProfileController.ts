@@ -3,9 +3,6 @@ import * as fs from "fs";
 
 export class CreateProfileController {
   public control(name: string, age: number, gender: string): void {
-    console.log(
-      `\n\n[CONTROLLER]: Creating profile with this parameters... [Name: ${name}, Age: ${age}, Gender: ${gender} ]`
-    );
     const profile = new Profile(name, age, gender);
     const stringifiedProfiles = fs.readFileSync(
       "./src/data/profiles.json",
