@@ -1,5 +1,6 @@
 import { Profile } from "../models/Profile";
 import { FileSystemProfilePersistenceService } from "../infrastructure/file-system/FileSystemProfilePersistenceService";
+import { ProfilePrimitives } from "../models/ProfilePrimitives";
 
 export class EditProfileController {
   private persistenceService: FileSystemProfilePersistenceService;
@@ -10,11 +11,9 @@ export class EditProfileController {
 
   public control(
     existingName: string,
-    name: string,
-    age: number,
-    gender: string
+    profilePrimitives: ProfilePrimitives
   ) {
-    const profile = new Profile(name, age, gender);
+    const profile = Profile.fromPrimitives(profilePrimitives);
     this.persistenceService.update(existingName, profile);
   }
 }
