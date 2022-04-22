@@ -1,12 +1,15 @@
 import { createInterface } from "readline";
 import { LoginController } from "../../controllers/LoginController";
 import { Console } from "./Console";
+import { InAppView } from "./InAppView";
 
 export class LoginView {
   private console: Console;
   private loginController: LoginController;
+  private inAppView: InAppView;
   constructor() {
     this.loginController = new LoginController();
+    this.inAppView = new InAppView();
     this.console = new Console();
   }
 
@@ -22,5 +25,6 @@ export class LoginView {
     }
     while (!logged);
     console.log(`Logged in :pikachu_dancing:`);
+    this.inAppView.render();
   }
 }
