@@ -21,6 +21,14 @@ export class Profile {
     return this.name;
   }
 
+  getAge() {
+    return this.age;
+  }
+  
+  getGender() {
+    return this.gender;
+  }
+
   public toPrimitives(): ProfilePrimitives {
     return {
       name: this.name,
