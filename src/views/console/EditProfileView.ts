@@ -24,12 +24,12 @@ export class EditProfileView {
       "Enter your new gender [male/female]:\n",
     ]);
 
-    const profileDTO: ProfilePrimitives = {
+    const profilePrimitives: ProfilePrimitives = {
       name,
       age: Number(age),
       gender,
     };
 
-    this.editProfileController.control(existingName, profileDTO);
+    this.editProfileController.control(existingName, profilePrimitives);
   }
 }
