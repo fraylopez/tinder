@@ -1,4 +1,4 @@
-import { assert } from "console";
+import assert from "assert";
 import { ProfilePrimitives } from "./ProfilePrimitives";
 import { UnderAgeError } from "./UnderAgeError";
 
