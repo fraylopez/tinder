@@ -1,4 +1,5 @@
 import { CreateProfileController } from "../../controllers/CreateProfileController";
+import { LoginController } from "../../controllers/LoginController";
 import { Console } from "./Console";
 import { CreateProfileView } from "./CreateProfileView";
 import { LoginView } from "./LoginView";
@@ -11,7 +12,7 @@ export class InitialView {
   constructor() {
     this.console = new Console();
     this.createProfileView = new CreateProfileView(new CreateProfileController());
-    this.loginView = new LoginView();
+    this.loginView = new LoginView(new LoginController());
   }
 
   public async render(): Promise<void> {

@@ -4,9 +4,10 @@ import { Console } from "./Console";
 export class LoginView {
 
   private console: Console;
-  private loginController: LoginController;
-  constructor() {
-    this.loginController = new LoginController();
+
+  constructor(
+    private controller: LoginController,
+  ) {
     this.console = new Console();
   }
 
@@ -15,7 +16,7 @@ export class LoginView {
     var logged = false;
     do {
       let name = await this.console.readString(["Enter your name to login:"]);
-      logged = this.loginController.control(name);
+      logged = this.controller.control(name);
       if(!logged) {
         this.console.printString("Wrong name, try again");
       }
