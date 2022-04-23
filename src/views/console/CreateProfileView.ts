@@ -3,11 +3,9 @@ import { UnderAgeError } from "../../models/UnderAgeError";
 import { Console } from "./Console";
 
 export class CreateProfileView {
-  private createProfileController: CreateProfileController;
   private console: Console;
 
-  constructor() {
-    this.createProfileController = new CreateProfileController();
+  constructor(private controller: CreateProfileController) {
     this.console = new Console();
   }
 
@@ -20,7 +18,7 @@ export class CreateProfileView {
     );
 
     try {
-      this.createProfileController.control(name, Number(age), gender);
+      this.controller.control(name, Number(age), gender);
     } catch (error) {
       if(error instanceof UnderAgeError) {
         console.log("Controled under age user");
