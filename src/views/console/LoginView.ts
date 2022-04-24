@@ -1,26 +1,25 @@
 import { LoginController } from "../../controllers/LoginController";
-import { Console } from "./Console";
+import { ConsoleView } from "./ConsoleView";
 
-export class LoginView {
+export class LoginView extends ConsoleView {
 
-  private console: Console;
   private loginController: LoginController;
   constructor() {
+    super();
     this.loginController = new LoginController();
-    this.console = new Console();
   }
 
   public async render(): Promise<void> {
-    this.console.printString("[LOGIN]");
+    this.console.print("[LOGIN]");
     var logged = false;
     do {
-      let name = await this.console.readString(["Enter your name to login:"]);
+      let name = await this.console.read(["Enter your name to login:"]);
       logged = this.loginController.control(name);
       if(!logged) {
-        this.console.printString("Wrong name, try again");
+        this.console.print("Wrong name, try again");
       }
     }
     while (!logged);
-    console.log(`Logged in :pikachu_dancing:`);
+    this.console.print(`Logged in :pikachu_dancing:`);
   }
 }
