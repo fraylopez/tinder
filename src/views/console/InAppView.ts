@@ -11,18 +11,18 @@ export class InAppView extends ConsoleView {
   }
 
   public async render(): Promise<void> {
-    this.printString("[UIVIEW] - [WELCOME TO TINDER🔥]");
-    this.printString("[UIVIEW] - Please, choose the option you want to perform [1/2]:");
+    this.console.print("[UIVIEW] - [WELCOME TO TINDER🔥]");
+    this.console.print("[UIVIEW] - Please, choose the option you want to perform [1/2]:");
     const options = [
       "1- GetProfile",
     ]
-    let option = await this.readString(
+    let option = await this.console.read(
       options
     );
 
     while (option !== "1") {
-      this.printString("[UIVIEW] - Wrong input selected. Please, choose again [1]:");
-      option = await this.readString(
+      this.console.print("[UIVIEW] - Wrong input selected. Please, choose again [1]:");
+      option = await this.console.read(
         options
       );
     }

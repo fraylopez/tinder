@@ -11,13 +11,13 @@ export class EditProfileView extends ConsoleView {
   }
 
   public async render(): Promise<void> {
-    console.log("\n\n[Edit PROFILE]\n");
+    this.console.print("[Edit PROFILE]");
 
-    const existingName = await this.readString(["Enter existing name:"]);
+    const existingName = await this.console.read(["Enter existing name:"]);
 
-    const name = await this.readString(["Enter new name:"]);
-    const age = await this.readString(["Enter new age:\n"]);
-    const gender = await this.readString([
+    const name = await this.console.read(["Enter new name:"]);
+    const age = await this.console.read(["Enter new age:\n"]);
+    const gender = await this.console.read([
       "Enter your new gender [male/female]:\n",
     ]);
 

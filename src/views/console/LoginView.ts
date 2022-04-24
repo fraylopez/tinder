@@ -10,16 +10,16 @@ export class LoginView extends ConsoleView {
   }
 
   public async render(): Promise<void> {
-    this.printString("[LOGIN]");
+    this.console.print("[LOGIN]");
     var logged = false;
     do {
-      let name = await this.readString(["Enter your name to login:"]);
+      let name = await this.console.read(["Enter your name to login:"]);
       logged = this.loginController.control(name);
       if(!logged) {
-        this.printString("Wrong name, try again");
+        this.console.print("Wrong name, try again");
       }
     }
     while (!logged);
-    this.printString(`Logged in :pikachu_dancing:`);
+    this.console.print(`Logged in :pikachu_dancing:`);
   }
 }

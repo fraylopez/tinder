@@ -14,10 +14,10 @@ export class InitialView extends ConsoleView {
   }
 
   public async render(): Promise<void> {
-    this.printString("[UIVIEW] - [WELCOME TO TINDER🔥]");
-    this.printString("[UIVIEW] - Please, choose the option you want to perform [1/2]:");
+    this.console.print("[UIVIEW] - [WELCOME TO TINDER🔥]");
+    this.console.print("[UIVIEW] - Please, choose the option you want to perform [1/2]:");
 
-    let option = await this.readString(
+    let option = await this.console.read(
       [
         "1- Create a profile",
         "2- Login with an existing profile"
@@ -25,8 +25,8 @@ export class InitialView extends ConsoleView {
     );
 
     while (option !== "1" && option !== "2") {
-      this.printString("[UIVIEW] - Wrong input selected. Please, choose again [1/2]:");
-      option = await this.readString(
+      this.console.print("[UIVIEW] - Wrong input selected. Please, choose again [1/2]:");
+      option = await this.console.read(
         ["1- Create a profile\n",
           "2- Login with an existing profile"]
       );

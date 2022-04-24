@@ -11,10 +11,10 @@ export class CreateProfileView extends ConsoleView {
   }
 
   public async render(): Promise<void> {
-    this.printString("[CREATE PROFILE]");
-    const name = await this.readString(["1- Enter your name:"]);
-    const age = await this.readString(["2- Enter your age:"]);
-    const gender = await this.readString(
+    this.console.print("[CREATE PROFILE]");
+    const name = await this.console.read(["1- Enter your name:"]);
+    const age = await this.console.read(["2- Enter your age:"]);
+    const gender = await this.console.read(
       ["3- Enter your gender [male/female]:"]
     );
 
@@ -22,7 +22,7 @@ export class CreateProfileView extends ConsoleView {
       this.createProfileController.control(name, Number(age), gender);
     } catch (error) {
       if(error instanceof UnderAgeError) {
-        console.log("Controled under age user");
+        this.console.print("Controled under age user");
       }
     }
 

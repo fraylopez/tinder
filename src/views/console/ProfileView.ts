@@ -5,23 +5,23 @@ import { ConsoleView } from "./ConsoleView";
 export class ProfileView extends ConsoleView {
 
   public async render(profile: Profile): Promise<void> {
-    console.log("PROFILE:")
-    console.log(`Name: ${profile.getName()}`);
-    console.log(`Age: ${profile.getAge()}`);
-    console.log(`Gender: ${profile.getGender()}`);
+    this.console.print("PROFILE:")
+    this.console.print(`Name: ${profile.getName()}`);
+    this.console.print(`Age: ${profile.getAge()}`);
+    this.console.print(`Gender: ${profile.getGender()}`);
 
-    this.printString("[UIVIEW] - Please, choose the option you want to perform [1/2]:");
+    this.console.print("[UIVIEW] - Please, choose the option you want to perform [1/2]:");
     const options = [
       "1- Edit",
       "2- Delete",
     ]
-    let option = await this.readString(
+    let option = await this.console.read(
       options
     );
 
     while (option !== "1" && option !== "2") {
-      this.printString("[UIVIEW] - Wrong input selected. Please, choose again [1/2]:");
-      option = await this.readString(
+      this.console.print("[UIVIEW] - Wrong input selected. Please, choose again [1/2]:");
+      option = await this.console.read(
         options
       );
     }
