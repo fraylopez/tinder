@@ -1,26 +1,23 @@
 import { EditProfileController } from "../../controllers/EditProfileController";
-import { Console } from "./Console";
 import { ProfilePrimitives } from "../../models/ProfilePrimitives";
-import { GetProfileController } from "../../controllers/GetProfileController";
+import { ConsoleView } from "./ConsoleView";
 
-export class EditProfileView {
-
-  private console: Console;
+export class EditProfileView extends ConsoleView {
 
   constructor(
     private editProfileController: EditProfileController,
   ) {
-    this.console = new Console();
+    super();
   }
 
   public async render(): Promise<void> {
-    console.log("\n\n[Edit PROFILE]\n");
+    this.console.print("[Edit PROFILE]");
 
-    const existingName = await this.console.readString(["Enter existing name:"]);
+    const existingName = await this.console.read(["Enter existing name:"]);
 
-    const name = await this.console.readString(["Enter new name:"]);
-    const age = await this.console.readString(["Enter new age:\n"]);
-    const gender = await this.console.readString([
+    const name = await this.console.read(["Enter new name:"]);
+    const age = await this.console.read(["Enter new age:\n"]);
+    const gender = await this.console.read([
       "Enter your new gender [male/female]:\n",
     ]);
 

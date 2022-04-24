@@ -1,19 +1,18 @@
 import { CreateProfileController } from "../../controllers/CreateProfileController";
 import { UnderAgeError } from "../../models/UnderAgeError";
-import { Console } from "./Console";
+import { ConsoleView } from "./ConsoleView";
 
-export class CreateProfileView {
-  private console: Console;
+export class CreateProfileView extends ConsoleView {
 
   constructor(private controller: CreateProfileController) {
-    this.console = new Console();
+    super();
   }
 
   public async render(): Promise<void> {
-    this.console.printString("[CREATE PROFILE]");
-    const name = await this.console.readString(["1- Enter your name:"]);
-    const age = await this.console.readString(["2- Enter your age:"]);
-    const gender = await this.console.readString(
+    this.console.print("[CREATE PROFILE]");
+    const name = await this.console.read(["1- Enter your name:"]);
+    const age = await this.console.read(["2- Enter your age:"]);
+    const gender = await this.console.read(
       ["3- Enter your gender [male/female]:"]
     );
 
@@ -21,9 +20,8 @@ export class CreateProfileView {
       this.controller.control(name, Number(age), gender);
     } catch (error) {
       if(error instanceof UnderAgeError) {
-        console.log("Controled under age user");
+        this.console.print("Controled under age user");
       }
     }
-
   }
 }
