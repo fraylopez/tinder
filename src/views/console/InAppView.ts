@@ -1,13 +1,13 @@
 import { GetProfileView } from "./GetProfileView";
-import { Console } from "../../infrastructure/Console";
 import { ConsoleView } from "./ConsoleView";
+import { GetProfileController } from "../../controllers/GetProfileController";
 
 export class InAppView extends ConsoleView {
   private getProfileView: GetProfileView;
 
   constructor() {
     super();
-    this.getProfileView = new GetProfileView();
+    this.getProfileView = new GetProfileView(new GetProfileController());
   }
 
   public async render(): Promise<void> {

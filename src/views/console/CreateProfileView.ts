@@ -4,7 +4,9 @@ import { ConsoleView } from "./ConsoleView";
 
 export class CreateProfileView extends ConsoleView {
 
-  constructor(private controller: CreateProfileController) {
+  constructor(
+    private controller: CreateProfileController,
+  ) {
     super();
   }
 

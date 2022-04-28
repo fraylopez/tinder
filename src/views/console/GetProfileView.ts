@@ -3,12 +3,12 @@ import { ConsoleView } from "./ConsoleView";
 import { ProfileView } from "./ProfileView";
 
 export class GetProfileView extends ConsoleView {
-  private controller: GetProfileController;
   private profileView: ProfileView;
 
-  constructor() {
+  constructor(
+    private controller: GetProfileController,
+  ) {
     super();
-    this.controller = new GetProfileController();
     this.profileView = new ProfileView();
   }
 
