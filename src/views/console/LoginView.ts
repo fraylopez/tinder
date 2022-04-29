@@ -1,31 +1,25 @@
-import { createInterface } from "readline";
 import { LoginController } from "../../controllers/LoginController";
+import { ConsoleView } from "./ConsoleView";
 
-export class LoginView {
+export class LoginView extends ConsoleView {
+
   private loginController: LoginController;
   constructor() {
+    super();
     this.loginController = new LoginController();
   }
 
-  public async readString(msg: string): Promise<string> {
-    const rl = createInterface(process.stdin, process.stdout);
-    return new Promise<string>((res, rej) => {
-      rl.question(msg, (input) => {
-        // check input?
-        res(input);
-        rl.close();
-      });
-    });
-  }
-
   public async render(): Promise<void> {
-    console.log("\n[LOGIN]\n\n");
-
-    let name = await this.readString("\nEnter your name to login:\n");
-    while(!this.loginController.control(name)) {
-      console.log("wrong credentials");
-      name = await this.readString("\nEnter your name to login:\n");
+    this.console.print("[LOGIN]");
+    var logged = false;
+    do {
+      let name = await this.console.read(["Enter your name to login:"]);
+      logged = this.loginController.control(name);
+      if(!logged) {
+        this.console.print("Wrong name, try again");
+      }
     }
-    console.log(`Logged in :pikachu_dancing:`);
+    while (!logged);
+    this.console.print(`Logged in :pikachu_dancing:`);
   }
 }

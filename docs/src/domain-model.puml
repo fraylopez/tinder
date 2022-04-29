@@ -1,21 +1,20 @@
-@startuml
+@startuml domain model
 
 object Tinder
 object Match
 object Like
 object Dismiss
 object Swipe
-object Candidates
+object Candidate
 object User
 note right
-User is the human
-Profile represents the user (Could be fake)
+User is represented by Profile
 end note
 object Profile
 object Name
 object Conversation
 
-User ..> Swipe
+User ..> Swipe : "Like profile?"
 User *--> Profile
 
 Tinder *--> "2..n" User
@@ -23,15 +22,15 @@ Profile *--> Name
 
 Like -up-|> Swipe
 Dismiss -up-|> Swipe
-Candidates "0..n" o-down-> Profile
+User o-down-> "0..n" Candidate: "Filter"
 
-Profile ..> Candidates
-Conversation --> Match
+Profile ..> Candidate
+Conversation --> Match: "With profile"
 
 Swipe --> Profile
 Match *--> "2" Profile
 Match <--> "2" Like
 
-User --> Conversation
+User --> Conversation: "Maintains"
 
 @enduml
