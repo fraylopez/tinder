@@ -2,7 +2,6 @@ import { LoginController } from "../../controllers/LoginController";
 import { ConsoleView } from "./ConsoleView";
 
 export class LoginView extends ConsoleView {
-
   private loginController: LoginController;
   constructor() {
     super();
@@ -15,11 +14,10 @@ export class LoginView extends ConsoleView {
     do {
       let name = await this.console.read(["Enter your name to login:"]);
       logged = this.loginController.control(name);
-      if(!logged) {
+      if (!logged) {
         this.console.print("Wrong name, try again");
       }
-    }
-    while (!logged);
-    this.console.print(`Logged in :pikachu_dancing:`);
+    } while (!logged);
+    this.console.print(`Logged in 🐥`);
   }
 }
