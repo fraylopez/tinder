@@ -10,6 +10,7 @@ export class DeleteProfileView extends ConsoleView {
 
     const name = await this.console.read(["Enter your name:\n"]);
     const confirmed = await this.console.read(["Are you sure? [y/n]:\n"]);
+    // TODO: confirmacion no le interesa al controlador
     const wasDeleted = this.controller.control(name, confirmed === "y");
 
     if (wasDeleted) {
