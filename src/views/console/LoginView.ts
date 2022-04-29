@@ -2,10 +2,8 @@ import { LoginController } from "../../controllers/LoginController";
 import { ConsoleView } from "./ConsoleView";
 
 export class LoginView extends ConsoleView {
-  private loginController: LoginController;
-  constructor() {
+  constructor(private controller: LoginController) {
     super();
-    this.loginController = new LoginController();
   }
 
   public async render(): Promise<void> {
@@ -13,7 +11,7 @@ export class LoginView extends ConsoleView {
     var logged = false;
     do {
       let name = await this.console.read(["Enter your name to login:"]);
-      logged = this.loginController.control(name);
+      logged = this.controller.control(name);
       if (!logged) {
         this.console.print("Wrong name, try again");
       }

@@ -1,4 +1,6 @@
+import { CreateProfileController } from "../../controllers/CreateProfileController";
 import { DeleteProfileController } from "../../controllers/DeleteProfileController";
+import { LoginController } from "../../controllers/LoginController";
 import { FileSystemProfilePersistenceService } from "../../infrastructure/file-system/FileSystemProfilePersistenceService";
 import { ConsoleView } from "./ConsoleView";
 import { CreateProfileView } from "./CreateProfileView";
@@ -12,11 +14,11 @@ export class InitialView extends ConsoleView {
 
   constructor() {
     super();
-    this.createProfileView = new CreateProfileView();
     this.deleteProfileView = new DeleteProfileView(
       new DeleteProfileController(new FileSystemProfilePersistenceService())
     );
-    this.loginView = new LoginView();
+    this.createProfileView = new CreateProfileView(new CreateProfileController());
+    this.loginView = new LoginView(new LoginController());
   }
 
   public async render(): Promise<void> {

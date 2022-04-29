@@ -1,4 +1,3 @@
-import { GetProfileController } from "../../controllers/GetProfileController";
 import { Profile } from "../../models/Profile";
 import { ConsoleView } from "./ConsoleView";
 
