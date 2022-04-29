@@ -24,14 +24,14 @@ export class InitialView extends ConsoleView {
     this.console.print(
       "[UIVIEW] - Please, choose the option you want to perform [1/3]:"
     );
-
-    let option = await this.console.read([
+    const anwer = await this.console.read([
       "1- Create a profile",
       "2- Login with an existing profile",
       "3- Delete profile",
     ]);
+
+    let option = anwer;
     do {
-      option = option;
       if (option === "1") {
         this.createProfileView.render();
       } else if (option === "2") {
@@ -43,6 +43,8 @@ export class InitialView extends ConsoleView {
           "[UIVIEW] - Wrong input selected. Please, choose again [1/3]:"
         );
       }
+      option = anwer;
+      this.console.print(");
     } while (option !== "1" && option !== "2" && option !== "3");
   }
 }
