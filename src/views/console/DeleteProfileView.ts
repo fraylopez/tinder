@@ -1,11 +1,13 @@
 import { createInterface } from "readline";
 import { DeleteProfileController } from "../../controllers/DeleteProfileController";
 
-export class DeleteProfileView {
-  private readonly controller: DeleteProfileController;
+export class DeleteProfileView extends ConsoleView {
+  private profileView: ProfileView;
 
-  constructor() {
-    this.controller = new DeleteProfileController();
+  constructor(private readonly controller: DeleteProfileController) {
+    this.profileView = new ProfileView();
+
+    super();
   }
 
   private async readString(msg: string): Promise<string> {
@@ -18,7 +20,6 @@ export class DeleteProfileView {
       });
     });
   }
-
 
   public async render(): Promise<void> {
     console.log("\n\n[DELETE PROFILE]\n");
