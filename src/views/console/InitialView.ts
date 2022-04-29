@@ -1,24 +1,37 @@
 import { CreateProfileController } from "../../controllers/CreateProfileController";
 import { DeleteProfileController } from "../../controllers/DeleteProfileController";
+import { GetProfileController } from "../../controllers/GetProfileController";
 import { LoginController } from "../../controllers/LoginController";
 import { FileSystemProfilePersistenceService } from "../../infrastructure/file-system/FileSystemProfilePersistenceService";
 import { ConsoleView } from "./ConsoleView";
 import { CreateProfileView } from "./CreateProfileView";
 import { DeleteProfileView } from "./DeleteProfileView";
+import { GetProfileView } from "./GetProfileView";
 import { LoginView } from "./LoginView";
 
 export class InitialView extends ConsoleView {
   private createProfileView: CreateProfileView;
   private deleteProfileView: DeleteProfileView;
+  private getProfileView: GetProfileView;
   private loginView: LoginView;
 
   constructor() {
     super();
+
+    //profile controller
     this.deleteProfileView = new DeleteProfileView(
       new DeleteProfileController(new FileSystemProfilePersistenceService())
     );
-    this.createProfileView = new CreateProfileView(new CreateProfileController());
+
+    this.createProfileView = new CreateProfileView(
+      new CreateProfileController()
+    );
+    
+    this.getProfileView = new GetProfileView(new GetProfileController());
+    //
+    
     this.loginView = new LoginView(new LoginController());
+
   }
 
   public async render(): Promise<void> {

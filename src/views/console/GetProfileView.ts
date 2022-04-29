@@ -5,9 +5,7 @@ import { ProfileView } from "./ProfileView";
 export class GetProfileView extends ConsoleView {
   private profileView: ProfileView;
 
-  constructor(
-    private controller: GetProfileController,
-  ) {
+  constructor(private controller: GetProfileController) {
     super();
     this.profileView = new ProfileView();
   }
@@ -18,7 +16,6 @@ export class GetProfileView extends ConsoleView {
     ]);
     const profile = this.controller.control(name);
 
-
-    this.profileView.render(profile);
+    // this.profileView.render(profile);
   }
 }
