@@ -11,10 +11,10 @@ export class FileSystemProfilePersistenceService {
     );
     return foundUser
       ? Profile.fromPrimitives({
-        name: foundUser.name,
-        age: foundUser.age,
-        gender: foundUser.gender,
-      })
+          name: foundUser.name,
+          age: foundUser.age,
+          gender: foundUser.gender,
+        })
       : null;
   }
 
@@ -40,6 +40,21 @@ export class FileSystemProfilePersistenceService {
     }
   }
 
+  public delete(profile: Profile): void {
+    const stringifiedProfiles = fs.readFileSync(
+      "./src/data/profiles.json",
+      "utf8"
+    );
+    const parsedJson = JSON.parse(stringifiedProfiles);
+
+    parsedJson.forEach((profileItem: FileSystemProfile, index: number) => {
+      if (profileItem.name === profile.getName()) {
+        parsedJson.splice(index, 1);
+      }
+    });
+    fs.writeFileSync("./src/data/profiles.json", JSON.stringify(parsedJson));
+  }
+
   public update(profile: Profile): void {
     const stringifiedProfiles = fs.readFileSync(
       "./src/data/profiles.json",
@@ -48,7 +63,7 @@ export class FileSystemProfilePersistenceService {
     const parsedJson = JSON.parse(stringifiedProfiles);
 
     parsedJson.forEach((profileItem: FileSystemProfile, index: number) => {
-      if(profileItem.name === profile.getName()) {
+      if (profileItem.name === profile.getName()) {
         parsedJson[index] = profile.toPrimitives();
       }
     });
