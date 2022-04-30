@@ -10,23 +10,16 @@ export class InAppView extends ConsoleView {
     this.getProfileView = new GetProfileView(new GetProfileController());
   }
 
-  public async render(): Promise<void> {
-    this.console.print("[UIVIEW] - [WELCOME TO TINDER🔥]");
-    this.console.print("[UIVIEW] - Please, choose the option you want to perform [1/2]:");
-    const options = [
-      "1- GetProfile",
-    ]
-    let option = await this.console.read(
-      options
-    );
-
-    while (option !== "1") {
-      this.console.print("[UIVIEW] - Wrong input selected. Please, choose again [1]:");
-      option = await this.console.read(
-        options
-      );
+  public render(): void {
+    this.console.writeInln("WELCOME TO TINDER🔥");
+    this.console.writeInln("Please, choose the option you want to perform [1/2]:");
+    const options = "1- GetProfile\n";
+    let option = this.console.readInt(options);
+    while (option !== 1) {
+      this.console.writeInln("Wrong input selected. Please, choose again [1]:");
+      option = this.console.readInt(options);
     }
-    if (option === "1") {
+    if (option === 1) {
       this.getProfileView.render();
     }
   }

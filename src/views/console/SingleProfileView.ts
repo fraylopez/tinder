@@ -1,5 +1,6 @@
 import { Profile } from "../../models/Profile";
 
+// TODO: can we remove this class ?
 class SingleProfileView {
   console: any;
   public async render(profile: Profile): Promise<void> {

@@ -5,11 +5,10 @@ export class DeleteProfileView extends ConsoleView {
     super();
   }
 
-  public async render(): Promise<void> {
-    this.console.print("\n\n[DELETE PROFILE]\n");
-
-    const name = await this.console.read(["Enter your name:\n"]);
-    const confirmed = await this.console.read(["Are you sure? [y/n]:\n"]);
+  public render(): void {
+    this.console.writeInln("DELETE PROFILE");
+    const name = this.console.readString("Enter your name:");
+    const confirmed = this.console.readString("Are you sure? [y/n]:");
     // TODO: confirmacion no le interesa al controlador
     const wasDeleted = this.controller.control(name, confirmed === "y");
 

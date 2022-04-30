@@ -17,54 +17,40 @@ export class InitialView extends ConsoleView {
 
   constructor() {
     super();
-
     //profile controller
     this.deleteProfileView = new DeleteProfileView(
       new DeleteProfileController(new FileSystemProfilePersistenceService())
     );
-
     this.createProfileView = new CreateProfileView(
       new CreateProfileController()
     );
-    
     this.getProfileView = new GetProfileView(new GetProfileController());
-    //
-    
     this.loginView = new LoginView(new LoginController());
-
   }
 
-  public async render(): Promise<void> {
-    this.console.print("[UIVIEW] - [WELCOME TO TINDER🔥]");
-    this.console.print(
-      "[UIVIEW] - Please, choose the option you want to perform [1/4]:"
-    );
-
-    let option: string;
-
+  public render(): void {
+    this.console.writeInln("WELCOME TO TINDER🔥");
+    this.console.writeInln("Please, choose the option you want to perform [1/4]:");
+    const options = "\n1- Create a profile\n" + 
+    "2- Login with an existing profile\n" +
+    "3- Delete profile\n" +
+    "4- Exit\n";
+    let option: number;
     do {
-      option = await this.console.read([
-        "\n1- Create a profile",
-        "2- Login with an existing profile",
-        "3- Delete profile",
-        "4- Exit\n",
-      ]);
-
+      option = this.console.readInt(options);
       switch (option) {
-        case "1":
-          await this.createProfileView.render();
+        case 1:
+          this.createProfileView.render();
           break;
-        case "2":
-          await this.loginView.render();
+        case 2:
+          this.loginView.render();
           break;
-        case "3":
-          await this.deleteProfileView.render();
+        case 3:
+          this.deleteProfileView.render();
           break;
         default:
-          this.console.print(
-            "[UIVIEW] - Wrong input selected. Please, choose again [1/4]:"
-          );
+          this.console.writeInln("Wrong input selected. Please, choose again [1/4]:");
       }
-    } while (option !== "4");
+    } while (option !== 4);
   }
 }

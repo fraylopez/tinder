@@ -10,12 +10,9 @@ export class GetProfileView extends ConsoleView {
     this.profileView = new ProfileView();
   }
 
-  public async render(): Promise<void> {
-    let name = await this.console.read([
-      "What profile do you want to get? (Name)",
-    ]);
+  public render(): void {
+    let name = this.console.readString("What profile do you want to get? (Name)");
     const profile = this.controller.control(name);
-
     // this.profileView.render(profile);
   }
 }
