@@ -11,8 +11,12 @@ export class GetProfileView extends ConsoleView {
   }
 
   public render(): void {
-    let name = this.console.readString("What profile do you want to get? (Name)");
+    const name = this.console.readString("What profile do you want to get? (Name)");
     const profile = this.controller.control(name);
-    this.profileView.render(profile);
+    if (profile) {
+      this.profileView.render(profile);
+    } else {
+      this.console.writeInln("profile not found :/");
+    }
   }
 }

@@ -7,7 +7,7 @@ export class GetProfileController {
   ) {
   }
   
-  public control(name: string): Profile {
+  public control(name: string): Profile | null {
     return this.persistenceService.find(name);
   }
 }
