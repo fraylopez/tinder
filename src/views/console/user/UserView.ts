@@ -9,6 +9,7 @@ import { DeleteProfileController } from "../../../controllers/DeleteProfileContr
 import { EditProfileController } from "../../../controllers/EditProfileController";
 import { GetProfileController } from "../../../controllers/GetProfileController";
 import { FileSystemProfilePersistenceService } from "../../../infrastructure/file-system/FileSystemProfilePersistenceService";
+import { ProfileView } from "./ProfileView";
 
 export class UserView {
   private loginView: LoginView;
@@ -19,7 +20,9 @@ export class UserView {
 
   constructor() {
     this.loginView = new LoginView(
-      new LoginController(),
+      new LoginController(
+        new FileSystemProfilePersistenceService(),
+      ),
     );
     this.createProfileView = new CreateProfileView(
       new CreateProfileController(), // TODO: implementation
@@ -36,6 +39,7 @@ export class UserView {
       ),
     );
     this.getProfileView = new GetProfileView(
+      new ProfileView(),
       new GetProfileController(),
     );
   }

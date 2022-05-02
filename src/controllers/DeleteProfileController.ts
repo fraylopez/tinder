@@ -2,7 +2,7 @@ import { FileSystemProfilePersistenceService } from "../infrastructure/file-syst
 
 export class DeleteProfileController {
   constructor(
-    private persistenceService: FileSystemProfilePersistenceService
+    private persistenceService: FileSystemProfilePersistenceService,
   ) {}
 
   public control(name: string): void {

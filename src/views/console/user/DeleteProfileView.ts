@@ -2,7 +2,9 @@ import { ConsoleView } from "../ConsoleView";
 import { DeleteProfileController } from "../../../controllers/DeleteProfileController";
 
 export class DeleteProfileView extends ConsoleView {
-  constructor(private readonly controller: DeleteProfileController) {
+  constructor(
+    private readonly controller: DeleteProfileController,
+  ) {
     super();
   }
 

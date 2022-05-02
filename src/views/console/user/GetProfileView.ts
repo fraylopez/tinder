@@ -3,11 +3,11 @@ import { ProfileView } from "./ProfileView";
 import { GetProfileController } from "../../../controllers/GetProfileController";
 
 export class GetProfileView extends ConsoleView {
-  private profileView: ProfileView;
-
-  constructor(private controller: GetProfileController) {
+  constructor(
+    private profileView: ProfileView,
+    private controller: GetProfileController,
+  ) {
     super();
-    this.profileView = new ProfileView();
   }
 
   public render(): void {

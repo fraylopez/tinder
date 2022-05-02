@@ -1,10 +1,9 @@
 import { FileSystemProfilePersistenceService } from "../infrastructure/file-system/FileSystemProfilePersistenceService";
 
 export class LoginController {
-  private persistenceService: FileSystemProfilePersistenceService;
-
-  constructor() {
-    this.persistenceService = new FileSystemProfilePersistenceService();
+  constructor(
+    private persistenceService: FileSystemProfilePersistenceService,
+  ) {
   }
 
   public control(name: string): boolean {
