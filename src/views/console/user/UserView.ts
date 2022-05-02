@@ -19,28 +19,35 @@ export class UserView {
   private getProfileView: GetProfileView;
 
   constructor() {
+    const fileSystemProfilePersistenceService = new FileSystemProfilePersistenceService();
     this.loginView = new LoginView(
       new LoginController(
-        new FileSystemProfilePersistenceService(),
+        fileSystemProfilePersistenceService,
       ),
     );
     this.createProfileView = new CreateProfileView(
-      new CreateProfileController(), // TODO: implementation
+      new CreateProfileController(
+        fileSystemProfilePersistenceService,
+      ),
     );
     this.editProfileView = new EditProfileView(
       new EditProfileController(
-        new GetProfileController(),
-        new FileSystemProfilePersistenceService(),
+        new GetProfileController(
+          fileSystemProfilePersistenceService,
+        ),
+        fileSystemProfilePersistenceService,
       )
     );
     this.deleteProfileView = new DeleteProfileView(
       new DeleteProfileController(
-        new FileSystemProfilePersistenceService(),
+        fileSystemProfilePersistenceService,
       ),
     );
     this.getProfileView = new GetProfileView(
       new ProfileView(),
-      new GetProfileController(),
+      new GetProfileController(
+        fileSystemProfilePersistenceService,
+      ),
     );
   }
 

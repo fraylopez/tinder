@@ -1,10 +1,13 @@
 import { Profile } from "../models/Profile";
-import * as fs from "fs";
+import { FileSystemProfilePersistenceService } from "../infrastructure/file-system/FileSystemProfilePersistenceService";
 
 export class GetProfileController {
+  constructor(
+    private persistenceService: FileSystemProfilePersistenceService,
+  ) {
+  }
+  
   public control(name: string): Profile {
-    const profiles = fs.readFileSync("./src/data/profiles.json", "utf8");
-    const primitives = JSON.parse(profiles).find((profile: any) => profile.name === name);
-    return Profile.fromPrimitives(primitives);
+    return this.persistenceService.find(name);
   }
 }
