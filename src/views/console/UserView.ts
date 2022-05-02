@@ -32,9 +32,6 @@ export class UserView extends ConsoleView {
         fileSystemProfilePersistenceService,
       ),
       new EditProfileController(
-        new GetProfileController(
-          fileSystemProfilePersistenceService,
-        ),
         fileSystemProfilePersistenceService,
       ),
     );
@@ -78,7 +75,10 @@ export class UserView extends ConsoleView {
       age: Number(age),
       gender,
     };
-    this.profileController.edit(existingName, profilePrimitives);
+    const profile = this.profileController.get(existingName);
+    if (profile) {
+      this.profileController.edit(profile, profilePrimitives);
+    }
   }
 
   public deleteProfile(): void {

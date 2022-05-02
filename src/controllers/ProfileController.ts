@@ -23,7 +23,7 @@ export class ProfileController {
   public delete(name: string): void {
     this.deleteProfileController.control(name);
   }
-  public edit(name: string, profilePrimitives: ProfilePrimitives): void {
-    this.editProfileController.control(name, profilePrimitives);
+  public edit(profile: Profile, profilePrimitives: ProfilePrimitives): void {
+    this.editProfileController.control(profile, profilePrimitives);
   }
 }
