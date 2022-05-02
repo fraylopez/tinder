@@ -5,12 +5,8 @@ export class DeleteProfileController {
     private persistenceService: FileSystemProfilePersistenceService
   ) {}
 
-  public control(name: string, confirmation: boolean): boolean {
-    if (confirmation) {
-      const profile = this.persistenceService.find(name);
-      this.persistenceService.delete(profile!);
-      return true;
-    }
-    return false;
+  public control(name: string): void {
+    const profile = this.persistenceService.find(name);
+    this.persistenceService.delete(profile!);
   }
 }

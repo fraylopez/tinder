@@ -8,11 +8,8 @@ export class DeleteProfileView extends ConsoleView {
   public render(): void {
     this.console.writeInln("DELETE PROFILE");
     const name = this.console.readString("Enter your name:");
-    const confirmed = this.console.readString("Are you sure? [y/n]:");
-    // TODO: confirmacion no le interesa al controlador
-    const wasDeleted = this.controller.control(name, confirmed === "y");
-
-    if (wasDeleted) {
+    if (this.console.yesNoDialog("Are you sure? [y/n]:")) {
+      this.controller.control(name);
       console.log("Profile deleted!");
     } else {
       console.log("Profile not deleted!");
