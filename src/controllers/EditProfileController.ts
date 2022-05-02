@@ -12,7 +12,7 @@ export class EditProfileController {
   public control(
     name: string,
     profilePrimitives: ProfilePrimitives
-  ) {
+  ): void {
     const profile = this.getProfileController.control(name);
     profile.updateWithPrimitives(profilePrimitives);
     this.persistenceService.update(profile);

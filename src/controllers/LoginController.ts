@@ -7,6 +7,7 @@ export class LoginController {
   }
 
   public control(name: string): boolean {
+    // TODO: about returning a boolean, for now is our way to check "credentials"
     const profile = this.persistenceService.find(name);
     return !!profile;
   }

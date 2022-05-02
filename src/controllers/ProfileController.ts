@@ -11,16 +11,16 @@ export class ProfileController {
   private editProfileController: EditProfileController;
   constructor() {}
 
-  public get(name: string) {
+  public get(name: string): void {
     this.getProfileController.control(name);
   }
-  public create(name: string, age: number, gender: string) {
+  public create(name: string, age: number, gender: string): void {
     this.createProfileController.control(name, age, gender);
   }
-  public delete(name: string) {
+  public delete(name: string): void {
     this.deleteProfileController.control(name);
   }
-  public edit(name: string, profilePrimitives: ProfilePrimitives) {
+  public edit(name: string, profilePrimitives: ProfilePrimitives): void {
     this.editProfileController.control(name, profilePrimitives);
   }
 }
