@@ -1,5 +1,5 @@
 import { ConsoleView } from "./ConsoleView";
-import { UserView } from "./user/UserView";
+import { UserView } from "./UserView";
 
 export class InitialView extends ConsoleView {
   private userView: UserView;

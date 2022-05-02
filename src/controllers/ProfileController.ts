@@ -1,3 +1,4 @@
+import { Profile } from "../models/Profile";
 import { ProfilePrimitives } from "../models/ProfilePrimitives";
 import { CreateProfileController } from "./CreateProfileController";
 import { DeleteProfileController } from "./DeleteProfileController";
@@ -5,14 +6,16 @@ import { EditProfileController } from "./EditProfileController";
 import { GetProfileController } from "./GetProfileController";
 
 export class ProfileController {
-  private getProfileController: GetProfileController;
-  private deleteProfileController: DeleteProfileController;
-  private createProfileController: CreateProfileController;
-  private editProfileController: EditProfileController;
-  constructor() {}
+  constructor(
+    private getProfileController: GetProfileController,
+    private deleteProfileController: DeleteProfileController,
+    private createProfileController: CreateProfileController,
+    private editProfileController: EditProfileController,
+  ) {
+  }
 
-  public get(name: string): void {
-    this.getProfileController.control(name);
+  public get(name: string): Profile | null {
+    return this.getProfileController.control(name);
   }
   public create(name: string, age: number, gender: string): void {
     this.createProfileController.control(name, age, gender);
