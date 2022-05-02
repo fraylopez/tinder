@@ -1,6 +1,6 @@
-import { CreateProfileController } from "../../controllers/CreateProfileController";
-import { UnderAgeError } from "../../models/UnderAgeError";
-import { ConsoleView } from "./ConsoleView";
+import { ConsoleView } from "../ConsoleView";
+import { UnderAgeError } from "../../../models/UnderAgeError";
+import { CreateProfileController } from "../../../controllers/CreateProfileController";
 
 export class CreateProfileView extends ConsoleView {
 

@@ -1,31 +1,12 @@
-import { CreateProfileController } from "../../controllers/CreateProfileController";
-import { DeleteProfileController } from "../../controllers/DeleteProfileController";
-import { GetProfileController } from "../../controllers/GetProfileController";
-import { LoginController } from "../../controllers/LoginController";
-import { FileSystemProfilePersistenceService } from "../../infrastructure/file-system/FileSystemProfilePersistenceService";
 import { ConsoleView } from "./ConsoleView";
-import { CreateProfileView } from "./CreateProfileView";
-import { DeleteProfileView } from "./DeleteProfileView";
-import { GetProfileView } from "./GetProfileView";
-import { LoginView } from "./LoginView";
+import { UserView } from "./user/UserView";
 
 export class InitialView extends ConsoleView {
-  private createProfileView: CreateProfileView;
-  private deleteProfileView: DeleteProfileView;
-  private getProfileView: GetProfileView;
-  private loginView: LoginView;
+  private userView: UserView;
 
   constructor() {
     super();
-    //profile controller
-    this.deleteProfileView = new DeleteProfileView(
-      new DeleteProfileController(new FileSystemProfilePersistenceService())
-    );
-    this.createProfileView = new CreateProfileView(
-      new CreateProfileController()
-    );
-    this.getProfileView = new GetProfileView(new GetProfileController());
-    this.loginView = new LoginView(new LoginController());
+    this.userView = new UserView();
   }
 
   public render(): void {
@@ -40,13 +21,13 @@ export class InitialView extends ConsoleView {
       option = this.console.readInt(options);
       switch (option) {
         case 1:
-          this.createProfileView.render();
+          this.userView.createProfile();
           break;
         case 2:
-          this.loginView.render();
+          this.userView.login();
           break;
         case 3:
-          this.deleteProfileView.render();
+          this.userView.deleteProfile();
           break;
         default:
           this.console.writeInln("Wrong input selected. Please, choose again [1/4]:");

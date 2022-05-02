@@ -18,7 +18,7 @@ export class ProfileController {
     this.createProfileController.control(name, age, gender);
   }
   public delete(name: string) {
-    this.deleteProfileController.control(name, true); // TODO!
+    this.deleteProfileController.control(name);
   }
   public edit(name: string, profilePrimitives: ProfilePrimitives) {
     this.editProfileController.control(name, profilePrimitives);

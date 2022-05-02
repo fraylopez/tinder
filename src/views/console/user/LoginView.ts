@@ -1,5 +1,5 @@
-import { LoginController } from "../../controllers/LoginController";
-import { ConsoleView } from "./ConsoleView";
+import { LoginController } from "../../../controllers/LoginController";
+import { ConsoleView } from "../ConsoleView";
 
 export class LoginView extends ConsoleView {
   constructor(private controller: LoginController) {

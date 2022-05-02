@@ -1,15 +1,12 @@
-import { Profile } from "../models/Profile";
 import { FileSystemProfilePersistenceService } from "../infrastructure/file-system/FileSystemProfilePersistenceService";
 import { ProfilePrimitives } from "../models/ProfilePrimitives";
 import { GetProfileController } from "./GetProfileController";
 
 export class EditProfileController {
-  private persistenceService: FileSystemProfilePersistenceService;
-
   constructor(
     private getProfileController: GetProfileController,
+    private persistenceService: FileSystemProfilePersistenceService,
   ) {
-    this.persistenceService = new FileSystemProfilePersistenceService();
   }
 
   public control(

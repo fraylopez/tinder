@@ -1,5 +1,6 @@
-import { DeleteProfileController } from "../../controllers/DeleteProfileController";
-import { ConsoleView } from "./ConsoleView";
+import { ConsoleView } from "../ConsoleView";
+import { DeleteProfileController } from "../../../controllers/DeleteProfileController";
+
 export class DeleteProfileView extends ConsoleView {
   constructor(private readonly controller: DeleteProfileController) {
     super();
