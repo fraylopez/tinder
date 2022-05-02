@@ -20,4 +20,9 @@ export class Console {
 	public writeInln(string: string = ""): void {
 		process.stdout.write(string);
 	}
+
+	public yesNoDialog(msg: string): boolean {
+    const answer = this.readString(msg);
+    return ["y", "Y", "yes"].includes(answer);
+  }
 }
