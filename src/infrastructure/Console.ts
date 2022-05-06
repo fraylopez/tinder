@@ -1,24 +1,28 @@
-import { createInterface } from "readline";
+import readline from "readline-sync";
 
 export class Console {
-  public async read(arrayMsg: string[]): Promise<string> {
-    const rl = createInterface(process.stdin, process.stdout);
-    const msg = arrayMsg.join("\n").concat("\n");
-    return new Promise<string>((res, rej) => {
-      rl.question(msg, (input) => {
-        res(input);
-        rl.close();
-      });
-    });
-  }
+	public clear(): void {
+		console.clear();
+	}
+	
+  public readInt(question: string): number {
+		return Number(readline.question(question));
+	}
 
-  public print(input: string): void {
-    const msg = `\n${input}\n`;
-    if (input.startsWith("[UIVIEW]")) {
-      console.log(msg.concat("\n"));
-    } else {
-      console.log(msg);
-    }
-  }
+	public readString(question: string): string {
+		return readline.question(question);
+	}
 
+	// public writeln(string: string = ""): void {
+	// 	console.log(string);
+	// }
+
+	public writeInln(string: string = ""): void {
+		process.stdout.write(string);
+	}
+
+	public yesNoDialog(msg: string): boolean {
+    const answer = this.readString(msg);
+    return ["y", "Y", "yes"].includes(answer);
+  }
 }
