@@ -35,10 +35,12 @@ export class Profile {
       name: this.name,
       age: this.age,
       gender: this.gender,
-    }
+    };
   }
 
   public updateWithPrimitives(profilePrimitives: ProfilePrimitives) {
-    // TODO: implement
+    this.name = profilePrimitives.name;
+    this.age = profilePrimitives.age;
+    this.gender = profilePrimitives.gender;
   }
 }

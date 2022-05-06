@@ -1,11 +1,13 @@
 import { EditProfileController } from "../../controllers/EditProfileController";
+import { GetProfileController } from "../../controllers/GetProfileController";
+import { Profile } from "../../models/Profile";
 import { ProfilePrimitives } from "../../models/ProfilePrimitives";
 import { ConsoleView } from "./ConsoleView";
 
 export class EditProfileView extends ConsoleView {
-
   constructor(
-    private editProfileController: EditProfileController,
+    private getProfileController: GetProfileController,
+    private editProfileController: EditProfileController
   ) {
     super();
   }
@@ -13,7 +15,12 @@ export class EditProfileView extends ConsoleView {
   public async render(): Promise<void> {
     this.console.print("[Edit PROFILE]");
 
-    const existingName = await this.console.read(["Enter existing name:"]);
+    let profile: Profile;
+    let actualName: string;
+    do {
+      actualName = await this.console.read(["Enter existing name:"]);
+      profile = this.getProfileController.control(actualName);
+    } while (!profile);
 
     const name = await this.console.read(["Enter new name:"]);
     const age = await this.console.read(["Enter new age:\n"]);
@@ -26,7 +33,8 @@ export class EditProfileView extends ConsoleView {
       age: Number(age),
       gender,
     };
+    profile.updateWithPrimitives(profilePrimitives);
 
-    this.editProfileController.control(existingName, profilePrimitives);
+    this.editProfileController.control(actualName, profile);
   }
 }

@@ -55,7 +55,7 @@ export class FileSystemProfilePersistenceService {
     fs.writeFileSync("./src/data/profiles.json", JSON.stringify(parsedJson));
   }
 
-  public update(profile: Profile): void {
+  public update(name: string, profile: Profile): void {
     const stringifiedProfiles = fs.readFileSync(
       "./src/data/profiles.json",
       "utf8"
@@ -63,7 +63,7 @@ export class FileSystemProfilePersistenceService {
     const parsedJson = JSON.parse(stringifiedProfiles);
 
     parsedJson.forEach((profileItem: FileSystemProfile, index: number) => {
-      if (profileItem.name === profile.getName()) {
+      if (profileItem.name === name) {
         parsedJson[index] = profile.toPrimitives();
       }
     });
