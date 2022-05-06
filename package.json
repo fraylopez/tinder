@@ -1,6 +1,6 @@
 {
   "scripts": {
-    "start": "ts-node src/app.ts"
+    "start": "ts-node src/Tinder.ts"
   },
   "dependencies": {
     "ts-node": "^10.7.0",
