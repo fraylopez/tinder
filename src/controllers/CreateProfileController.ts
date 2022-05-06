@@ -1,21 +1,14 @@
 import { Profile } from "../models/Profile";
-import * as fs from "fs";
+import { FileSystemProfilePersistenceService } from "../infrastructure/file-system/FileSystemProfilePersistenceService";
 
 export class CreateProfileController {
+  constructor(
+    private persistenceService: FileSystemProfilePersistenceService,
+  ) {
+  }
+
   public control(name: string, age: number, gender: string): void {
     const profile = new Profile(name, age, gender);
-    const stringifiedProfiles = fs.readFileSync(
-      "./src/data/profiles.json",
-      "utf8"
-    );
-    if (stringifiedProfiles) {
-      const parsedJson = JSON.parse(stringifiedProfiles);
-      fs.writeFileSync(
-        "./src/data/profiles.json",
-        JSON.stringify([...parsedJson, profile])
-      );
-    } else {
-      fs.writeFileSync("./src/data/profiles.json", JSON.stringify([profile]));
-    }
+    this.persistenceService.create(profile);
   }
 }

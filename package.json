@@ -1,15 +1,14 @@
 {
   "scripts": {
-    "start": "ts-node src/app.ts"
+    "start": "ts-node src/Tinder.ts"
   },
   "dependencies": {
     "ts-node": "^10.7.0",
-    "typescript": "^4.6.3"
+    "typescript": "^4.6.3",
+    "readline-sync": "^1.4.10"
   },
   "devDependencies": {
-    "@types/node": "^17.0.23"
-  },
-  "scripts": {
-    "start": "ts-node src/app.ts"
+    "@types/node": "^17.0.23",
+    "@types/readline-sync": "^1.4.3"
   }
 }
