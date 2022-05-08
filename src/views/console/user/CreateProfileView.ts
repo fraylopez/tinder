@@ -1,6 +1,6 @@
 import { ConsoleView } from "../ConsoleView";
 import { UnderAgeError } from "../../../models/UnderAgeError";
-import { Controller } from "./Controller";
+import { Controller } from "../../../controllers/Controller";
 
 export class CreateProfileView extends ConsoleView {
   constructor(private controller: Controller<[string, number, string]>) {
