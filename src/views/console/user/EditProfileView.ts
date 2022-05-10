@@ -1,9 +1,9 @@
-import { ProfileController } from "../../../controllers/ProfileController";
+import { Controller } from "../../../controllers/Controller";
 import { ProfilePrimitives } from "../../../models/ProfilePrimitives";
 import { ConsoleView } from "../ConsoleView";
 
 export class EditProfileView extends ConsoleView {
-  constructor(private editProfileController: ProfileController) {
+  constructor(private editProfileController: Controller<[name: string, profilePrimitives: ProfilePrimitives], void>) {
     super();
   }
 
@@ -18,6 +18,6 @@ export class EditProfileView extends ConsoleView {
       age: Number(age),
       gender,
     };
-    this.editProfileController.edit(existingName, profilePrimitives);
+    this.editProfileController.control(existingName, profilePrimitives);
   }
 }

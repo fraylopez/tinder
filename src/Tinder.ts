@@ -1,15 +1,14 @@
 import { UserController } from "./controllers/UserController";
+import { FileSystemProfilePersistenceService } from "./infrastructure/file-system/FileSystemProfilePersistenceService";
 import { UserView } from "./views/console/user/UserView";
 
 export class Tinder {
   private view: UserView;
-  private actor: ActorCS;
   private controller: UserController;
 
   constructor() {
-    this.controller = new UserController();
+    this.controller = new UserController(new FileSystemProfilePersistenceService());
     this.view = new UserView(this.controller);
-    this.actor = new ActorCS(this.controller);
   }
 
   public render(): void {
@@ -18,7 +17,3 @@ export class Tinder {
 }
 
 new Tinder().render();
-
-class ActorCS {
-  constructor(controller: UserController) {}
-}

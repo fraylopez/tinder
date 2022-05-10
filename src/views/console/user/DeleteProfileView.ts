@@ -1,8 +1,8 @@
-import { ProfileController } from "../../../controllers/ProfileController";
+import { Controller } from "../../../controllers/Controller";
 import { ConsoleView } from "../ConsoleView";
 
 export class DeleteProfileView extends ConsoleView {
-  constructor(private readonly controller: ProfileController) {
+  constructor(private readonly controller: Controller<[name: string], void>) {
     super();
   }
 
@@ -10,7 +10,7 @@ export class DeleteProfileView extends ConsoleView {
     this.console.writeInln("DELETE PROFILE");
     const name = this.console.readString("Enter your name:");
     if (this.console.yesNoDialog("Are you sure? [y/n]:")) {
-      this.controller.delete(name);
+      this.controller.control(name);
       console.log("Profile deleted!");
     } else {
       console.log("Profile not deleted!");

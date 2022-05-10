@@ -1,4 +1,7 @@
+import { FileSystemProfilePersistenceService } from "../infrastructure/file-system/FileSystemProfilePersistenceService";
+import { Profile } from "../models/Profile";
 import { ProfilePrimitives } from "../models/ProfilePrimitives";
+import { Controller } from "./Controller";
 import { CreateProfileController } from "./CreateProfileController";
 import { DeleteProfileController } from "./DeleteProfileController";
 import { EditProfileController } from "./EditProfileController";
@@ -7,42 +10,31 @@ import { LoginController } from "./LoginController";
 import { ProfileController } from "./ProfileController";
 
 export class UserController {
-  public readonly profileController: ProfileController;
-  public readonly loginController: LoginController;
+  private readonly profileController: ProfileController;
+  private readonly loginController: LoginController;
 
-  constructor() {
-    this.profileController = new ProfileController();
+  constructor(persistenceService: FileSystemProfilePersistenceService) {
+    this.profileController = new ProfileController(persistenceService);
+    this.loginController = new LoginController(persistenceService);
   }
 
-  public getGetProfileController(): GetProfileController {
+  public getLoginController(): LoginController {
+    return this.loginController;
+  }
+
+  public getGetProfileController(): Controller<[name: string], Profile | null> {
     return this.profileController.getGetProfileController();
   }
 
-  public getDeleteProfileController(): DeleteProfileController {
+  public getDeleteProfileController(): Controller<[name: string], void> {
     return this.profileController.getDeleteProfileController();
   }
 
-  public getCreateProfileController(): CreateProfileController {
+  public getCreateProfileController(): Controller<[name: string, age: number, gender: string], void> {
     return this.profileController.getCreateProfileController();
   }
 
-  public getEditProfileController(): EditProfileController {
+  public getEditProfileController(): Controller<[name: string, profilePrimitives: ProfilePrimitives], void> {
     return this.profileController.getEditProfileController();
-  }
-
-  public get(name: string): void {
-    throw new Error("Method not implemented.");
-  }
-
-  public create(name: string, age: number, gender: string): void {
-    throw new Error("Method not implemented.");
-  }
-
-  public delete(name: string): void {
-    throw new Error("Method not implemented.");
-  }
-
-  public edit(name: string, profilePrimitives: ProfilePrimitives): void {
-    throw new Error("Method not implemented.");
   }
 }

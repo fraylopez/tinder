@@ -11,7 +11,9 @@ export class EditProfileController implements Controller<[name: string, profileP
 
   public control(name: string, profilePrimitives: ProfilePrimitives): void {
     const profile = this.getProfileController.control(name);
-    profile.updateWithPrimitives(profilePrimitives);
-    this.persistenceService.update(profile);
+    if (profile) {
+      profile.updateWithPrimitives(profilePrimitives);
+      this.persistenceService.update(profile);
+    }
   }
 }

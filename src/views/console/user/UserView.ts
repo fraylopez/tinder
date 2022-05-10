@@ -16,30 +16,18 @@ export class UserView extends ConsoleView {
 
   constructor(controller: UserController) {
     super();
-    this.loginView = new LoginView(controller.loginController);
-    this.createProfileView = new CreateProfileView(
-      controller.profileController.createProfileController
-    );
-    this.editProfileView = new EditProfileView(controller.profileController);
-    this.deleteProfileView = new DeleteProfileView(
-      controller.profileController
-    );
-    this.getProfileView = new GetProfileView(
-      new ProfileView(),
-      controller.profileController
-    );
+    this.loginView = new LoginView(controller.getLoginController());
+    this.createProfileView = new CreateProfileView(controller.getCreateProfileController());
+    this.editProfileView = new EditProfileView(controller.getEditProfileController());
+    this.deleteProfileView = new DeleteProfileView(controller.getDeleteProfileController());
+    this.getProfileView = new GetProfileView(new ProfileView(), controller.getGetProfileController());
   }
 
   public render(): void {
     this.console.writeInln("WELCOME TO TINDER🔥");
-    this.console.writeInln(
-      "Please, choose the option you want to perform [1/4]:"
-    );
+    this.console.writeInln("Please, choose the option you want to perform [1/4]:");
     const options =
-      "\n1- Create a profile\n" +
-      "2- Login with an existing profile\n" +
-      "3- Delete profile\n" +
-      "4- Exit\n";
+      "\n1- Create a profile\n" + "2- Login with an existing profile\n" + "3- Delete profile\n" + "4- Exit\n";
     let option: number;
     do {
       option = this.console.readInt(options);
@@ -54,9 +42,7 @@ export class UserView extends ConsoleView {
           this.deleteProfile();
           break;
         default:
-          this.console.writeInln(
-            "Wrong input selected. Please, choose again [1/4]:"
-          );
+          this.console.writeInln("Wrong input selected. Please, choose again [1/4]:");
       }
     } while (option !== 4);
   }
