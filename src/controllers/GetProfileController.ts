@@ -6,7 +6,7 @@ export class GetProfileController {
     private persistenceService: FileSystemProfilePersistenceService,
   ) {
   }
-  
+
   public control(name: string): Profile | null {
     return this.persistenceService.find(name);
   }

@@ -19,6 +19,7 @@
     "noImplicitAny": false,
     "lib": ["es2017", "dom"],
     "typeRoots": ["node_modules/@types"],
+    "esModuleInterop": true,
     "noStrictGenericChecks": true
   },
   "files": ["src/Tinder.ts"],
