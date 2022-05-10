@@ -1,5 +1,9 @@
 import { User } from "./User";
 
-class Conversation {
-  participants: User[];
+export class Conversation {
+  private readonly participants: User[];
+
+  constructor() {
+    this.participants = [];
+  }
 }
