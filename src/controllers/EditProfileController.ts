@@ -12,7 +12,8 @@ export class EditProfileController {
     profile: Profile,
     profilePrimitives: ProfilePrimitives
   ): void {
-    profile.updateWithPrimitives(profilePrimitives);
+    // TODO: 
+    profile.update();
     this.persistenceService.update(profile);
   }
 }

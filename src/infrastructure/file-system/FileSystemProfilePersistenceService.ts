@@ -14,6 +14,7 @@ export class FileSystemProfilePersistenceService {
           name: foundUser.name,
           age: foundUser.age,
           gender: foundUser.gender,
+          swipes: foundUser.swipes,
         })
       : null;
   }
@@ -24,6 +25,7 @@ export class FileSystemProfilePersistenceService {
       name: primitives.name,
       age: primitives.age,
       gender: primitives.gender,
+      swipes: primitives.swipes,
     };
     const stringifiedProfiles = fs.readFileSync(
       "./src/data/profiles.json",

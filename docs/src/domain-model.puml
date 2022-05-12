@@ -1,5 +1,5 @@
-@startuml domain model
-
+@startuml Domain Model
+title Domain Model
 object Tinder
 object Match
 object Like
@@ -34,3 +34,64 @@ Match <--> "2" Like
 User --> Conversation: "Maintains"
 
 @enduml
+
+@startuml Domain Model v2
+  title Domain Model
+  object Tinder
+  object User
+  object Profile
+  object Candidate
+  object Swipe
+  object Right
+  object Left
+  object Match
+  object Conversation
+
+  Tinder *--> "2..n" User
+  User *--> Profile
+  User ..> Swipe
+  Swipe --> Profile: from & to
+  Right -up-|> Swipe
+  Left -up-|> Swipe
+  Match *--> "2" Right
+  
+  User --> Conversation: "Mantains"
+  Conversation --> Match
+@enduml
+
+@startuml Tinder Domain
+  title Tinder Domain
+  class User {
+    + profile: Profile
+    + swipes(profile: Profile, direction: SwipeDirection): void
+  }
+  class Profile {
+    - swipes: Swipe[]
+    + getName(): string
+    + update(todo): void
+    + addSwipe(swipe: Swipe): void
+    + likes(profile): boolean
+  }
+  class Swipe {
+    - owner: Profile
+    - candidate: Profile
+    + isRight(): boolean
+    + isMatch(): boolean
+    + isCandidateEquals(profile: Profile): boolean
+  }
+  class Match {
+    - profiles: Profile[]
+    + setProfiles(profiles: Profile[])
+  }
+  class Conversation {}
+
+  User *--> Profile
+  User ..> Swipe
+  Profile o--> Swipe
+  Profile o--> Match
+  Match *--> "2" Swipe
+  note on link
+    [with right direction]
+  endnote
+@enduml
+

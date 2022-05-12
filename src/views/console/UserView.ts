@@ -9,12 +9,23 @@ import { ConsoleView } from "./ConsoleView";
 import { ProfileController } from "../../controllers/ProfileController";
 import { UnderAgeError } from "../../models/UnderAgeError";
 import { ProfilePrimitives } from "../../models/ProfilePrimitives";
+import { Profile } from "../../models/Profile";
+import { SwipeController } from "../../controllers/SwipeController";
+import { ESwipeDirection } from "../../models/ESwipeDirection";
+import { SwipeDirection } from "../../models/SwipeDirection";
+import { GetMatchController } from "../../controllers/GetMatchController";
+import { FileSystemMatchPersistenceService } from "../../infrastructure/file-system/FileSystemMatchPersistenceService";
+import { RefreshMatchesController } from "../../controllers/RefreshMatchesController";
 
 export class UserView extends ConsoleView {
+  // TODO: session to wrap profile behind the actor ?
   private profileView: ProfileView;
 
   private loginController: LoginController;
   private profileController: ProfileController;
+  private swipeController: SwipeController;
+  private getMatchController: GetMatchController;
+  private refreshMatchesController: RefreshMatchesController;
 
   constructor() {
     super();
@@ -35,6 +46,9 @@ export class UserView extends ConsoleView {
         fileSystemProfilePersistenceService,
       ),
     );
+    this.getMatchController = new GetMatchController(
+      new FileSystemMatchPersistenceService(),
+    )
   }
 
   public login(): void {
@@ -74,6 +88,7 @@ export class UserView extends ConsoleView {
       name,
       age: Number(age),
       gender,
+      swipes: [],
     };
     const profile = this.profileController.get(existingName);
     if (profile) {
@@ -99,6 +114,30 @@ export class UserView extends ConsoleView {
       this.profileView.render(profile);
     } else {
       this.console.writeInln("profile not found :/");
+    }
+  }
+
+  public swipe(): void {
+    // TODO:
+    const candidate = new Profile("candidate-demo", 25, "male");
+    // --
+    this.console.writeInln("new candidate found!");
+    this.profileView.render(candidate);
+    const swipeDirection = this.console.yesNoDialog("Do u swipe right?")
+      ? ESwipeDirection.RIGHT
+      : ESwipeDirection.LEFT;
+    this.swipeController.control(candidate, SwipeDirection.fromPrimitives(swipeDirection));
+  }
+
+  public match(): void {
+    // TODO:
+    const user = new Profile("owner-demo", 25, "male");
+    // --
+    this.refreshMatchesController.control();
+    const match = this.getMatchController.get(user.getName());
+    if (match) {
+      this.console.writeInln("MATCH FOUND LETSGOOOO");
+      this.console.writeInln(JSON.stringify(match.toPrimitives()));
     }
   }
 }
