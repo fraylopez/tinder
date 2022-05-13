@@ -7,11 +7,7 @@ import { ProfileView } from "./ProfileView";
 import { ConsoleView } from "../ConsoleView";
 import { UserController } from "../../../controllers/UserController";
 import { StartSwippingView } from "./StartSwippingView";
-import { SwippingView } from "./SwippingView";
-import { StartSwippingController } from "../../../controllers/StartSwippingController";
-import { SwippingController } from "../../../controllers/SwipingController";
-import { User } from "../../../models/User";
-import { FileSystemProfilePersistenceService } from "../../../infrastructure/file-system/FileSystemProfilePersistenceService";
+import { CandidateView } from "./CandidateView";
 
 export class UserView extends ConsoleView {
   private loginView: LoginView;
@@ -20,36 +16,24 @@ export class UserView extends ConsoleView {
   private deleteProfileView: DeleteProfileView;
   private getProfileView: GetProfileView;
   private startSwippingView: StartSwippingView;
-  private swippingView: SwippingView;
+  private candidateView: CandidateView;
 
   constructor(controller: UserController) {
     super();
     this.loginView = new LoginView(controller.loginController);
-    this.createProfileView = new CreateProfileView(
-      controller.profileController.createProfileController
-    );
+    this.createProfileView = new CreateProfileView(controller.profileController.createProfileController);
     this.editProfileView = new EditProfileView(controller.profileController);
-    this.deleteProfileView = new DeleteProfileView(
-      controller.profileController
-    );
-    this.getProfileView = new GetProfileView(
-      new ProfileView(),
-      controller.profileController
-    );
-    this.swippingView = new SwippingView(controller.swipeController);
-    this.startSwippingView = new StartSwippingView(this.swippingView, controller.startSwipeController)
+    this.deleteProfileView = new DeleteProfileView(controller.profileController);
+    this.getProfileView = new GetProfileView(new ProfileView(), controller.profileController);
+    this.candidateView = new CandidateView(controller.swipeController);
+    this.startSwippingView = new StartSwippingView(controller.startSwipeController);
   }
 
   public render(): void {
     this.console.writeInln("WELCOME TO TINDER🔥");
-    this.console.writeInln(
-      "Please, choose the option you want to perform [1/4]:"
-    );
+    this.console.writeInln("Please, choose the option you want to perform [1/4]:");
     const options =
-      "\n1- Create a profile\n" +
-      "2- Login with an existing profile\n" +
-      "3- Delete profile\n" +
-      "4- Exit\n";
+      "\n1- Create a profile\n" + "2- Login with an existing profile\n" + "3- Delete profile\n" + "4- Exit\n";
     let option: number;
     do {
       option = this.console.readInt(options);
@@ -64,9 +48,7 @@ export class UserView extends ConsoleView {
           this.deleteProfile();
           break;
         default:
-          this.console.writeInln(
-            "Wrong input selected. Please, choose again [1/4]:"
-          );
+          this.console.writeInln("Wrong input selected. Please, choose again [1/4]:");
       }
     } while (option !== 4);
   }

@@ -6,13 +6,13 @@ import { User } from "../models/User";
 export class SwippingController {
 
     constructor(
-        private user: User,
+        private profile: User,
         private persistenceService?: FileSystemUserPersistenceService
     ) { }
 
     control(direction: boolean, candidate: Profile): void {
-        this.user.swipe(new Swipe(direction, candidate));
-        this.persistenceService.update(this.user.getId(), this.user.toPrimitives())
+        this.profile.swipe(new Swipe(direction, candidate));
+        this.persistenceService.update(this.profile.getId(), this.profile.toPrimitives())
     }
 }
 

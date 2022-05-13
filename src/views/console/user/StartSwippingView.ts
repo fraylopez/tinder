@@ -1,22 +1,20 @@
 import { StartSwippingController } from "../../../controllers/StartSwippingController";
+import { SwippingController } from "../../../controllers/SwipingController";
 import { Profile } from "../../../models/Profile";
 import { ConsoleView } from "../ConsoleView";
-import { SwippingView } from "./SwippingView";
+import { CandidateView } from "./CandidateView";
 
 export class StartSwippingView extends ConsoleView {
+  constructor(private view: CandidateView, private controller: StartSwippingController) {
+    super();
+  }
 
-    constructor(
-        private view: SwippingView,
-        private controller: StartSwippingController,
-    ) {
-        super()
-    }
+  public render(): void {
+    this.console.writeInln("START SWIPPING");
+    let candidates: Profile[] = this.controller.control();
 
-    public render(): void {
-        this.console.writeInln("START SWIPPING");
-        let candidates: Profile[] = this.controller.control()
-        do {
-            this.view.render(candidates.pop())
-        } while (candidates);
-    }
+    do {
+      new CandidateView(new SwippingController()).render(candidates.pop());
+    } while (candidates);
+  }
 }
