@@ -32,11 +32,6 @@ package Models {
   class Match
   class Conversation
   class Message
-  class CandidateResult {
-    profile: Profile
-    candidate: Profile
-    direction: boolean
-  }
 }
 
 package Infraestructure {
@@ -54,6 +49,7 @@ GetCandidateController --> ProfileRepository
 GetCandidateController --> CandidateResultsRepository
 CreateCandidateController --> CandidateResultsRepository
 Profile *--> "1..n" Filter
+Match *--> "2" Profile
 Match *--> Conversation
 Conversation *--> "1..n" Message
 GetCandidateController --> Profile
