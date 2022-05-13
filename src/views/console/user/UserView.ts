@@ -6,6 +6,12 @@ import { GetProfileView } from "./GetProfileView";
 import { ProfileView } from "./ProfileView";
 import { ConsoleView } from "../ConsoleView";
 import { UserController } from "../../../controllers/UserController";
+import { StartSwippingView } from "./StartSwippingView";
+import { SwippingView } from "./SwippingView";
+import { StartSwippingController } from "../../../controllers/StartSwippingController";
+import { SwippingController } from "../../../controllers/SwipingController";
+import { User } from "../../../models/User";
+import { FileSystemProfilePersistenceService } from "../../../infrastructure/file-system/FileSystemProfilePersistenceService";
 
 export class UserView extends ConsoleView {
   private loginView: LoginView;
@@ -13,6 +19,8 @@ export class UserView extends ConsoleView {
   private editProfileView: EditProfileView;
   private deleteProfileView: DeleteProfileView;
   private getProfileView: GetProfileView;
+  private startSwippingView: StartSwippingView;
+  private swippingView: SwippingView;
 
   constructor(controller: UserController) {
     super();
@@ -28,6 +36,8 @@ export class UserView extends ConsoleView {
       new ProfileView(),
       controller.profileController
     );
+    this.swippingView = new SwippingView(controller.swipeController);
+    this.startSwippingView = new StartSwippingView(this.swippingView, controller.startSwipeController)
   }
 
   public render(): void {

@@ -6,6 +6,7 @@ export class Profile {
   private name: string;
   private age: number;
   private gender: string;
+  private swiped: boolean = undefined;
 
   constructor(name: string, age: number, gender: string) {
     assert(age >= 18, new UnderAgeError());
@@ -28,6 +29,9 @@ export class Profile {
 
   getGender() {
     return this.gender;
+  }
+  setSwiped(swiped: boolean) {
+    this.swiped = swiped;
   }
 
   public toPrimitives(): ProfilePrimitives {

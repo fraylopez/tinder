@@ -11,10 +11,10 @@ export class FileSystemProfilePersistenceService {
     );
     return foundUser
       ? Profile.fromPrimitives({
-          name: foundUser.name,
-          age: foundUser.age,
-          gender: foundUser.gender,
-        })
+        name: foundUser.name,
+        age: foundUser.age,
+        gender: foundUser.gender,
+      })
       : null;
   }
 
@@ -69,5 +69,18 @@ export class FileSystemProfilePersistenceService {
     });
 
     fs.writeFileSync("./src/data/profiles.json", JSON.stringify(parsedJson));
+  }
+
+  public getProfiles() {
+    const profiles = fs.readFileSync("./src/data/profiles.json", "utf8");
+    const array: FileSystemProfile[] = JSON.parse(profiles);
+
+    return array.map(profile =>
+      Profile.fromPrimitives({
+        name: profile.name,
+        age: profile.age,
+        gender: profile.gender,
+      }))
+
   }
 }
