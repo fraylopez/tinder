@@ -1,0 +1,68 @@
+@startuml Design
+title Design
+
+package Views {
+  class StartSwippingView
+  class SwippingView
+  class MatchView
+}
+
+package Controllers {
+  class SwippingController {
+  }
+  class GetCandidateController {
+    control(profile: Profile): Profile[]
+  }
+  class GetMatchController {
+    control(profile1, profile2): Match
+  }
+  class CreateMatchController {
+    control(profile1, profile2)
+  }
+  class CreateCandidateController {
+    control(profile1, profile2)
+  }
+  class StartSwippingController
+}
+
+package Models {
+  ' class User
+  class Profile
+  class Filter
+  class Match
+  class Conversation
+  class Message
+  class CandidateResult {
+    profile: Profile
+    candidate: Profile
+    direction: boolean
+  }
+}
+
+package Infraestructure {
+  class ProfileRepository
+  class CandidateResultsRepository
+  class MatchRepository
+}
+
+StartSwippingView o--> StartSwippingController
+StartSwippingController --> GetCandidateController
+SwippingView o--> SwippingController
+SwippingController --> Match
+SwippingController --> CreateCandidateController
+GetCandidateController --> ProfileRepository
+GetCandidateController --> CandidateResultsRepository
+CreateCandidateController --> CandidateResultsRepository
+Profile *--> "1..n" Filter
+Match *--> Conversation
+Conversation *--> "1..n" Message
+GetCandidateController --> Profile
+SwippingView o--> GetMatchController
+
+MatchView o--> GetMatchController
+
+SwippingController --> CreateMatchController
+CreateMatchController --> Match
+CreateMatchController --> MatchRepository
+
+@enduml

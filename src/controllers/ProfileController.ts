@@ -8,7 +8,7 @@ import { GetProfileController } from "./GetProfileController";
 export class ProfileController {
   public readonly getProfileController: GetProfileController;
   private deleteProfileController: DeleteProfileController;
-  public readonly createProfileController: CreateProfileController;
+  private createProfileController: CreateProfileController;
   private editProfileController: EditProfileController;
   constructor() {}
 

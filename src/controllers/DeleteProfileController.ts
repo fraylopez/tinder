@@ -1,6 +1,7 @@
 import { FileSystemProfilePersistenceService } from "../infrastructure/file-system/FileSystemProfilePersistenceService";
+import { Controller } from "./Controller";
 
-export class DeleteProfileController {
+export class DeleteProfileController implements Controller<string, void> {
   constructor(
     private persistenceService: FileSystemProfilePersistenceService,
   ) {}

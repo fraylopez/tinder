@@ -1,6 +1,7 @@
 import { FileSystemProfilePersistenceService } from "../infrastructure/file-system/FileSystemProfilePersistenceService";
+import { Controller } from "./Controller";
 
-export class LoginController {
+export class LoginController implements Controller<[string], boolean> {
   constructor(
     private persistenceService: FileSystemProfilePersistenceService,
   ) {
