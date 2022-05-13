@@ -1,14 +1,22 @@
 {
   "scripts": {
-    "start": "ts-node src/Tinder.ts"
+    "start": "ts-node src/Tinder.ts",
+    "lint": "eslint --ext .ts ."
   },
   "dependencies": {
+    "readline-sync": "^1.4.10",
     "ts-node": "^10.7.0",
-    "typescript": "^4.6.3",
-    "readline-sync": "^1.4.10"
+    "typescript": "^4.6.3"
   },
   "devDependencies": {
     "@types/node": "^17.0.23",
-    "@types/readline-sync": "^1.4.3"
+    "@types/readline-sync": "^1.4.3",
+    "@typescript-eslint/eslint-plugin": "^5.23.0",
+    "@typescript-eslint/eslint-plugin-tslint": "^5.23.0",
+    "@typescript-eslint/parser": "^5.23.0",
+    "eslint": "^8.15.0",
+    "tslint": "^6.1.3",
+    "tslint-config-prettier": "^1.18.0",
+    "tslint-plugin-prettier": "^2.3.0"
   }
 }
