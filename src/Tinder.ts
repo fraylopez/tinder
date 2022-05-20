@@ -1,20 +1,20 @@
 /* eslint-disable max-classes-per-file */
 import { Session } from "./models/Session";
-import { ViewsFactory } from "./views/console/state-views/ViewsFactory";
+import { ConsoleViewFactory } from "./views/console/state-views/ConsoleViewFactory";
 
 export class Tinder {
 
-  private viewsFactory: ViewsFactory;
+  private viewsFactory: ConsoleViewFactory;
   private session: Session;
 
   constructor() {
     this.session = new Session();
-    this.viewsFactory = new ViewsFactory(this.session);
+    this.viewsFactory = new ConsoleViewFactory(this.session);
   }
 
   public render(): void {
     do {
-      const currentView = this.viewsFactory.getView(this.session.getState());
+      const currentView = this.viewsFactory.getView();
       currentView.render();
     } while (true);
   }

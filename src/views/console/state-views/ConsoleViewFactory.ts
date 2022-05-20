@@ -9,12 +9,12 @@ import { ProfileView } from "./ProfileView";
 import { StateView } from "./StateView";
 import { SwippingView } from "./SwippingView";
 
-export class ViewsFactory {
+export class ConsoleViewFactory {
 
   constructor(private session: Session) { }
 
-  public getView(state: State): StateView {
-    switch (state) {
+  public getView(): StateView {
+    switch (this.session.getState()) {
       case (State.INITIAL):
         return new InitialView(new InitialController(this.session));
       case (State.INAPP):
