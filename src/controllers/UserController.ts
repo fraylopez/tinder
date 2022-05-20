@@ -22,6 +22,10 @@ export class UserController {
     return this.loginController;
   }
 
+  public getCreateProfileController(): Controller<[name: string, age: number, gender: string], void> {
+    return this.profileController.getCreateProfileController();
+  }
+
   public getGetProfileController(): Controller<[name: string], Profile | null> {
     return this.profileController.getGetProfileController();
   }
@@ -30,9 +34,6 @@ export class UserController {
     return this.profileController.getDeleteProfileController();
   }
 
-  public getCreateProfileController(): Controller<[name: string, age: number, gender: string], void> {
-    return this.profileController.getCreateProfileController();
-  }
 
   public getEditProfileController(): Controller<[name: string, profilePrimitives: ProfilePrimitives], void> {
     return this.profileController.getEditProfileController();

@@ -17,4 +17,14 @@ export class Session {
   public setState(state: State) {
     this.state = state;
   }
+
+  public next(): void {
+    this.state = Object.keys(State)[
+      this.getCurrentStateIndex() + 1
+    ] as State;
+  }
+
+  private getCurrentStateIndex(): number {
+    return Object.keys(State).indexOf(this.state);
+  }
 }

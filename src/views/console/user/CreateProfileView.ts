@@ -3,7 +3,7 @@ import { UnderAgeError } from "../../../models/UnderAgeError";
 import { Controller } from "../../../controllers/Controller";
 
 export class CreateProfileView extends ConsoleView {
-  constructor(private controller: Controller<[string, number, string]>) {
+  constructor(private controller: Controller) {
     super();
   }
 
