@@ -17,6 +17,10 @@ export class Console {
   // 	console.log(string);
   // }
 
+  public writeln(string: string = ""): void {
+    process.stdout.write(string + "\n");
+  }
+
   public writeInln(string: string = ""): void {
     process.stdout.write(string);
   }

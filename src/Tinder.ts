@@ -1,18 +1,22 @@
-import { UserController } from "./controllers/UserController";
-import { FileSystemProfilePersistenceService } from "./infrastructure/file-system/FileSystemProfilePersistenceService";
-import { UserView } from "./views/console/user/UserView";
+/* eslint-disable max-classes-per-file */
+import { Session } from "./models/Session";
+import { ViewsFactory } from "./views/console/state-views/ViewsFactory";
 
 export class Tinder {
-  private view: UserView;
-  private controller: UserController;
+
+  private viewsFactory: ViewsFactory;
+  private session: Session;
 
   constructor() {
-    this.controller = new UserController(new FileSystemProfilePersistenceService());
-    this.view = new UserView(this.controller);
+    this.session = new Session();
+    this.viewsFactory = new ViewsFactory(this.session);
   }
 
   public render(): void {
-    this.view.render();
+    do {
+      const currentView = this.viewsFactory.getView(this.session.getState());
+      currentView.render();
+    } while (true);
   }
 }
 
