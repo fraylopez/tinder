@@ -1,32 +1,42 @@
+import { FileSystemProfilePersistenceService } from "../infrastructure/file-system/FileSystemProfilePersistenceService";
+import { Profile } from "../models/Profile";
 import { ProfilePrimitives } from "../models/ProfilePrimitives";
+import { Controller } from "./Controller";
+import { CreateProfileController } from "./CreateProfileController";
+import { DeleteProfileController } from "./DeleteProfileController";
+import { EditProfileController } from "./EditProfileController";
+import { GetProfileController } from "./GetProfileController";
 import { LoginController } from "./LoginController";
 import { ProfileController } from "./ProfileController";
 import { StartSwippingController } from "./StartSwippingController";
 import { SwippingController } from "./SwipingController";
 
 export class UserController {
-  public readonly profileController: ProfileController;
-  public readonly loginController: LoginController;
-  public readonly swipeController: SwippingController;
-  public readonly startSwipeController: StartSwippingController;
+  private readonly profileController: ProfileController;
+  private readonly loginController: LoginController;
 
-  constructor() {
-    this.profileController = new ProfileController();
+  constructor(persistenceService: FileSystemProfilePersistenceService) {
+    this.profileController = new ProfileController(persistenceService);
+    this.loginController = new LoginController(persistenceService);
   }
 
-  public control(name: string): boolean {
-    throw new Error("Method not implemented.");
+  public getLoginController(): LoginController {
+    return this.loginController;
   }
-  public get(name: string): void {
-    throw new Error("Method not implemented.");
+
+  public getCreateProfileController(): Controller<[name: string, age: number, gender: string], void> {
+    return this.profileController.getCreateProfileController();
   }
-  public create(name: string, age: number, gender: string): void {
-    throw new Error("Method not implemented.");
+
+  public getGetProfileController(): Controller<[name: string], Profile | null> {
+    return this.profileController.getGetProfileController();
   }
-  public delete(name: string): void {
-    throw new Error("Method not implemented.");
+
+  public getDeleteProfileController(): Controller<[name: string], void> {
+    return this.profileController.getDeleteProfileController();
   }
-  public edit(name: string, profilePrimitives: ProfilePrimitives): void {
-    throw new Error("Method not implemented.");
+
+  public getEditProfileController(): Controller<[name: string, profilePrimitives: ProfilePrimitives], void> {
+    return this.profileController.getEditProfileController();
   }
 }

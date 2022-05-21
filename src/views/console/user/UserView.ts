@@ -20,13 +20,11 @@ export class UserView extends ConsoleView {
 
   constructor(controller: UserController) {
     super();
-    this.loginView = new LoginView(controller.loginController);
-    this.createProfileView = new CreateProfileView(controller.profileController.createProfileController);
-    this.editProfileView = new EditProfileView(controller.profileController);
-    this.deleteProfileView = new DeleteProfileView(controller.profileController);
-    this.getProfileView = new GetProfileView(new ProfileView(), controller.profileController);
-    this.candidateView = new CandidateView(controller.swipeController);
-    this.startSwippingView = new StartSwippingView(controller.startSwipeController);
+    this.loginView = new LoginView(controller.getLoginController());
+    this.createProfileView = new CreateProfileView(controller.getCreateProfileController());
+    this.editProfileView = new EditProfileView(controller.getEditProfileController());
+    this.deleteProfileView = new DeleteProfileView(controller.getDeleteProfileController());
+    this.getProfileView = new GetProfileView(new ProfileView(), controller.getGetProfileController());
   }
 
   public render(): void {

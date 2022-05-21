@@ -1,24 +1,23 @@
-import { UserController } from "./controllers/UserController";
-import { UserView } from "./views/console/user/UserView";
+/* eslint-disable max-classes-per-file */
+import { Session } from "./models/Session";
+import { ConsoleViewFactory } from "./views/console/state-views/ConsoleViewFactory";
 
 export class Tinder {
-  private view: UserView;
-  private actor: ActorCS;
-  private controller: UserController;
+
+  private viewsFactory: ConsoleViewFactory;
+  private session: Session;
 
   constructor() {
-    this.controller = new UserController();
-    this.view = new UserView(this.controller);
-    this.actor = new ActorCS(this.controller);
+    this.session = new Session();
+    this.viewsFactory = new ConsoleViewFactory(this.session);
   }
 
   public render(): void {
-    this.view.render();
+    do {
+      const currentView = this.viewsFactory.getView();
+      currentView.render();
+    } while (true);
   }
 }
 
 new Tinder().render();
-
-class ActorCS {
-  constructor(controller: UserController) {}
-}
