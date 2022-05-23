@@ -1,4 +1,3 @@
-/* eslint-disable max-classes-per-file */
 import assert from "assert";
 import { IExecutableMenuView } from "./actions/IExecutableMenuView";
 import { MenuItemType } from "./items/MenuItemType";
@@ -19,11 +18,11 @@ export abstract class Menu {
     return this.items.length;
   }
 
-  public getTitlte(): string {
+  public getTitle(): string {
     return this.title;
   }
 
   public acceptToExecute(view: IExecutableMenuView): void {
-    view.executeMenu(this.items);
+    view.executeMenu(this.title, this.items);
   }
 }

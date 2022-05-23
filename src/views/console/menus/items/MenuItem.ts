@@ -8,7 +8,7 @@ export abstract class MenuItem {
     this.action.execute();
   }
 
-  public getTitlte(): string {
+  public getTitle(): string {
     return this.title;
   }
 

@@ -1,10 +1,10 @@
 import { FileSystemProfilePersistenceService } from "../infrastructure/file-system/FileSystemProfilePersistenceService";
+import { Profile } from "../models/Profile";
 
 export class DeleteProfileController {
-  constructor(private persistenceService: FileSystemProfilePersistenceService) {}
+  constructor(private readonly profile: Profile, private persistenceService: FileSystemProfilePersistenceService) {}
 
-  public control(name: string): void {
-    const profile = this.persistenceService.find(name);
-    this.persistenceService.delete(profile!);
+  public control(): void {
+    this.persistenceService.delete(this.profile);
   }
 }
