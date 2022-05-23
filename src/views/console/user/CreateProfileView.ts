@@ -1,9 +1,9 @@
 import { ConsoleView } from "../ConsoleView";
 import { UnderAgeError } from "../../../models/UnderAgeError";
-import { Controller } from "../../../controllers/Controller";
+import { InitialStateController } from "../../../controllers/state/InitialStateController";
 
 export class CreateProfileView extends ConsoleView {
-  constructor(private controller: Controller) {
+  constructor(private controller: InitialStateController) {
     super();
   }
 
@@ -14,7 +14,7 @@ export class CreateProfileView extends ConsoleView {
     const gender = this.console.readString("Enter your gender [male/female]:");
 
     try {
-      this.controller.control(name, age, gender);
+      this.controller.createProfile(name, age, gender);
     } catch (error) {
       if (error instanceof UnderAgeError) {
         this.console.writeInln("Controled under age user");

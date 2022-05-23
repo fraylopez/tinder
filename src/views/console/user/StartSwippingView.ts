@@ -1,20 +1,24 @@
-import { StartSwippingController } from "../../../controllers/StartSwippingController";
-import { SwippingController } from "../../../controllers/SwipingController";
+import { GetCandidateProfilesController } from "../../../controllers/GetCandidateProfilesController";
+import { FileSystemProfilePersistenceService } from "../../../infrastructure/file-system/FileSystemProfilePersistenceService";
 import { Profile } from "../../../models/Profile";
+import { User } from "../../../models/User";
 import { ConsoleView } from "../ConsoleView";
 import { CandidateView } from "./CandidateView";
 
 export class StartSwippingView extends ConsoleView {
-  constructor(private view: CandidateView, private controller: StartSwippingController) {
+  private readonly controller: GetCandidateProfilesController;
+
+  constructor(private readonly user: User) {
     super();
+    this.controller = new GetCandidateProfilesController(user, FileSystemProfilePersistenceService.getInstance());
   }
 
   public render(): void {
     this.console.writeInln("START SWIPPING");
-    let candidates: Profile[] = this.controller.control();
+    const candidates: Profile[] = this.controller.control();
 
     do {
-      new CandidateView(new SwippingController()).render(candidates.pop());
-    } while (candidates);
+      new CandidateView(this.user, candidates.pop()!).render();
+    } while (candidates.length);
   }
 }

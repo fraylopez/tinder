@@ -1,3 +1,3 @@
-import { BaseView } from "./BaseView";
+import { ConsoleView } from "../ConsoleView";
 
-export class MatchListView extends BaseView {}
+export class MatchListView extends ConsoleView {}

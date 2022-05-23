@@ -1,9 +1,8 @@
-
-export enum State {
+export enum AppState {
   INITIAL = "INITIAL",
   INAPP = "INAPP",
   SWIPING = "SWIPING",
   CONVERSATION = "CONVERSATION",
   PROFILE = "PROFILE",
-  MATCH_LIST = "MATCH_LIST"
+  MATCH_LIST = "MATCH_LIST",
 }

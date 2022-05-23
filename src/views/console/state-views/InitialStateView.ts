@@ -1,30 +1,18 @@
-/* eslint-disable max-classes-per-file */
-import { InitialController, StateController } from "../../../controllers/StateControllers";
-import { UserController } from "../../../controllers/UserController";
-import { ConsoleView } from "../ConsoleView";
+import { InitialStateController } from "../../../controllers/state/InitialStateController";
+import { Session } from "../../../models/Session";
 import { CreateProfileView } from "../user/CreateProfileView";
 import { LoginView } from "../user/LoginView";
 import { StateView } from "./StateView";
 
-// class Menu extends ConsoleView {
-//   constructor(private options: string[]) {}
-//   render() {
-//     for (let i = 1; i <= this.options.length; i++) {
-//       const element = this.options[i];
-//       this.console.writeln()
-
-//     }
-//   }
-// }
-
-export class InitialView extends StateView {
+export class InitialStateView extends StateView {
   private loginView: LoginView;
   private createProfileView: CreateProfileView;
 
-  constructor(controller: InitialController) {
-    super(controller);
-    this.loginView = new LoginView(controller.getLoginController());
-    this.createProfileView = new CreateProfileView(controller.getCreateProfileController());
+  constructor(session: Session) {
+    const controller = new InitialStateController(session);
+    super(session, controller);
+    this.loginView = new LoginView(controller);
+    this.createProfileView = new CreateProfileView(controller);
   }
 
   render(): void {
@@ -32,10 +20,7 @@ export class InitialView extends StateView {
 
     this.console.writeln("WELCOME TO TINDER🔥");
     this.console.writeln("Please, choose the option you want to perform [1/4]:");
-    const options = [
-      "Create a profile",
-      "Login with an existing profile",
-    ];
+    const options = ["Create a profile", "Login with an existing profile"];
     let option: number;
     do {
       option = this.console.readInt(options);
@@ -53,7 +38,14 @@ export class InitialView extends StateView {
   }
 
   private login(): void {
-    this.loginView.render();
+    do {
+      this.loginView.render();
+      if (!this.session.isLoggedIn()) {
+        this.console.writeInln("Wrong name, try again");
+      }
+    } while (this.session.isLoggedIn());
+
+    this.console.writeInln(`Logged in 🐥`);
   }
 
   private createProfile(): void {

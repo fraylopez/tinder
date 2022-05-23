@@ -1,3 +1,3 @@
-import { BaseView } from "./BaseView";
+import { ConsoleView } from "../ConsoleView";
 
-export class SwippingView extends BaseView {}
+export class SwippingView extends ConsoleView {}

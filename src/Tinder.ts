@@ -3,7 +3,6 @@ import { Session } from "./models/Session";
 import { ConsoleViewFactory } from "./views/console/state-views/ConsoleViewFactory";
 
 export class Tinder {
-
   private viewsFactory: ConsoleViewFactory;
   private session: Session;
 
@@ -14,8 +13,7 @@ export class Tinder {
 
   public render(): void {
     do {
-      const currentView = this.viewsFactory.getView();
-      currentView.render();
+      this.viewsFactory.render();
     } while (true);
   }
 }

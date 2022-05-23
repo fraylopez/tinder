@@ -1,9 +1,9 @@
-import { Controller } from "../../../controllers/Controller";
+import { EditProfileController } from "../../../controllers/EditProfileController";
 import { ProfilePrimitives } from "../../../models/ProfilePrimitives";
 import { ConsoleView } from "../ConsoleView";
 
 export class EditProfileView extends ConsoleView {
-  constructor(private editProfileController: Controller<[name: string, profilePrimitives: ProfilePrimitives], void>) {
+  constructor(private editProfileController: EditProfileController) {
     super();
   }
 

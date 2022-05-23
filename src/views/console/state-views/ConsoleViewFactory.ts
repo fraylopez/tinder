@@ -1,32 +1,30 @@
-import { ConversationController, InAppController, InitialController, MatchListController, ProfileController, SwippingController } from "../../../controllers/StateControllers";
+import assert from "assert";
+import { AppState } from "../../../models/AppState";
 import { Session } from "../../../models/Session";
-import { State } from "../../../models/State";
-import { ConversationView } from "./ConversationView";
-import { InAppView } from "./InAppView";
-import { InitialView } from "./InitialView";
-import { MatchListView } from "./MatchListView";
-import { ProfileView } from "./ProfileView";
+import { ConversationStateView } from "./ConversationStateView";
+import { InAppStateView } from "./InAppStateView";
+import { InitialStateView } from "./InitialStateView";
+import { MatchListStateView } from "./MatchListStateView";
+import { ProfileStateView } from "./ProfileStateView";
 import { StateView } from "./StateView";
-import { SwippingView } from "./SwippingView";
+import { SwippingStateView } from "./SwippingStateView";
 
 export class ConsoleViewFactory {
+  private readonly views: Map<AppState, StateView>;
 
-  constructor(private session: Session) { }
+  constructor(private readonly session: Session) {
+    this.views = new Map();
+    this.views.set(AppState.INITIAL, new InitialStateView(this.session));
+    this.views.set(AppState.INAPP, new InAppStateView(this.session));
+    this.views.set(AppState.SWIPING, new SwippingStateView(this.session));
+    this.views.set(AppState.CONVERSATION, new ConversationStateView(this.session));
+    this.views.set(AppState.PROFILE, new ProfileStateView(this.session));
+    this.views.set(AppState.MATCH_LIST, new MatchListStateView(this.session));
+  }
 
-  public getView(): StateView {
-    switch (this.session.getState()) {
-      case (State.INITIAL):
-        return new InitialView(new InitialController(this.session));
-      case (State.INAPP):
-        return new InAppView(new InAppController(this.session));
-      case (State.PROFILE):
-        return new ProfileView(new ProfileController(this.session));
-      case (State.SWIPING):
-        return new SwippingView(new SwippingController(this.session));
-      case (State.MATCH_LIST):
-        return new MatchListView(new MatchListController(this.session));
-      case (State.CONVERSATION):
-        return new ConversationView(new ConversationController(this.session));
-    }
+  public render(): void {
+    const view = this.views.get(this.session.getState());
+    assert(view, `Not matching view for state ${this.session.getState()}`);
+    view.render();
   }
 }

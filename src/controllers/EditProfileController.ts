@@ -1,9 +1,8 @@
 import { FileSystemProfilePersistenceService } from "../infrastructure/file-system/FileSystemProfilePersistenceService";
 import { ProfilePrimitives } from "../models/ProfilePrimitives";
-import { Controller } from "./Controller";
 import { GetProfileController } from "./GetProfileController";
 
-export class EditProfileController implements Controller<[name: string, profilePrimitives: ProfilePrimitives], void> {
+export class EditProfileController {
   constructor(
     private getProfileController: GetProfileController,
     private persistenceService: FileSystemProfilePersistenceService

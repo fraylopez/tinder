@@ -1,30 +1,32 @@
 import { Profile } from "./Profile";
-import { State } from "./State";
+import { AppState } from "./AppState";
 
 export class Session {
-  private state: State = State.INITIAL;
+  private state: AppState = AppState.INITIAL;
   private profile!: Profile;
 
-  public setProfile(profile: Profile) {
+  public login(profile: Profile) {
     this.profile = profile;
-    this.state = State.INAPP;
+    this.state = AppState.INAPP;
   }
 
-  public getState(): State {
+  public getState(): AppState {
     return this.state;
   }
 
-  public setState(state: State) {
+  public setState(state: AppState) {
     this.state = state;
   }
 
+  isLoggedIn(): boolean {
+    return !!this.profile;
+  }
+
   public next(): void {
-    this.state = Object.keys(State)[
-      this.getCurrentStateIndex() + 1
-    ] as State;
+    this.state = Object.keys(AppState)[this.getCurrentStateIndex() + 1] as AppState;
   }
 
   private getCurrentStateIndex(): number {
-    return Object.keys(State).indexOf(this.state);
+    return Object.keys(AppState).indexOf(this.state);
   }
 }

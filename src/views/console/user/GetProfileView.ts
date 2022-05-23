@@ -1,12 +1,9 @@
-import { ProfileController } from "../../../controllers/ProfileController";
+import { GetProfileController } from "../../../controllers/GetProfileController";
 import { ConsoleView } from "../ConsoleView";
 import { ProfileView } from "./ProfileView";
-import { GetProfileController } from "../../../controllers/GetProfileController";
-import { Controller } from "../../../controllers/Controller";
-import { Profile } from "../../../models/Profile";
 
 export class GetProfileView extends ConsoleView {
-  constructor(private profileView: ProfileView, private controller: Controller<[name: string], Profile | null>) {
+  constructor(private profileView: ProfileView, private controller: GetProfileController) {
     super();
   }
 
