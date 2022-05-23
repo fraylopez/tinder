@@ -8,7 +8,7 @@ export class CreateProfileView extends ConsoleView {
   }
 
   public render(): void {
-    this.console.writeInln("CREATE PROFILE");
+    this.console.write("CREATE PROFILE");
     const name = this.console.readString("Enter your name:");
     const age = this.console.readInt("Enter your age:");
     const gender = this.console.readString("Enter your gender [male/female]:");
@@ -17,7 +17,7 @@ export class CreateProfileView extends ConsoleView {
       this.controller.createProfile(name, age, gender);
     } catch (error) {
       if (error instanceof UnderAgeError) {
-        this.console.writeInln("Controled under age user");
+        this.console.write("Controled under age user");
       }
     }
   }

@@ -23,7 +23,10 @@ export class InitialStateView extends StateView {
     const options = ["Create a profile", "Login with an existing profile"];
     let option: number;
     do {
-      option = this.console.readInt(options);
+      options.forEach((optionItem: string, index: number) => {
+        this.console.writeln(`${index + 1}. ${optionItem}`);
+      });
+      option = this.console.readInt("");
       switch (option) {
         case 1:
           this.createProfile();
@@ -34,18 +37,18 @@ export class InitialStateView extends StateView {
         default:
           this.console.writeln("Wrong input selected. Please, choose again [1/4]:");
       }
-    } while (option !== 4);
+    } while (option !== 4 && !this.session.isLoggedIn());
   }
 
   private login(): void {
     do {
       this.loginView.render();
       if (!this.session.isLoggedIn()) {
-        this.console.writeInln("Wrong name, try again");
+        this.console.write("Wrong name, try again");
       }
-    } while (this.session.isLoggedIn());
+    } while (!this.session.isLoggedIn());
 
-    this.console.writeInln(`Logged in 🐥`);
+    this.console.writeln(`Logged in 🐥`);
   }
 
   private createProfile(): void {

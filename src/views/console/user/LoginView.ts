@@ -7,7 +7,7 @@ export class LoginView extends ConsoleView {
   }
 
   public render(): void {
-    this.console.writeInln("LOGIN");
+    this.console.writeln("LOGIN");
     const name = this.console.readString("Enter your name to login:");
     this.controller.login(name);
   }

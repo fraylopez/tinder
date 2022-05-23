@@ -13,7 +13,7 @@ export class GetProfileView extends ConsoleView {
     if (profile) {
       this.profileView.render(profile);
     } else {
-      this.console.writeInln("profile not found :/");
+      this.console.write("profile not found :/");
     }
   }
 }

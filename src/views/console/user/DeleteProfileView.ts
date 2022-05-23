@@ -7,7 +7,7 @@ export class DeleteProfileView extends ConsoleView {
   }
 
   public render(): void {
-    this.console.writeInln("DELETE PROFILE");
+    this.console.write("DELETE PROFILE");
     const name = this.console.readString("Enter your name:");
     if (this.console.yesNoDialog("Are you sure? [y/n]:")) {
       this.controller.control(name);

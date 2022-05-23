@@ -8,7 +8,7 @@ export class EditProfileView extends ConsoleView {
   }
 
   public render(): void {
-    this.console.writeInln("EDIT PROFILE");
+    this.console.write("EDIT PROFILE");
     const existingName = this.console.readString("Enter existing name:");
     const name = this.console.readString("Enter new name:");
     const age = this.console.readInt("Enter new age:");

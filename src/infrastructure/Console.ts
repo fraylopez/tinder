@@ -17,7 +17,7 @@ export class Console {
     process.stdout.write(string + "\n");
   }
 
-  public writeInln(string: string = ""): void {
+  public write(string: string = ""): void {
     process.stdout.write(string);
   }
 

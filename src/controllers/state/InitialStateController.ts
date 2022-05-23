@@ -15,7 +15,10 @@ export class InitialStateController extends StateController {
   }
 
   public login(name: string): void {
-    this.loginController.control(name);
+    const profile = this.loginController.control(name);
+    if (profile) {
+      this.session.login(profile);
+    }
   }
 
   public createProfile(name: string, age: number, gender: string): void {

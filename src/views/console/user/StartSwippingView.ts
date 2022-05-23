@@ -14,7 +14,7 @@ export class StartSwippingView extends ConsoleView {
   }
 
   public render(): void {
-    this.console.writeInln("START SWIPPING");
+    this.console.write("START SWIPPING");
     const candidates: Profile[] = this.controller.control();
 
     do {
