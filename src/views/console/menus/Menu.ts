@@ -1,7 +1,7 @@
 /* eslint-disable max-classes-per-file */
 import assert from "assert";
-import { IExecutableMenuView } from "./IExecutableMenuView";
-import { MenuItemType } from "./MenuItemType";
+import { IExecutableMenuView } from "./actions/IExecutableMenuView";
+import { MenuItemType } from "./items/MenuItemType";
 
 export abstract class Menu {
   constructor(private readonly title: string, private readonly items: MenuItemType[]) {}

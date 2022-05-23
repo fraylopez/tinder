@@ -2,7 +2,7 @@ import { InitialStateController } from "../../../controllers/state/InitialStateC
 import { Session } from "../../../models/Session";
 import { Menu } from "./Menu";
 import { LoginMenuItem } from "./LoginMenuItem";
-import { CreateProfileMenuItem } from "./CreateProfileMenuItem";
+import { CreateProfileMenuItem } from "./items/CreateProfileMenuItem";
 
 export class InitialStateMenu extends Menu {
   constructor(session: Session, controller: InitialStateController) {

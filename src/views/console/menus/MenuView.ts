@@ -1,7 +1,7 @@
 import { ConsoleView } from "../ConsoleView";
-import { IExecutableMenuView } from "./IExecutableMenuView";
-import { IMenuItemAction } from "./IMenuItemAction";
-import { MenuItemType } from "./MenuItemType";
+import { IExecutableMenuView } from "./actions/IExecutableMenuView";
+import { IMenuItemAction } from "./actions/IMenuItemAction";
+import { MenuItemType } from "./items/MenuItemType";
 import { Menu } from "./Menu";
 
 export class MenuView extends ConsoleView implements IExecutableMenuView {

@@ -1,5 +1,5 @@
-import { IExecutableMenuView } from "./IExecutableMenuView";
-import { IMenuItemAction } from "./IMenuItemAction";
+import { IExecutableMenuView } from "../actions/IExecutableMenuView";
+import { IMenuItemAction } from "../actions/IMenuItemAction";
 
 export abstract class MenuItem {
   constructor(private readonly title: string, private readonly action: IMenuItemAction) {}

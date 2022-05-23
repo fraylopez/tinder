@@ -1,6 +1,6 @@
-import { InitialStateController } from "../../../controllers/state/InitialStateController";
-import { ConsoleView } from "../ConsoleView";
-import { CreateProfileView } from "../user/CreateProfileView";
+import { InitialStateController } from "../../../../controllers/state/InitialStateController";
+import { ConsoleView } from "../../ConsoleView";
+import { CreateProfileView } from "../../user/CreateProfileView";
 import { IMenuItemAction } from "./IMenuItemAction";
 
 export class CreateProfileAction extends ConsoleView implements IMenuItemAction {

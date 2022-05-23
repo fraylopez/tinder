@@ -1,7 +1,7 @@
-import { InitialStateController } from "../../../controllers/state/InitialStateController";
-import { Session } from "../../../models/Session";
-import { ConsoleView } from "../ConsoleView";
-import { LoginView } from "../user/LoginView";
+import { InitialStateController } from "../../../../controllers/state/InitialStateController";
+import { Session } from "../../../../models/Session";
+import { ConsoleView } from "../../ConsoleView";
+import { LoginView } from "../../user/LoginView";
 import { IMenuItemAction } from "./IMenuItemAction";
 
 export class LoginAction extends ConsoleView implements IMenuItemAction {
