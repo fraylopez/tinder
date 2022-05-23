@@ -1,0 +1,17 @@
+@startuml Design
+title Design
+
+enum SessionState {
+  INITIAL
+  SWIPING
+  CONVERSATION
+  PROFILE
+  MATCH_LIST
+}
+
+class Session {
+  state: SessionState
+  profile: Profile
+}
+
+@enduml

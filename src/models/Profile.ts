@@ -30,15 +30,21 @@ export class Profile {
     return this.gender;
   }
 
+  equals(profile: Profile): boolean {
+    return this.age === profile.age && this.name === profile.name && this.gender === profile.gender;
+  }
+
   public toPrimitives(): ProfilePrimitives {
     return {
       name: this.name,
       age: this.age,
       gender: this.gender,
-    }
+    };
   }
 
   public updateWithPrimitives(profilePrimitives: ProfilePrimitives) {
-    // TODO: implement
+    this.name = profilePrimitives.name;
+    this.age = profilePrimitives.age;
+    this.gender = profilePrimitives.gender;
   }
 }
