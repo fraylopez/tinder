@@ -7,7 +7,7 @@ export class Session {
 
   public setProfile(profile: Profile) {
     this.profile = profile;
-    this.state = State.INAPP;
+    this.next();
   }
 
   public getState(): State {

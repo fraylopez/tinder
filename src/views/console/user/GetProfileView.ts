@@ -1,4 +1,4 @@
-import { ProfileController } from "../../../controllers/ProfileController";
+import { ProfileController } from "../../../controllers/state/ProfileController";
 import { ConsoleView } from "../ConsoleView";
 import { ProfileView } from "./ProfileView";
 import { GetProfileController } from "../../../controllers/GetProfileController";

@@ -1,4 +1,4 @@
-import { StateController } from "../../../controllers/StateControllers";
+import { StateController } from "../../../controllers/state/StateControllers";
 import { ConsoleView } from "../ConsoleView";
 
 export abstract class StateView extends ConsoleView {

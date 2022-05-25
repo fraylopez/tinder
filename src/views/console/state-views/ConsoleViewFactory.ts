@@ -1,4 +1,5 @@
-import { ConversationController, InAppController, InitialController, MatchListController, ProfileController, SwippingController } from "../../../controllers/StateControllers";
+import { ProfileController } from "../../../controllers/state/ProfileController";
+import { ConversationController, InAppController, InitialController, MatchListController, SwippingController } from "../../../controllers/state/StateControllers";
 import { Session } from "../../../models/Session";
 import { State } from "../../../models/State";
 import { ConversationView } from "./ConversationView";
