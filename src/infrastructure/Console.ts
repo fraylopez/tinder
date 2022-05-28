@@ -5,7 +5,7 @@ export class Console {
     console.clear();
   }
 
-  public readInt(question: string): number {
+  public readInt(question: string | string[]): number {
     return Number(readline.question(question));
   }
 
@@ -13,11 +13,11 @@ export class Console {
     return readline.question(question);
   }
 
-  // public writeln(string: string = ""): void {
-  // 	console.log(string);
-  // }
+  public writeln(string: string = ""): void {
+    process.stdout.write(string + "\n");
+  }
 
-  public writeInln(string: string = ""): void {
+  public write(string: string = ""): void {
     process.stdout.write(string);
   }
 

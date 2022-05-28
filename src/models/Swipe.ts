@@ -1,9 +1,20 @@
-import { User } from "./User";
+import { Profile } from "./Profile";
+import { SwipePrimitives } from "./SwipePrimitives";
 
 export class Swipe {
-  constructor(private readonly swipper: User) {}
+  // true = right
+  // false = left
+  constructor(private direction: boolean, private candidate: Profile) {}
 
-  swipe(direction: string) {
-    throw new Error("Method not implemented.");
+  public isRight(): boolean {
+    return this.direction === true;
+  }
+
+  public static fromPrimitives(swipe: SwipePrimitives): Swipe {
+    return new Swipe(swipe.direction, Profile.fromPrimitives(swipe.candidate));
+  }
+
+  public toPrimitives(): SwipePrimitives {
+    return { candidate: this.candidate.toPrimitives(), direction: this.direction };
   }
 }

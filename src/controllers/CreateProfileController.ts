@@ -1,8 +1,7 @@
 import { Profile } from "../models/Profile";
 import { FileSystemProfilePersistenceService } from "../infrastructure/file-system/FileSystemProfilePersistenceService";
-import { Controller } from "./Controller";
 
-export class CreateProfileController implements Controller<[name: string, age: number, gender: string], void> {
+export class CreateProfileController {
   constructor(private persistenceService: FileSystemProfilePersistenceService) {}
 
   public control(name: string, age: number, gender: string): void {

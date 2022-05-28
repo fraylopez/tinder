@@ -3,16 +3,29 @@ import { Profile } from "../../models/Profile";
 import { FileSystemProfile } from "./models/FileSystemProfile";
 
 export class FileSystemProfilePersistenceService {
+  private static instance: FileSystemProfilePersistenceService;
+
+  public static getInstance(): FileSystemProfilePersistenceService {
+    if (!this.instance) {
+      this.instance = new FileSystemProfilePersistenceService();
+    }
+    return this.instance;
+  }
+
+  private constructor() {
+    //
+  }
+
   public find(name: string): Profile | null {
     const profiles = fs.readFileSync("./src/data/profiles.json", "utf8");
-    const array: FileSystemProfile[] = JSON.parse(profiles);
+    const array: FileSystemProfile[] = JSON.parse(profiles) as FileSystemProfile[];
     const foundUser = array.find((profile: FileSystemProfile) => profile.name === name);
     return foundUser
       ? Profile.fromPrimitives({
-        name: foundUser.name,
-        age: foundUser.age,
-        gender: foundUser.gender,
-      })
+          name: foundUser.name,
+          age: foundUser.age,
+          gender: foundUser.gender,
+        })
       : null;
   }
 
@@ -25,16 +38,20 @@ export class FileSystemProfilePersistenceService {
     };
     const stringifiedProfiles = fs.readFileSync("./src/data/profiles.json", "utf8");
     if (stringifiedProfiles) {
-      const parsedJson = JSON.parse(stringifiedProfiles);
+      const parsedJson = JSON.parse(stringifiedProfiles) as FileSystemProfile[];
       fs.writeFileSync("./src/data/profiles.json", JSON.stringify([...parsedJson, model]));
     } else {
       fs.writeFileSync("./src/data/profiles.json", JSON.stringify([model]));
     }
   }
 
-  public delete(profile: Profile): void {
+  private parsedJson(): FileSystemProfile[] {
     const stringifiedProfiles = fs.readFileSync("./src/data/profiles.json", "utf8");
-    const parsedJson = JSON.parse(stringifiedProfiles);
+    return JSON.parse(stringifiedProfiles) as FileSystemProfile[];
+  }
+
+  public delete(profile: Profile): void {
+    const parsedJson = this.parsedJson();
 
     parsedJson.forEach((profileItem: FileSystemProfile, index: number) => {
       if (profileItem.name === profile.getName()) {
@@ -45,8 +62,7 @@ export class FileSystemProfilePersistenceService {
   }
 
   public update(profile: Profile): void {
-    const stringifiedProfiles = fs.readFileSync("./src/data/profiles.json", "utf8");
-    const parsedJson = JSON.parse(stringifiedProfiles);
+    const parsedJson = this.parsedJson();
 
     parsedJson.forEach((profileItem: FileSystemProfile, index: number) => {
       if (profileItem.name === profile.getName()) {
@@ -55,5 +71,15 @@ export class FileSystemProfilePersistenceService {
     });
 
     fs.writeFileSync("./src/data/profiles.json", JSON.stringify(parsedJson));
+  }
+
+  public getProfiles(): Profile[] {
+    return this.parsedJson().map((profile) =>
+      Profile.fromPrimitives({
+        name: profile.name,
+        age: profile.age,
+        gender: profile.gender,
+      })
+    );
   }
 }
