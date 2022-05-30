@@ -14,11 +14,12 @@ export class InitialStateController extends StateController {
     this.loginController = new LoginController(FileSystemProfilePersistenceService.getInstance());
   }
 
-  public login(name: string): void {
-    const profile = this.loginController.control(name);
-    if (profile) {
-      this.session.login(profile);
+  public login(name: string): boolean {
+    const isValidCredentials = this.loginController.control(name);
+    if (isValidCredentials) {
+      this.session.login(name);
     }
+    return !!isValidCredentials;
   }
 
   public createProfile(name: string, age: number, gender: string): void {

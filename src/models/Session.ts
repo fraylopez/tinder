@@ -1,12 +1,11 @@
-import { Profile } from "./Profile";
 import { AppState } from "./AppState";
 
 export class Session {
   private state: AppState = AppState.INITIAL;
-  private profile!: Profile;
+  private name!: string;
 
-  public login(profile: Profile) {
-    this.profile = profile;
+  public login(name: string) {
+    this.name = name;
     this.state = AppState.INAPP;
   }
 
@@ -19,7 +18,7 @@ export class Session {
   }
 
   isLoggedIn(): boolean {
-    return !!this.profile;
+    return !!this.name;
   }
 
   public next(): void {

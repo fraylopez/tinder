@@ -41,14 +41,7 @@ export class InitialStateView extends StateView {
   }
 
   private login(): void {
-    do {
-      this.loginView.render();
-      if (!this.session.isLoggedIn()) {
-        this.console.write("Wrong name, try again");
-      }
-    } while (!this.session.isLoggedIn());
-
-    this.console.writeln(`Logged in 🐥`);
+    this.loginView.render();
   }
 
   private createProfile(): void {

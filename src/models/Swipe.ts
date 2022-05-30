@@ -4,7 +4,10 @@ import { SwipePrimitives } from "./SwipePrimitives";
 export class Swipe {
   // true = right
   // false = left
-  constructor(private direction: boolean, private candidate: Profile) {}
+  constructor(
+    private direction: boolean,
+    private candidate: Profile,
+  ) {}
 
   public isRight(): boolean {
     return this.direction === true;

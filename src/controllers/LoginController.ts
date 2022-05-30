@@ -1,10 +1,10 @@
 import { FileSystemProfilePersistenceService } from "../infrastructure/file-system/FileSystemProfilePersistenceService";
-import { Profile } from "../models/Profile";
 
 export class LoginController {
   constructor(private persistenceService: FileSystemProfilePersistenceService) {}
 
-  public control(name: string): Profile | null {
-    return this.persistenceService.find(name);
+  public control(name: string): boolean {
+    const isValidCredentials = this.persistenceService.find(name);
+    return !!isValidCredentials;
   }
 }
