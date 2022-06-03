@@ -73,7 +73,7 @@ export class FileSystemProfilePersistenceService {
     fs.writeFileSync("./src/data/profiles.json", JSON.stringify(parsedJson));
   }
 
-  public getProfiles(): Profile[] {
+  public getProfiles(_query: object): Profile[] {
     return this.parsedJson().map((profile) =>
       Profile.fromPrimitives({
         name: profile.name,

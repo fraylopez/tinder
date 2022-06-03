@@ -3,9 +3,11 @@ import { Profile } from "../models/Profile";
 import { User } from "../models/User";
 
 export class StartSwippingController {
-  constructor(private readonly user: User, private persistenceService: FileSystemProfilePersistenceService) {}
+  constructor(private readonly user: User, private profilePersistenceService: FileSystemProfilePersistenceService) {}
 
   public control(): Profile[] {
-    return this.persistenceService.getProfiles().filter((profile) => !this.user.equals(profile));
+    return this.profilePersistenceService.getProfiles({
+      filter: "profiles-already-swiped",
+    });
   }
 }

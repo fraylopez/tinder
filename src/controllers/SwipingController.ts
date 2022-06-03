@@ -8,7 +8,7 @@ export class SwippingController {
     this.persistenceService = FileSystemUserPersistenceService.getInstance();
   }
 
-  control(direction: boolean, candidate: Profile): void {
+  public control(direction: boolean, candidate: Profile): void {
     this.user.swipe(direction, candidate);
     this.persistenceService.update(this.user);
   }

@@ -36,7 +36,7 @@ export class User {
     return this.id;
   }
 
-  equals(profile: Profile): boolean {
+  public equals(profile: Profile): boolean {
     return this.profile.equals(profile);
   }
 
