@@ -10,7 +10,7 @@ state MATCH_LIST
 INITIAL --> IN_APP
 note on link
 Login
-CreateProfile
+CreateUser
 end note
 IN_APP --> SWIPING
 note on link
