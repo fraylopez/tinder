@@ -1,27 +1,42 @@
+/* eslint-disable max-classes-per-file */
 import { Profile } from "./Profile";
 import { Swipe } from "./Swipe";
+import { SwipeList } from "./SwipeList";
 import { UserPrimitives } from "./UserPrimitives";
 
 export class User {
   private id: string;
   private profile: Profile;
-  private swipes: Swipe[];
+  private swipeList: SwipeList;
+  private matches: Match[];
 
-  constructor(profile: Profile, swipes: Swipe[] = []) {
+  constructor(profile: Profile, swipeList: SwipeList, matches: Match[] = []) {
     this.id = profile.getName();
     this.profile = profile;
-    this.swipes = swipes;
+    this.swipeList = swipeList;
+    this.matches = matches;
   }
 
   public swipe(direction: boolean, candidate: Profile): void {
-    this.swipes.push(new Swipe(direction, candidate));
+    this.swipeList.add(new Swipe(direction, this.profile, candidate));
+  }
+
+  public like(swipe: Swipe): void {
+    const isMine = this.swipeList.in(swipe);
+    if (isMine && swipe.canLike(this.profile)) {
+      this.matches.push(new Match(swipe));
+    }
+  }
+
+  public startConversation(profile: Profile): void {
+    throw new Error("Method not implemented.");
   }
 
   public getId(): string {
     return this.id;
   }
 
-  match(profile: Profile): boolean {
+  equals(profile: Profile): boolean {
     return this.profile.equals(profile);
   }
 
@@ -29,7 +44,10 @@ export class User {
     return {
       id: this.id,
       profile: this.profile.toPrimitives(),
-      swipes: this.swipes.map((swipe) => swipe.toPrimitives()),
     };
   }
+}
+
+class Match {
+  constructor(private readonly swipe: Swipe) {}
 }

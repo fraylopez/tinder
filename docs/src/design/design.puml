@@ -1,17 +1,101 @@
-@startuml Design
-title Design
+@startuml Domain classes
+title Domain classes
 
-enum SessionState {
-  INITIAL
-  SWIPING
-  CONVERSATION
-  PROFILE
-  MATCH_LIST
+' enum SessionState {
+'   INITIAL
+'   SWIPING
+'   CONVERSATION
+'   PROFILE
+'   MATCH_LIST
+' }
+
+' class Session {
+'   state: SessionState
+'   profile: Profile
+' }
+
+class User {
+  - id: string;
+
+  + swipe(direction, profile): void
+  + like(swipe): void
+  + sendMessage(message, profile): void
+  + receiveMessage(message, profile): void
 }
 
-class Session {
-  state: SessionState
-  profile: Profile
+class SwipeContainer {
+  - swipes
+
+  + add(swipe): void
+  + in(swipe: Swipe): boolean
 }
+
+class Swipe {
+  - direction: SwipeDirection
+  - from: Profile
+  - to: Profile
+
+  + isTo(profile): boolean
+}
+
+enum SwipeDirection {
+  LEFT
+  RIGHT
+}
+
+class Profile {
+  - name: string
+  - gender: string
+  - age: number
+
+  + equals(profile): boolean
+}
+
+class Conversation {
+  + addMessage(message): void
+}
+
+class MessageContainer {
+  - messages
+
+  + add(message): void
+  + in(message: Message): boolean
+}
+
+class Message {
+  - fromId: string
+  - toId: string
+  - text: string
+
+  + isFromMe(id: string): boolean
+}
+
+class MatchContainer {
+  - matches
+
+  + add(match): void
+  + in(match: Match): boolean
+}
+
+class Match {
+  - to: Profile
+
+  + sendMessage(message): void
+  + receiveMessage(message, profile): void
+}
+
+
+User *--> Profile
+User *--> SwipeContainer
+SwipeContainer *--> Swipe
+User *--> MatchContainer
+MatchContainer *--> Match
+Match *--> Conversation
+Conversation *--> MessageContainer
+MessageContainer *--> Message
+
+Swipe *--> Profile
+Swipe *--> SwipeDirection
+
 
 @enduml
