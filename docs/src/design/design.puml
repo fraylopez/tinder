@@ -32,7 +32,6 @@ class SwipeContainer {
 
 class Swipe {
   - direction: SwipeDirection
-  - from: Profile
   - to: Profile
 
   + isTo(profile): boolean
