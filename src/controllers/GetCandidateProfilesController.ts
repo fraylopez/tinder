@@ -6,6 +6,6 @@ export class GetCandidateProfilesController {
   constructor(private readonly user: User, private persistenceService: FileSystemProfilePersistenceService) {}
 
   public control(): Profile[] {
-    return this.persistenceService.getProfiles().filter((profile) => !this.user.match(profile));
+    return this.persistenceService.getProfiles().filter((profile) => !this.user.equals(profile));
   }
 }
