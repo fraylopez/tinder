@@ -3,7 +3,7 @@ import { ConsoleView } from "../ConsoleView";
 import { ProfileView } from "./ProfileView";
 
 export class GetProfileView extends ConsoleView {
-  constructor(private profileView: ProfileView, private controller: GetProfileController) {
+  constructor(private controller: GetProfileController) {
     super();
   }
 
@@ -11,7 +11,7 @@ export class GetProfileView extends ConsoleView {
     const name = this.console.readString("What profile do you want to get? (Name)");
     const profile = this.controller.control(name);
     if (profile) {
-      this.profileView.render(profile);
+      new ProfileView(profile).render();
     } else {
       this.console.write("profile not found :/");
     }

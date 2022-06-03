@@ -2,10 +2,9 @@ import { SwippingStateController } from "../../../controllers/state/SwippingStat
 import { Session } from "../../../models/Session";
 import { StateView } from "./StateView";
 
-export class SwippingStateView extends StateView {
+export class SwippingStateView extends StateView<SwippingStateController> {
   constructor(session: Session) {
-    const controller = new SwippingStateController(session);
-    super(session, controller);
+    super(session, new SwippingStateController(session));
   }
 
   render(): void {

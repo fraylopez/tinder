@@ -4,8 +4,7 @@ import { StateView } from "./StateView";
 
 export class ConversationStateView extends StateView {
   constructor(session: Session) {
-    const controller = new ConversationStateController(session);
-    super(session, controller);
+    super(session, new ConversationStateController(session));
   }
 
   render(): void {

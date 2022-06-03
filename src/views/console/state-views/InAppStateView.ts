@@ -1,14 +1,15 @@
 import { InAppStateController } from "../../../controllers/state/InAppStateController";
 import { Session } from "../../../models/Session";
+import { MenuView } from "../menus/MenuView";
+import { InAppStateMenu } from "../menus/InAppStateMenu";
 import { StateView } from "./StateView";
 
-export class InAppStateView extends StateView {
+export class InAppStateView extends StateView<InAppStateController> {
   constructor(session: Session) {
-    const controller = new InAppStateController(session);
-    super(session, controller);
+    super(session, new InAppStateController(session));
   }
-  render(): void {
-    this.console.writeln(`this is inapp view with controller ${this.controller.constructor.name}`);
-    this.console.readString("press enter to continue");
+
+  public render(): void {
+    new MenuView(new InAppStateMenu(this.session, this.controller)).render();
   }
 }
