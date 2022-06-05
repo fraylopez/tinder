@@ -52,6 +52,7 @@ end note
 PROFILE --> INITIAL
 note on link
 DeleteProfile
+logout
 end note
 
 CONVERSATION --> PROFILE
