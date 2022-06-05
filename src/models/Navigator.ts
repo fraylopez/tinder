@@ -40,6 +40,7 @@ export enum Transition {
   SWIPE_DONE = "swipe-done",
   GET_PROFILE = "get-profile",
   OPEN_CONVERSATION = "open-conversation",
+  GET_MATCHES = "get-matches",
   BACK = "back",
 }
 
@@ -49,6 +50,7 @@ export enum State {
   SWIPPING = "swipping",
   PROFILE = "profile",
   CONVERSATION = "conversation",
+  MATCH_LIST = "match-list",
 }
 
 abstract class Node {
@@ -68,14 +70,13 @@ abstract class Node {
     return this.name;
   }
 
-  protected addTransition(event: Transition, node: Node): void {
-    this.nodes.set(event, node);
+  protected addTransition(transition: Transition, node: Node): void {
+    this.nodes.set(transition, node);
     node.addBackTransition(this);
   }
 
   public removeBack(): void {
-    const d = this.nodes.delete(Transition.BACK);
-    console.log(d);
+    this.nodes.delete(Transition.BACK);
   }
 
   protected addBackTransition(node: Node): void {
@@ -120,5 +121,12 @@ class ProfileNode extends Node {
 class ConversationNode extends Node {
   constructor() {
     super(State.CONVERSATION);
+    this.addTransition(Transition.GET_MATCHES, new MatchListNode());
+  }
+}
+
+class MatchListNode extends Node {
+  constructor() {
+    super(State.MATCH_LIST);
   }
 }

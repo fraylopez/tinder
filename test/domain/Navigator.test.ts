@@ -72,4 +72,10 @@ describe("Navigator test", () => {
     navigator.transit(Transition.OPEN_CONVERSATION);
     expect(navigator.getCurrentState()).eq(State.CONVERSATION);
   });
+
+  it("should transit from conversation to match list after get matches transtion", () => {
+    const navigator = new Navigator([Transition.CREATE_USER, Transition.START_SWIPPING, Transition.OPEN_CONVERSATION]);
+    navigator.transit(Transition.GET_MATCHES);
+    expect(navigator.getCurrentState()).eq(State.MATCH_LIST);
+  });
 });
