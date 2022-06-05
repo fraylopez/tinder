@@ -1,5 +1,5 @@
-@startuml CreateProfileSpecification
-title CreateProfileSpecification
+@startuml CreateUserSpecification
+title CreateUserSpecification
 
 skinparam NoteBackgroundColor white
 
@@ -11,7 +11,7 @@ state is_required_data_provided <<choice>>
 [*] --> INITIAL
 INITIAL -[#green]-> STATE1
 note on link
-User request to create a profile
+User request to create a user
 end note
 STATE1 -[#green]-> STATE2
 note on link
