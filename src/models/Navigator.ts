@@ -37,7 +37,6 @@ export enum Transition {
   LOGIN = "login",
   CREATE_USER = "create-user",
   START_SWIPPING = "start-swipping",
-  SWIPE_DONE = "swipe-done",
   GET_PROFILE = "get-profile",
   OPEN_CONVERSATION = "open-conversation",
   GET_MATCHES = "get-matches",
@@ -95,11 +94,9 @@ class InitialNode extends Node {
 }
 
 class InAppNode extends Node {
-  constructor(config?: { avoidStartSwipping: boolean }) {
+  constructor() {
     super(State.IN_APP);
-    if (!config?.avoidStartSwipping) {
-      this.addTransition(Transition.START_SWIPPING, new SwippingNode());
-    }
+    this.addTransition(Transition.START_SWIPPING, new SwippingNode());
     this.addTransition(Transition.GET_PROFILE, new ProfileNode());
   }
 }
@@ -107,7 +104,6 @@ class InAppNode extends Node {
 class SwippingNode extends Node {
   constructor() {
     super(State.SWIPPING);
-    this.addTransition(Transition.SWIPE_DONE, new InAppNode({ avoidStartSwipping: true }));
     this.addTransition(Transition.OPEN_CONVERSATION, new ConversationNode());
   }
 }
