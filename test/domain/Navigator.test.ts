@@ -66,4 +66,10 @@ describe("Navigator test", () => {
     navigator.transit(Transition.GET_PROFILE);
     expect(navigator.getCurrentState()).eq(State.PROFILE);
   });
+
+  it("should transit from swipping to conversation after open conversation transtion", () => {
+    const navigator = new Navigator([Transition.CREATE_USER, Transition.START_SWIPPING]);
+    navigator.transit(Transition.OPEN_CONVERSATION);
+    expect(navigator.getCurrentState()).eq(State.CONVERSATION);
+  });
 });

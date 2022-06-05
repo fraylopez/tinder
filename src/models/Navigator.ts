@@ -39,6 +39,7 @@ export enum Transition {
   START_SWIPPING = "start-swipping",
   SWIPE_DONE = "swipe-done",
   GET_PROFILE = "get-profile",
+  OPEN_CONVERSATION = "open-conversation",
   BACK = "back",
 }
 
@@ -47,6 +48,7 @@ export enum State {
   IN_APP = "in-app",
   SWIPPING = "swipping",
   PROFILE = "profile",
+  CONVERSATION = "conversation",
 }
 
 abstract class Node {
@@ -105,11 +107,18 @@ class SwippingNode extends Node {
   constructor() {
     super(State.SWIPPING);
     this.addTransition(Transition.SWIPE_DONE, new InAppNode({ avoidStartSwipping: true }));
+    this.addTransition(Transition.OPEN_CONVERSATION, new ConversationNode());
   }
 }
 
 class ProfileNode extends Node {
   constructor() {
     super(State.PROFILE);
+  }
+}
+
+class ConversationNode extends Node {
+  constructor() {
+    super(State.CONVERSATION);
   }
 }
