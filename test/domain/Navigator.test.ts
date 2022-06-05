@@ -44,8 +44,14 @@ describe("Navigator test", () => {
   });
 
   it("should navigate back", () => {
+    const navigator = new Navigator([Transition.LOGIN, Transition.START_SWIPPING]);
+    navigator.back();
+    expect(navigator.getCurrentState()).eq(State.IN_APP);
+  });
+
+  it("should stay in app after login trying to go back", () => {
     const navigator = new Navigator([Transition.LOGIN]);
     navigator.back();
-    expect(navigator.getCurrentState()).eq(State.INITIAL);
+    expect(navigator.getCurrentState()).eq(State.IN_APP);
   });
 });

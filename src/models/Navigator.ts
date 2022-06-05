@@ -15,7 +15,10 @@ export class Navigator {
   }
 
   public transit(transition: Transition): void {
-    this.currentNode = this.currentNode.transit(transition);
+    const newNode = this.currentNode.transit(transition);
+    if (newNode) {
+      this.currentNode = newNode;
+    }
   }
 
   public restart(transitions: Transition[]): void {
@@ -53,10 +56,8 @@ abstract class Node {
 
   public transit(transition: string): Node {
     const newNode = this.nodes.get(transition);
-    if (!newNode) {
-      throw new Error(`Missing transition: ${transition}`);
-    }
-    return newNode;
+    // TODO: assert newNode
+    return newNode!;
   }
 
   public getName(): State {
@@ -68,6 +69,11 @@ abstract class Node {
     node.addBackTransition(this);
   }
 
+  public removeBack(): void {
+    const d = this.nodes.delete(Transition.BACK);
+    console.log(d);
+  }
+
   protected addBackTransition(node: Node): void {
     this.nodes.set("back", node);
   }
@@ -76,8 +82,10 @@ abstract class Node {
 class InitialNode extends Node {
   constructor() {
     super(State.INITIAL);
-    this.addTransition("login", new InAppNode());
-    this.addTransition("create-user", new InAppNode());
+    const inAppNode = new InAppNode();
+    this.addTransition("login", inAppNode);
+    this.addTransition("create-user", inAppNode);
+    inAppNode.removeBack();
   }
 }
 
