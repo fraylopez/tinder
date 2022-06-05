@@ -3,8 +3,11 @@
 export class Navigator {
   private currentNode: Node;
 
-  constructor() {
+  constructor(transitions?: Transition[]) {
     this.currentNode = new InitialNode();
+    if (transitions) {
+      this.restart(transitions);
+    }
   }
 
   public getCurrentState(): State {

@@ -31,4 +31,9 @@ describe("Navigator test", () => {
     navigator.restart([Transition.LOGIN, Transition.START_SWIPPING]);
     expect(navigator.getCurrentState()).eq(State.SWIPPING);
   });
+
+  it("should start with transitions", () => {
+    const navigator = new Navigator([Transition.LOGIN, Transition.START_SWIPPING]);
+    expect(navigator.getCurrentState()).eq(State.SWIPPING);
+  });
 });
