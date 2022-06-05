@@ -50,13 +50,13 @@ export enum State {
 }
 
 abstract class Node {
-  private readonly nodes: Map<string, Node>;
+  private readonly nodes: Map<Transition, Node>;
 
   constructor(private readonly name: State) {
     this.nodes = new Map();
   }
 
-  public transit(transition: string): Node {
+  public transit(transition: Transition): Node {
     const newNode = this.nodes.get(transition);
     // TODO: assert newNode
     return newNode!;
@@ -66,7 +66,7 @@ abstract class Node {
     return this.name;
   }
 
-  protected addTransition(event: string, node: Node): void {
+  protected addTransition(event: Transition, node: Node): void {
     this.nodes.set(event, node);
     node.addBackTransition(this);
   }
@@ -77,7 +77,7 @@ abstract class Node {
   }
 
   protected addBackTransition(node: Node): void {
-    this.nodes.set("back", node);
+    this.nodes.set(Transition.BACK, node);
   }
 }
 
@@ -85,8 +85,8 @@ class InitialNode extends Node {
   constructor() {
     super(State.INITIAL);
     const inAppNode = new InAppNode();
-    this.addTransition("login", inAppNode);
-    this.addTransition("create-user", inAppNode);
+    this.addTransition(Transition.LOGIN, inAppNode);
+    this.addTransition(Transition.CREATE_USER, inAppNode);
     inAppNode.removeBack();
   }
 }
@@ -95,7 +95,7 @@ class InAppNode extends Node {
   constructor(config?: { avoidStartSwipping: boolean }) {
     super(State.IN_APP);
     if (!config?.avoidStartSwipping) {
-      this.addTransition("start-swipping", new SwippingNode());
+      this.addTransition(Transition.START_SWIPPING, new SwippingNode());
     }
     this.addTransition(Transition.GET_PROFILE, new ProfileNode());
   }
