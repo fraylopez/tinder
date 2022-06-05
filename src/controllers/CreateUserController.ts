@@ -5,8 +5,8 @@ import { FileSystemUserPersistenceService } from "../infrastructure/file-system/
 export class CreateUserController {
   constructor(private persistenceService: FileSystemUserPersistenceService) {}
 
-  public control(name: string, age: number, gender: string): void {
-    const user = new User(new Profile(name, age, gender));
+  public control(name: string, age: number, gender: string, id: string): void {
+    const user = new User(new Profile(name, age, gender), undefined, undefined, id);
     this.persistenceService.create(user);
   }
 }

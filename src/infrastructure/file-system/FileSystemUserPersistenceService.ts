@@ -1,8 +1,6 @@
 import * as fs from "fs";
-import { Swipe } from "../../models/Swipe";
-import { SwipesContainer } from "../../models/SwipesContainer";
+import { Profile } from "../../models/Profile";
 import { User } from "../../models/User";
-import { FileSystemProfilePersistenceService } from "./FileSystemProfilePersistenceService";
 import { FileSystemUser } from "./models/FileSystemUser";
 
 export class FileSystemUserPersistenceService {
@@ -33,7 +31,7 @@ export class FileSystemUserPersistenceService {
   public find(id: string): User | null {
     const users = fs.readFileSync("./src/data/users.json", "utf8");
     const array: FileSystemUser[] = JSON.parse(users) as FileSystemUser[];
-    const foundUser = array.find((profile: FileSystemUser) => profile.id === id);
+    const foundUser = array.find((user: FileSystemUser) => user.id === id);
     if (!foundUser) {
       return null;
     }
@@ -45,20 +43,29 @@ export class FileSystemUserPersistenceService {
     return JSON.parse(stringified) as FileSystemUser[];
   }
 
-  update(user: User) {
+  public delete(user: User) {
     const parsedJson = this.parsedJson();
 
-    // parsedJson.forEach((userItem: FileSystemUser, index: number) => {
-    //   if (userItem.id === user.getId()) {
-    //     parsedJson[index] = {
-    //       id: user.getId(),
-    //       // swipes: user.toPrimitives().swipes.map((swipe) => ({
-    //       //   direction: swipe.direction,
-    //       //   to: swipe.candidate.name,
-    //       // })),
-    //     };
-    //   }
-    // });
+    parsedJson.forEach((fileSystemUser: FileSystemUser, index: number) => {
+      if (fileSystemUser.id === user.getId()) {
+        parsedJson.splice(index, 1);
+      }
+    });
+    fs.writeFileSync("./src/data/users.json", JSON.stringify(parsedJson));
+  }
+
+  public getCandidatesProfiles(user: User): Profile[] {
+    throw new Error("Method not implemented.");
+  }
+
+  public update(user: User) {
+    const parsedJson = this.parsedJson();
+
+    parsedJson.forEach((fileSystemUser: FileSystemUser, index: number) => {
+      if (fileSystemUser.id === user.getId()) {
+        parsedJson[index] = user.toPrimitives();
+      }
+    });
 
     fs.writeFileSync("./src/data/users.json", JSON.stringify(parsedJson));
   }

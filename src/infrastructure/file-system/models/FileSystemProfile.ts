@@ -1,6 +1,3 @@
+import { ProfilePrimitives } from "../../../models/ProfilePrimitives";
 
-export interface FileSystemProfile {
-  name: string;
-  age: number;
-  gender: string;
-}
+export type FileSystemProfile = ProfilePrimitives;

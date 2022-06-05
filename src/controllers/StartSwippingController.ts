@@ -1,13 +1,11 @@
-import { FileSystemProfilePersistenceService } from "../infrastructure/file-system/FileSystemProfilePersistenceService";
+import { FileSystemUserPersistenceService } from "../infrastructure/file-system/FileSystemUserPersistenceService";
 import { Profile } from "../models/Profile";
 import { User } from "../models/User";
 
 export class StartSwippingController {
-  constructor(private readonly user: User, private profilePersistenceService: FileSystemProfilePersistenceService) {}
+  constructor(private readonly user: User, private persistenceService: FileSystemUserPersistenceService) {}
 
   public control(): Profile[] {
-    return this.profilePersistenceService.getProfiles({
-      filter: "profiles-already-swiped",
-    });
+    return this.persistenceService.getCandidatesProfiles(this.user);
   }
 }

@@ -1,7 +1,7 @@
 import { FileSystemUserPersistenceService } from "../infrastructure/file-system/FileSystemUserPersistenceService";
 import { User } from "../models/User";
 
-export class LoginController {
+export class GetUserController {
   constructor(private persistenceService: FileSystemUserPersistenceService) {}
 
   public control(id: string): User | null {

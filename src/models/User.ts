@@ -2,6 +2,7 @@ import * as uuid from "uuid";
 import { Match } from "./Match";
 import { MatchesContainer } from "./MatchesContainer";
 import { Profile } from "./Profile";
+import { ProfilePrimitives } from "./ProfilePrimitives";
 import { Swipe } from "./Swipe";
 import { SwipeDirection } from "./SwipeDirection";
 import { SwipesContainer } from "./SwipesContainer";
@@ -45,12 +46,24 @@ export class User {
     }
   }
 
+  public getProfile(): Profile {
+    return this.profile;
+  }
+
   public getId(): string {
     return this.id;
   }
 
   public equals(profile: Profile): boolean {
     return this.profile.equals(profile);
+  }
+
+  public getName(): string {
+    return this.profile.getName();
+  }
+
+  public updateProfile(profilePrimitives: ProfilePrimitives) {
+    this.profile.updateWithPrimitives(profilePrimitives);
   }
 
   public toPrimitives(): UserPrimitives {

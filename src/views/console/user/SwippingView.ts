@@ -1,5 +1,6 @@
 import { SwippingController } from "../../../controllers/SwipingController";
 import { Profile } from "../../../models/Profile";
+import { SwipeDirection } from "../../../models/SwipeDirection";
 import { User } from "../../../models/User";
 import { ConsoleView } from "../ConsoleView";
 import { ProfileView } from "./ProfileView";
@@ -13,8 +14,16 @@ export class SwippingView extends ConsoleView {
   }
 
   public render() {
-    new ProfileView().render(this.candidate);
-    const direction: boolean = this.console.yesNoDialog("righ or left");
+    new ProfileView(this.candidate).render();
+    const direction = this.askForDirection();
     this.controller.control(direction, this.candidate);
+  }
+
+  private askForDirection(): SwipeDirection {
+    const right: boolean = this.console.yesNoDialog("righ or left");
+    if (right) {
+      return SwipeDirection.Right;
+    }
+    return SwipeDirection.Left;
   }
 }

@@ -2,13 +2,13 @@ import { InitialStateController } from "../../../controllers/state/InitialStateC
 import { Session } from "../../../models/Session";
 import { Menu } from "./Menu";
 import { LoginMenuItem } from "./items/LoginMenuItem";
-import { CreateProfileMenuItem } from "./items/CreateProfileMenuItem";
+import { CreateUserMenuItem } from "./items/CreateUserMenuItem";
 
 export class InitialStateMenu extends Menu {
   constructor(session: Session, controller: InitialStateController) {
     super("Please, choose the option you want to perform", [
       new LoginMenuItem(session, controller),
-      new CreateProfileMenuItem(controller),
+      new CreateUserMenuItem(controller),
     ]);
   }
 }

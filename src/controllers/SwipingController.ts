@@ -1,5 +1,6 @@
 import { FileSystemUserPersistenceService } from "../infrastructure/file-system/FileSystemUserPersistenceService";
 import { Profile } from "../models/Profile";
+import { SwipeDirection } from "../models/SwipeDirection";
 import { User } from "../models/User";
 
 export class SwippingController {
@@ -8,7 +9,7 @@ export class SwippingController {
     this.persistenceService = FileSystemUserPersistenceService.getInstance();
   }
 
-  public control(direction: boolean, candidate: Profile): void {
+  public control(direction: SwipeDirection, candidate: Profile): void {
     this.user.swipe(direction, candidate);
     this.persistenceService.update(this.user);
   }
