@@ -30,6 +30,7 @@ export enum Transition {
   LOGIN = "login",
   CREATE_USER = "create-user",
   START_SWIPPING = "start-swipping",
+  SWIPE_DONE = "swipe-done",
 }
 
 export enum State {
@@ -71,14 +72,17 @@ class InitialNode extends Node {
 }
 
 class InAppNode extends Node {
-  constructor() {
+  constructor(config?: { avoidStartSwipping: boolean }) {
     super(State.IN_APP);
-    this.addTransition("start-swipping", new SwippingNode());
+    if (!config?.avoidStartSwipping) {
+      this.addTransition("start-swipping", new SwippingNode());
+    }
   }
 }
 
 class SwippingNode extends Node {
   constructor() {
     super(State.SWIPPING);
+    this.addTransition(Transition.SWIPE_DONE, new InAppNode({ avoidStartSwipping: true }));
   }
 }

@@ -36,4 +36,10 @@ describe("Navigator test", () => {
     const navigator = new Navigator([Transition.LOGIN, Transition.START_SWIPPING]);
     expect(navigator.getCurrentState()).eq(State.SWIPPING);
   });
+
+  it("should transit from swipping to in app when swipe done", () => {
+    const navigator = new Navigator([Transition.LOGIN, Transition.START_SWIPPING]);
+    navigator.transit(Transition.SWIPE_DONE);
+    expect(navigator.getCurrentState()).eq(State.IN_APP);
+  });
 });
