@@ -7,7 +7,7 @@ export class Navigator {
     this.currentNode = new InitialNode();
   }
 
-  public getCurrentState(): string {
+  public getCurrentState(): State {
     return this.currentNode.getName();
   }
 
@@ -22,10 +22,16 @@ export enum Transition {
   START_SWIPPING = "start-swipping",
 }
 
+export enum State {
+  INITIAL = "initial",
+  IN_APP = "in-app",
+  SWIPPING = "swipping",
+}
+
 abstract class Node {
   private readonly nodes: Map<string, Node>;
 
-  constructor(private readonly name: string) {
+  constructor(private readonly name: State) {
     this.nodes = new Map();
   }
 
@@ -37,7 +43,7 @@ abstract class Node {
     return newNode;
   }
 
-  public getName(): string {
+  public getName(): State {
     return this.name;
   }
 
@@ -48,7 +54,7 @@ abstract class Node {
 
 class InitialNode extends Node {
   constructor() {
-    super("initial");
+    super(State.INITIAL);
     this.addTransition("login", new InAppNode());
     this.addTransition("create-user", new InAppNode());
   }
@@ -56,13 +62,13 @@ class InitialNode extends Node {
 
 class InAppNode extends Node {
   constructor() {
-    super("in-app");
+    super(State.IN_APP);
     this.addTransition("start-swipping", new SwippingNode());
   }
 }
 
 class SwippingNode extends Node {
   constructor() {
-    super("swipping");
+    super(State.SWIPPING);
   }
 }
