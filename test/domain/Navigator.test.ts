@@ -42,4 +42,10 @@ describe("Navigator test", () => {
     navigator.transit(Transition.SWIPE_DONE);
     expect(navigator.getCurrentState()).eq(State.IN_APP);
   });
+
+  it("should navigate back", () => {
+    const navigator = new Navigator([Transition.LOGIN]);
+    navigator.back();
+    expect(navigator.getCurrentState()).eq(State.INITIAL);
+  });
 });

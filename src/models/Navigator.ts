@@ -24,6 +24,10 @@ export class Navigator {
       this.transit(transition);
     }
   }
+
+  public back(): void {
+    this.transit(Transition.BACK);
+  }
 }
 
 export enum Transition {
@@ -31,6 +35,7 @@ export enum Transition {
   CREATE_USER = "create-user",
   START_SWIPPING = "start-swipping",
   SWIPE_DONE = "swipe-done",
+  BACK = "back",
 }
 
 export enum State {
@@ -60,6 +65,11 @@ abstract class Node {
 
   protected addTransition(event: string, node: Node): void {
     this.nodes.set(event, node);
+    node.addBackTransition(this);
+  }
+
+  protected addBackTransition(node: Node): void {
+    this.nodes.set("back", node);
   }
 }
 
