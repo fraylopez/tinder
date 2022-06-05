@@ -38,6 +38,7 @@ export enum Transition {
   CREATE_USER = "create-user",
   START_SWIPPING = "start-swipping",
   SWIPE_DONE = "swipe-done",
+  GET_PROFILE = "get-profile",
   BACK = "back",
 }
 
@@ -45,6 +46,7 @@ export enum State {
   INITIAL = "initial",
   IN_APP = "in-app",
   SWIPPING = "swipping",
+  PROFILE = "profile",
 }
 
 abstract class Node {
@@ -95,6 +97,7 @@ class InAppNode extends Node {
     if (!config?.avoidStartSwipping) {
       this.addTransition("start-swipping", new SwippingNode());
     }
+    this.addTransition(Transition.GET_PROFILE, new ProfileNode());
   }
 }
 
@@ -102,5 +105,11 @@ class SwippingNode extends Node {
   constructor() {
     super(State.SWIPPING);
     this.addTransition(Transition.SWIPE_DONE, new InAppNode({ avoidStartSwipping: true }));
+  }
+}
+
+class ProfileNode extends Node {
+  constructor() {
+    super(State.PROFILE);
   }
 }

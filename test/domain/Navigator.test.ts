@@ -60,4 +60,10 @@ describe("Navigator test", () => {
     navigator.back();
     expect(navigator.getCurrentState()).eq(State.IN_APP);
   });
+
+  it("should transit from in app to profile after get profile transtion", () => {
+    const navigator = new Navigator([Transition.CREATE_USER]);
+    navigator.transit(Transition.GET_PROFILE);
+    expect(navigator.getCurrentState()).eq(State.PROFILE);
+  });
 });
