@@ -1,5 +1,7 @@
 import { expect } from "chai";
-import { Navigator, State, Transition } from "../../src/models/Navigator";
+import { Navigator } from "../../../src/models/navigation/Navigator";
+import { State } from "../../../src/models/navigation/State";
+import { Transition } from "../../../src/models/navigation/Transition";
 
 describe("Navigator test", () => {
   it("should start at the initial state", () => {
