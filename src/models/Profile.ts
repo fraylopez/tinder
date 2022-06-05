@@ -18,19 +18,23 @@ export class Profile {
     return new Profile(primitives.name, primitives.age, primitives.gender);
   }
 
-  getName() {
+  public getId(): string {
     return this.name;
   }
 
-  getAge() {
+  public getName() {
+    return this.name;
+  }
+
+  public getAge() {
     return this.age;
   }
 
-  getGender() {
+  public getGender() {
     return this.gender;
   }
 
-  equals(profile: Profile): boolean {
+  public equals(profile: Profile): boolean {
     return this.age === profile.age && this.name === profile.name && this.gender === profile.gender;
   }
 

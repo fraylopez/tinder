@@ -16,10 +16,10 @@ export class FileSystemProfilePersistenceService {
     //
   }
 
-  public find(name: string): Profile | null {
+  public find(id: string): Profile | null {
     const profiles = fs.readFileSync("./src/data/profiles.json", "utf8");
     const array: FileSystemProfile[] = JSON.parse(profiles) as FileSystemProfile[];
-    const foundUser = array.find((profile: FileSystemProfile) => profile.name === name);
+    const foundUser = array.find((profile: FileSystemProfile) => profile.name === id);
     return foundUser
       ? Profile.fromPrimitives({
           name: foundUser.name,

@@ -1,35 +1,48 @@
-/* eslint-disable max-classes-per-file */
+import * as uuid from "uuid";
+import { Match } from "./Match";
+import { MatchesContainer } from "./MatchesContainer";
 import { Profile } from "./Profile";
 import { Swipe } from "./Swipe";
-import { SwipeList } from "./SwipeList";
+import { SwipeDirection } from "./SwipeDirection";
+import { SwipesContainer } from "./SwipesContainer";
 import { UserPrimitives } from "./UserPrimitives";
 
 export class User {
-  private id: string;
-  private profile: Profile;
-  private swipeList: SwipeList;
-  private matches: Match[];
-
-  constructor(profile: Profile, swipeList: SwipeList, matches: Match[] = []) {
-    this.id = profile.getName();
-    this.profile = profile;
-    this.swipeList = swipeList;
-    this.matches = matches;
+  static fromPrimitives(primites: UserPrimitives): User {
+    return new User(
+      Profile.fromPrimitives(primites.profile),
+      SwipesContainer.fromPrimitives(primites.swipes),
+      MatchesContainer.fromPrimitives(primites.matches),
+      primites.id
+    );
   }
 
-  public swipe(direction: boolean, candidate: Profile): void {
-    this.swipeList.add(new Swipe(direction, this.profile, candidate));
+  private id: string;
+  private profile: Profile;
+  private swipesContainer: SwipesContainer;
+  private matchesContainer: MatchesContainer;
+
+  constructor(
+    profile: Profile,
+    swipeList: SwipesContainer = new SwipesContainer(),
+    matches: MatchesContainer = new MatchesContainer(),
+    id: string = uuid.v4()
+  ) {
+    this.id = id;
+    this.profile = profile;
+    this.swipesContainer = swipeList;
+    this.matchesContainer = matches;
+  }
+
+  public swipe(direction: SwipeDirection, candidate: Profile): void {
+    this.swipesContainer.add(direction, candidate);
   }
 
   public like(swipe: Swipe): void {
-    const isMine = this.swipeList.in(swipe);
+    const isMine = this.swipesContainer.in(swipe);
     if (isMine && swipe.canLike(this.profile)) {
-      this.matches.push(new Match(swipe));
+      this.matchesContainer.add(new Match(swipe.getTo()));
     }
-  }
-
-  public startConversation(profile: Profile): void {
-    throw new Error("Method not implemented.");
   }
 
   public getId(): string {
@@ -44,10 +57,8 @@ export class User {
     return {
       id: this.id,
       profile: this.profile.toPrimitives(),
+      swipes: this.swipesContainer.toPrimitives(),
+      matches: this.matchesContainer.toPrimitives(),
     };
   }
-}
-
-class Match {
-  constructor(private readonly swipe: Swipe) {}
 }
