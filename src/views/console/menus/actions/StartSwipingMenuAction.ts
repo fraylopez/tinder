@@ -1,10 +1,10 @@
 import { InAppStateController } from "../../../../controllers/state/InAppStateController";
 import { IMenuItemAction } from "./IMenuItemAction";
 
-export class SwipeMenuAction implements IMenuItemAction {
+export class StartSwipingMenuAction implements IMenuItemAction {
   constructor(private readonly controller: InAppStateController) {}
 
   execute(): void {
-    this.controller.swipe();
+    this.controller.startSwipping();
   }
 }

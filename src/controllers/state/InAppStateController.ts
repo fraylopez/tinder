@@ -14,7 +14,7 @@ export class InAppStateController extends StateController {
     );
   }
 
-  public swipe(): Profile[] {
+  public startSwipping(): Profile[] {
     return this.startSwippingController.control();
   }
 
