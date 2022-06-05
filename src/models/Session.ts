@@ -1,20 +1,26 @@
-import { AppState } from "./AppState";
 import assert from "assert";
 import { User } from "./User";
 import { Profile } from "./Profile";
+import { Navigator } from "./navigation/Navigator";
+import { State } from "./navigation/State";
+import { Transition } from "./navigation/Transition";
 
 export class Session {
-  private state: AppState = AppState.INITIAL;
+  private readonly navigator: Navigator;
   private user?: User;
+
+  constructor() {
+    this.navigator = new Navigator();
+  }
 
   public login(user: User) {
     this.user = user;
-    this.state = AppState.INAPP;
+    this.navigator.transit(Transition.LOGIN);
   }
 
   public logOut() {
     this.user = undefined;
-    this.state = AppState.INITIAL;
+    this.navigator.logout();
   }
 
   public getUser(): User {
@@ -22,8 +28,12 @@ export class Session {
     return this.user!;
   }
 
-  public getState(): AppState {
-    return this.state;
+  public getState(): State {
+    return this.navigator.getCurrentState();
+  }
+
+  public transit(transition: Transition): void {
+    this.navigator.transit(transition);
   }
 
   public getUserName(): string {
@@ -35,20 +45,11 @@ export class Session {
     return !!this.user;
   }
 
-  public next(): void {
-    this.state = Object.keys(AppState)[this.getCurrentStateIndex() + 1] as AppState;
-  }
-
   public getProfile(): Profile {
     return this.user!.getProfile();
   }
 
   public back() {
-    assert(this.state !== AppState.INITIAL);
-    this.state = Object.keys(AppState)[this.getCurrentStateIndex() - 1] as AppState;
-  }
-
-  private getCurrentStateIndex(): number {
-    return Object.keys(AppState).indexOf(this.state);
+    this.navigator.back();
   }
 }

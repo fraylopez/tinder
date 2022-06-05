@@ -3,9 +3,9 @@ import { Profile } from "../models/Profile";
 import { User } from "../models/User";
 
 export class StartSwippingController {
-  constructor(private readonly user: User, private persistenceService: FileSystemUserPersistenceService) {}
+  constructor(private persistenceService: FileSystemUserPersistenceService) {}
 
-  public control(): Profile[] {
-    return this.persistenceService.getCandidatesProfiles(this.user);
+  public control(user: User): Profile[] {
+    return this.persistenceService.getCandidatesProfiles(user);
   }
 }

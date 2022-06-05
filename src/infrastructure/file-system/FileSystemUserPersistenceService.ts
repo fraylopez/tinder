@@ -55,7 +55,10 @@ export class FileSystemUserPersistenceService {
   }
 
   public getCandidatesProfiles(user: User): Profile[] {
-    throw new Error("Method not implemented.");
+    const parsedJson = this.parsedJson();
+    return parsedJson.map((userJSON) => {
+      return Profile.fromPrimitives(userJSON.profile);
+    });
   }
 
   public update(user: User) {
