@@ -71,4 +71,10 @@ describe("Navigator test", () => {
     navigator.transit(Transition.GET_MATCHES);
     expect(navigator.getCurrentState()).eq(State.MATCH_LIST);
   });
+
+  it("should move to initial state after logout", () => {
+    const navigator = new Navigator([Transition.CREATE_USER, Transition.GET_PROFILE]);
+    navigator.logout();
+    expect(navigator.getCurrentState()).eq(State.INITIAL);
+  });
 });

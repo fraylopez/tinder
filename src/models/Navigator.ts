@@ -28,6 +28,10 @@ export class Navigator {
     }
   }
 
+  public logout(): void {
+    this.restart([]);
+  }
+
   public back(): void {
     this.transit(Transition.BACK);
   }
