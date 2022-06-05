@@ -54,4 +54,10 @@ describe("Navigator test", () => {
     navigator.back();
     expect(navigator.getCurrentState()).eq(State.IN_APP);
   });
+
+  it("should stay in app after create user trying to go back", () => {
+    const navigator = new Navigator([Transition.CREATE_USER]);
+    navigator.back();
+    expect(navigator.getCurrentState()).eq(State.IN_APP);
+  });
 });
