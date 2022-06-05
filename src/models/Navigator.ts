@@ -11,9 +11,15 @@ export class Navigator {
     return this.currentNode.getName();
   }
 
-  public transit(transition: string): void {
+  public transit(transition: Transition): void {
     this.currentNode = this.currentNode.transit(transition);
   }
+}
+
+export enum Transition {
+  LOGIN = "login",
+  CREATE_USER = "create-user",
+  START_SWIPPING = "start-swipping",
 }
 
 abstract class Node {
