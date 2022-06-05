@@ -14,6 +14,13 @@ export class Navigator {
   public transit(transition: Transition): void {
     this.currentNode = this.currentNode.transit(transition);
   }
+
+  public restart(transitions: Transition[]): void {
+    this.currentNode = new InitialNode();
+    for (const transition of transitions) {
+      this.transit(transition);
+    }
+  }
 }
 
 export enum Transition {

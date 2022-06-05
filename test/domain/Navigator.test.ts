@@ -25,4 +25,10 @@ describe("Navigator test", () => {
     navigator.transit(Transition.START_SWIPPING);
     expect(navigator.getCurrentState()).eq(State.SWIPPING);
   });
+
+  it("should be restarted at a given node", () => {
+    const navigator = new Navigator();
+    navigator.restart([Transition.LOGIN, Transition.START_SWIPPING]);
+    expect(navigator.getCurrentState()).eq(State.SWIPPING);
+  });
 });
