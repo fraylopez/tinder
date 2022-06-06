@@ -1,0 +1,280 @@
+@startuml
+interface ProfilePrimitives {
+    +name: string
+    +age: number
+    +gender: string
+}
+class UnderAgeError extends Error
+class Profile {
+    -name: string
+    -age: number
+    -gender: string
+    +getName(): string
+    +getAge(): number
+    +getGender(): string
+    +equals(profile: Profile): boolean
+    +toPrimitives(): ProfilePrimitives
+    +updateWithPrimitives(profilePrimitives: ProfilePrimitives): void
+    +{static} fromPrimitives(primitives: ProfilePrimitives): Profile
+}
+enum AppState {
+    INITIAL
+    INAPP
+    PROFILE
+    SWIPING
+    CONVERSATION
+    MATCH_LIST
+}
+class Session {
+    -state: AppState
+    -profile?: Profile | undefined
+    +login(profile: Profile): void
+    +logOut(): void
+    +getProfile(): Profile
+    +getState(): AppState
+    +getUserProfileName(): string
+    +isLoggedIn(): boolean
+    +next(): void
+    +back(): void
+    -getCurrentStateIndex(): number
+}
+abstract class StateController {
+    #session: Session
+}
+class ConversationStateController extends StateController
+class Console {
+    +clear(): void
+    +readInt(question: string | string[]): number
+    +readString(question: string): string
+    +writeln(string?: string): void
+    +write(string?: string): void
+    +yesNoDialog(msg: string): boolean
+}
+class ConsoleView {
+    #console: Console
+}
+abstract class StateView<T extends StateController> extends ConsoleView {
+    #session: Session
+    #controller: T
+    +{abstract} render(): void
+}
+class ConversationStateView extends StateView {
+    +render(): void
+}
+class InAppStateController extends StateController {
+    +swipe(): void
+    +getProfile(): Profile
+}
+abstract class Menu {
+    -title: string
+    -items: MenuItemType[]
+    +getItems(): MenuItemType[]
+    +getItem(index: number): MenuItemType
+    +totalItems: number
+    +getTitle(): string
+    +acceptToExecute(view: IExecutableMenuView): void
+}
+interface IMenuItemAction {
+    +execute(): void
+}
+abstract class MenuItem {
+    -title: string
+    -action: IMenuItemAction
+    +execute(): void
+    +getTitle(): string
+    +acceptToExecute(view: IExecutableMenuView): void
+}
+interface IExecutableMenuView {
+    +executeMenu(title: string, items: MenuItemType[]): void
+    +executeMenuItem(action: IMenuItemAction): void
+}
+class MenuView extends ConsoleView implements IExecutableMenuView {
+    -menu: Menu
+    +render(): void
+    +executeMenu(title: string, items: MenuItemType[]): void
+    +executeMenuItem(action: IMenuItemAction): void
+    -renderMenuItems(title: string, items: MenuItemType[]): void
+}
+class ProfileView extends ConsoleView {
+    -profile: Profile
+    +render(): void
+}
+class ProfileMenuAction extends ConsoleView implements IMenuItemAction {
+    -controller: InAppStateController
+    +execute(): void
+}
+class ProfileMenuItem extends MenuItem
+class SwipeMenuAction implements IMenuItemAction {
+    -controller: InAppStateController
+    +execute(): void
+}
+class SwipeMenuItem extends MenuItem
+class InAppStateMenu extends Menu
+class InAppStateView extends StateView {
+    +render(): void
+}
+interface FileSystemProfile {
+    +name: string
+    +age: number
+    +gender: string
+}
+class FileSystemProfilePersistenceService {
+    +find(name: string): Profile | null
+    +create(profile: Profile): void
+    -parsedJson(): FileSystemProfile[]
+    +delete(profile: Profile): void
+    +update(profile: Profile): void
+    +getProfiles(): Profile[]
+    -{static} instance: FileSystemProfilePersistenceService
+    +{static} getInstance(): FileSystemProfilePersistenceService
+}
+class CreateProfileController {
+    -persistenceService: FileSystemProfilePersistenceService
+    +control(name: string, age: number, gender: string): void
+}
+class GetProfileController {
+    -persistenceService: FileSystemProfilePersistenceService
+    +control(name: string): Profile | null
+}
+class LoginController {
+    -persistenceService: FileSystemProfilePersistenceService
+    +control(name: string): Profile | null
+}
+class InitialStateController extends StateController {
+    -createProfileController: CreateProfileController
+    -loginController: LoginController
+    -getProfileController: GetProfileController
+    +login(name: string): void
+    +createProfile(name: string, age: number, gender: string): void
+}
+class LoginView extends ConsoleView {
+    -controller: InitialStateController
+    +render(): void
+}
+class LoginAction extends ConsoleView implements IMenuItemAction {
+    -session: Session
+    -controller: InitialStateController
+    +execute(): void
+}
+class LoginMenuItem extends MenuItem
+class CreateProfileView extends ConsoleView {
+    -controller: InitialStateController
+    +render(): void
+}
+class CreateProfileAction extends ConsoleView implements IMenuItemAction {
+    -controller: InitialStateController
+    +execute(): void
+}
+class CreateProfileMenuItem extends MenuItem
+class InitialStateMenu extends Menu
+class InitialStateView extends StateView {
+    +render(): void
+}
+class MatchListStateController extends StateController
+class MatchListStateView extends StateView {
+    +render(): void
+}
+class DeleteProfileController {
+    -profile: Profile
+    -persistenceService: FileSystemProfilePersistenceService
+    +control(): void
+}
+class EditProfileController {
+    -profile: Profile
+    -persistenceService: FileSystemProfilePersistenceService
+    +control(profilePrimitives: ProfilePrimitives): void
+}
+class ProfileStateController extends StateController {
+    +deleteProfile(): void
+    +editProfile(name: string, age: number, gender: string): void
+}
+class DeleteProfileView extends ConsoleView {
+    -controller: ProfileStateController
+    +render(): void
+}
+class DeleteProfileMenuAction implements IMenuItemAction {
+    -controller: ProfileStateController
+    +execute(): void
+}
+class DeleteProfileMenuItem extends MenuItem
+class BackMenuAction implements IMenuItemAction {
+    -session: Session
+    +execute(): void
+}
+class BackMenuItem extends MenuItem
+class EditProfileView extends ConsoleView {
+    -controller: ProfileStateController
+    +render(): void
+}
+class EditProfileMenuAction implements IMenuItemAction {
+    -controller: ProfileStateController
+    +execute(): void
+}
+class EditProfileMenuItem extends MenuItem
+class ProfileMenu extends Menu
+class ProfileStateView extends StateView {
+    +render(): void
+}
+class SwippingStateController extends StateController
+class SwippingStateView extends StateView {
+    +render(): void
+}
+class ConsoleViewFactory {
+    -views: Map<AppState, StateView<StateController>>
+    -session: Session
+    +render(): void
+}
+class Tinder {
+    -viewsFactory: ConsoleViewFactory
+    -session: Session
+    +render(): void
+}
+Profile --> "1" ProfilePrimitives
+Session --> "1" AppState
+Session --> "1" Profile
+StateController --> "1" Session
+ConsoleView --> "1" Console
+StateView --> "1" Session
+InAppStateController --> "1" Profile
+Menu --> "1" IExecutableMenuView
+MenuItem --> "1" IMenuItemAction
+MenuItem --> "1" IExecutableMenuView
+IExecutableMenuView --> "1" IMenuItemAction
+MenuView --> "1" Menu
+MenuView --> "1" IMenuItemAction
+ProfileView --> "1" Profile
+ProfileMenuAction --> "1" InAppStateController
+SwipeMenuAction --> "1" InAppStateController
+FileSystemProfilePersistenceService --> "1" Profile
+FileSystemProfilePersistenceService --> "*" FileSystemProfile
+FileSystemProfilePersistenceService --> "*" Profile
+CreateProfileController --> "1" FileSystemProfilePersistenceService
+GetProfileController --> "1" FileSystemProfilePersistenceService
+GetProfileController --> "1" Profile
+LoginController --> "1" FileSystemProfilePersistenceService
+LoginController --> "1" Profile
+InitialStateController --> "1" CreateProfileController
+InitialStateController --> "1" LoginController
+InitialStateController --> "1" GetProfileController
+LoginView --> "1" InitialStateController
+LoginAction --> "1" Session
+LoginAction --> "1" InitialStateController
+CreateProfileView --> "1" InitialStateController
+CreateProfileAction --> "1" InitialStateController
+DeleteProfileController --> "1" Profile
+DeleteProfileController --> "1" FileSystemProfilePersistenceService
+EditProfileController --> "1" Profile
+EditProfileController --> "1" FileSystemProfilePersistenceService
+EditProfileController --> "1" ProfilePrimitives
+DeleteProfileView --> "1" ProfileStateController
+DeleteProfileMenuAction --> "1" ProfileStateController
+BackMenuAction --> "1" Session
+EditProfileView --> "1" ProfileStateController
+EditProfileMenuAction --> "1" ProfileStateController
+ConsoleViewFactory --> "1" AppState
+ConsoleViewFactory --> "1" StateView
+ConsoleViewFactory --> "1" StateController
+ConsoleViewFactory --> "1" Session
+Tinder --> "1" ConsoleViewFactory
+Tinder --> "1" Session
+@enduml
