@@ -7,4 +7,8 @@ export abstract class StateController {
   constructor(session: Session) {
     this.session = session;
   }
+
+  public back(): void {
+    this.session.back();
+  }
 }

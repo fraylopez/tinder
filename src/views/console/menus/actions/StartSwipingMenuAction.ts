@@ -4,7 +4,7 @@ import { IMenuItemAction } from "./IMenuItemAction";
 export class StartSwipingMenuAction implements IMenuItemAction {
   constructor(private readonly controller: InAppStateController) {}
 
-  execute(): void {
+  public execute(): void {
     this.controller.startSwipping();
   }
 }

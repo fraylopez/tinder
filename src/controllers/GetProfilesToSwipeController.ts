@@ -2,7 +2,7 @@ import { FileSystemUserPersistenceService } from "../infrastructure/file-system/
 import { Profile } from "../models/Profile";
 import { User } from "../models/User";
 
-export class StartSwippingController {
+export class GetProfilesToSwipeController {
   constructor(private persistenceService: FileSystemUserPersistenceService) {}
 
   public control(user: User): Profile[] {

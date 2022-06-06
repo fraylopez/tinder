@@ -4,13 +4,10 @@ import { SwipeDirection } from "../models/SwipeDirection";
 import { User } from "../models/User";
 
 export class SwippingController {
-  private readonly persistenceService: FileSystemUserPersistenceService;
-  constructor(private user: User) {
-    this.persistenceService = FileSystemUserPersistenceService.getInstance();
-  }
+  constructor(private readonly persistenceService: FileSystemUserPersistenceService) {}
 
-  public control(direction: SwipeDirection, candidate: Profile): void {
-    this.user.swipe(direction, candidate);
-    this.persistenceService.update(this.user);
+  public control(user: User, direction: SwipeDirection, candidate: Profile): void {
+    user.swipe(direction, candidate);
+    this.persistenceService.update(user);
   }
 }

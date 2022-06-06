@@ -1,26 +1,22 @@
-import { SwippingController } from "../../../controllers/SwipingController";
+import { SwippingStateController } from "../../../controllers/state/SwippingStateController";
 import { Profile } from "../../../models/Profile";
 import { SwipeDirection } from "../../../models/SwipeDirection";
-import { User } from "../../../models/User";
 import { ConsoleView } from "../ConsoleView";
 import { ProfileView } from "./ProfileView";
 
 export class SwippingView extends ConsoleView {
-  private readonly controller: SwippingController;
-
-  constructor(user: User, private readonly candidate: Profile) {
+  constructor(private readonly controller: SwippingStateController) {
     super();
-    this.controller = new SwippingController(user);
   }
 
-  public render() {
-    new ProfileView(this.candidate).render();
+  public render(candidate: Profile) {
+    new ProfileView(candidate).render();
     const direction = this.askForDirection();
-    this.controller.control(direction, this.candidate);
+    this.controller.swipe(direction, candidate);
   }
 
   private askForDirection(): SwipeDirection {
-    const right: boolean = this.console.yesNoDialog("righ or left");
+    const right: boolean = this.console.yesNoDialog("righ? (Y/N)");
     if (right) {
       return SwipeDirection.Right;
     }
