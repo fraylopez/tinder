@@ -3,9 +3,9 @@ import { State } from "./State";
 import { Transition } from "./Transition";
 import { ConversationNode } from "./ConversationNode";
 
-export class SwippingNode extends Node {
+export class SwipingNode extends Node {
   constructor() {
-    super(State.SWIPPING);
+    super(State.SWIPING);
     this.addTransition(Transition.OPEN_CONVERSATION, new ConversationNode());
   }
 }

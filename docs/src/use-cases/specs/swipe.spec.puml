@@ -1,19 +1,19 @@
-@startuml SwippingSpecification
-title SwippingSpecification
+@startuml SwipingSpecification
+title SwipingSpecification
 
-state SWIPPING
+state SWIPING
 state STATE_1 as " "
 state SHOW_MATCH_CREATED as " "
 state hasMoreProfiles <<choice>>
-state SWIPPING_OUT as "SWIPPING"
+state SWIPING_OUT as "SWIPING"
 state IN_APP
 state isMatch <<choice>>
 
 
-[*] --> SWIPPING
-SWIPPING --> STATE_1: System requires a like
-STATE_1 --> isMatch : User swipes 
-hasMoreProfiles --> SWIPPING_OUT
+[*] --> SWIPING
+SWIPING --> STATE_1: System requires a like
+STATE_1 --> isMatch : User swipes
+hasMoreProfiles --> SWIPING_OUT
 hasMoreProfiles --> IN_APP: has no more profiles
 isMatch --> SHOW_MATCH_CREATED: [match] System shows the match
 isMatch --> hasMoreProfiles: [no match]

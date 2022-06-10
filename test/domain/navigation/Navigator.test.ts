@@ -21,25 +21,25 @@ describe("Navigator test", () => {
     expect(navigator.getCurrentState()).eq(State.IN_APP);
   });
 
-  it("should transit from in app to swipping after start swipping", () => {
+  it("should transit from in app to swiping after start swiping", () => {
     const navigator = new Navigator();
     navigator.transit(Transition.LOGIN);
-    navigator.transit(Transition.START_SWIPPING);
-    expect(navigator.getCurrentState()).eq(State.SWIPPING);
+    navigator.transit(Transition.START_SWIPING);
+    expect(navigator.getCurrentState()).eq(State.SWIPING);
   });
 
   it("should be restarted with transitions", () => {
     const navigator = new Navigator();
-    navigator.restart([Transition.LOGIN, Transition.START_SWIPPING]);
-    expect(navigator.getCurrentState()).eq(State.SWIPPING);
+    navigator.restart([Transition.LOGIN, Transition.START_SWIPING]);
+    expect(navigator.getCurrentState()).eq(State.SWIPING);
   });
 
   it("should start with transitions", () => {
-    const navigator = new Navigator([Transition.LOGIN, Transition.START_SWIPPING]);
-    expect(navigator.getCurrentState()).eq(State.SWIPPING);
+    const navigator = new Navigator([Transition.LOGIN, Transition.START_SWIPING]);
+    expect(navigator.getCurrentState()).eq(State.SWIPING);
   });
   it("should navigate back", () => {
-    const navigator = new Navigator([Transition.LOGIN, Transition.START_SWIPPING]);
+    const navigator = new Navigator([Transition.LOGIN, Transition.START_SWIPING]);
     navigator.back();
     expect(navigator.getCurrentState()).eq(State.IN_APP);
   });
@@ -62,14 +62,14 @@ describe("Navigator test", () => {
     expect(navigator.getCurrentState()).eq(State.PROFILE);
   });
 
-  it("should transit from swipping to conversation after open conversation transtion", () => {
-    const navigator = new Navigator([Transition.CREATE_USER, Transition.START_SWIPPING]);
+  it("should transit from swiping to conversation after open conversation transtion", () => {
+    const navigator = new Navigator([Transition.CREATE_USER, Transition.START_SWIPING]);
     navigator.transit(Transition.OPEN_CONVERSATION);
     expect(navigator.getCurrentState()).eq(State.CONVERSATION);
   });
 
   it("should transit from conversation to match list after get matches transtion", () => {
-    const navigator = new Navigator([Transition.CREATE_USER, Transition.START_SWIPPING, Transition.OPEN_CONVERSATION]);
+    const navigator = new Navigator([Transition.CREATE_USER, Transition.START_SWIPING, Transition.OPEN_CONVERSATION]);
     navigator.transit(Transition.GET_MATCHES);
     expect(navigator.getCurrentState()).eq(State.MATCH_LIST);
   });

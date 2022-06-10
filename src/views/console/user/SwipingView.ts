@@ -1,11 +1,11 @@
-import { SwippingStateController } from "../../../controllers/state/SwippingStateController";
+import { SwipingStateController } from "../../../controllers/state/SwipingStateController";
 import { Profile } from "../../../models/Profile";
 import { SwipeDirection } from "../../../models/SwipeDirection";
 import { ConsoleView } from "../ConsoleView";
 import { ProfileView } from "./ProfileView";
 
-export class SwippingView extends ConsoleView {
-  constructor(private readonly controller: SwippingStateController) {
+export class SwipingView extends ConsoleView {
+  constructor(private readonly controller: SwipingStateController) {
     super();
   }
 

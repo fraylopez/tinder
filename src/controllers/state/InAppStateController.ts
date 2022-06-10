@@ -8,8 +8,8 @@ export class InAppStateController extends StateController {
     super(session);
   }
 
-  public startSwipping(): void {
-    this.session.transit(Transition.START_SWIPPING);
+  public startSwiping(): void {
+    this.session.transit(Transition.START_SWIPING);
   }
 
   public getProfile(): Profile {

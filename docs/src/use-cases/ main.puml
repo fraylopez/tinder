@@ -5,17 +5,17 @@ actor User
 
 usecase Login
 usecase Swipe
-usecase CreateUser 
-usecase CreateProfile 
+usecase CreateUser
+usecase CreateProfile
 
-usecase GetProfile 
-usecase DeleteProfile 
-usecase StartSwipping
+usecase GetProfile
+usecase DeleteProfile
+usecase StartSwiping
 usecase SendMessage
 usecase GetMatches
 
-usecase EditProfile 
-usecase StartSwipping
+usecase EditProfile
+usecase StartSwiping
 usecase SendMessage
 usecase OpenConversation
 
@@ -27,7 +27,7 @@ User --> GetProfile
 User --> SendMessage
 User --> OpenConversation
 User --> GetMatches
-User --> StartSwipping
+User --> StartSwiping
 User --> Swipe
 
 DeleteProfile --> Login: includes
@@ -36,7 +36,7 @@ GetProfile --> Login: includes
 SendMessage --> Login: includes
 OpenConversation --> Login: includes
 GetMatches --> Login: includes
-StartSwipping --> Login: includes
+StartSwiping --> Login: includes
 Swipe --> Login: includes
 
 @enduml
