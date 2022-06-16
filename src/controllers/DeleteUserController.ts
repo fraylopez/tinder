@@ -1,7 +1,7 @@
 import { FileSystemUserPersistenceService } from "../infrastructure/file-system/FileSystemUserPersistenceService";
 import { User } from "../models/User";
 
-export class DeleteProfileController {
+export class DeleteUserController {
   constructor(private readonly user: User, private persistenceService: FileSystemUserPersistenceService) {}
 
   public control(): void {

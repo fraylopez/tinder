@@ -9,12 +9,12 @@ import { SwipesContainer } from "./SwipesContainer";
 import { UserPrimitives } from "./UserPrimitives";
 
 export class User {
-  static fromPrimitives(primites: UserPrimitives): User {
+  static fromPrimitives(primitives: UserPrimitives): User {
     return new User(
-      Profile.fromPrimitives(primites.profile),
-      SwipesContainer.fromPrimitives(primites.swipes),
-      MatchesContainer.fromPrimitives(primites.matches),
-      primites.id
+      Profile.fromPrimitives(primitives.profile),
+      SwipesContainer.fromPrimitives(primitives.swipes),
+      MatchesContainer.fromPrimitives(primitives.matches),
+      primitives.id
     );
   }
 

@@ -1,11 +1,11 @@
 import { FileSystemUserPersistenceService } from "../../infrastructure/file-system/FileSystemUserPersistenceService";
-import { DeleteProfileController } from "../DeleteProfileController";
+import { DeleteUserController } from "../DeleteUserController";
 import { EditProfileController } from "../EditProfileController";
 import { StateController } from "./StateControllers";
 
 export class ProfileStateController extends StateController {
   public deleteProfile(): void {
-    new DeleteProfileController(this.session.getUser(), FileSystemUserPersistenceService.getInstance()).control();
+    new DeleteUserController(this.session.getUser(), FileSystemUserPersistenceService.getInstance()).control();
     this.session.logOut();
   }
 
