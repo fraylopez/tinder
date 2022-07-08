@@ -56,9 +56,11 @@ export class FileSystemUserPersistenceService {
 
   public getCandidatesProfiles(user: User): Profile[] {
     const parsedJson = this.parsedJson();
-    return parsedJson.map((userJSON) => {
-      return Profile.fromPrimitives(userJSON.profile);
-    });
+    return parsedJson
+      .filter((p) => p.id !== user.getId())
+      .map((userJSON) => {
+        return Profile.fromPrimitives(userJSON.profile);
+      });
   }
 
   public update(user: User) {
