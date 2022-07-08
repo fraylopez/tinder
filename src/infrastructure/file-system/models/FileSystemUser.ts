@@ -1,7 +1,3 @@
-export interface FileSystemUser {
-  id: string;
-  swipes: {
-    to: string;
-    direction: boolean;
-  }[];
-}
+import { UserPrimitives } from "../../../models/UserPrimitives";
+
+export type FileSystemUser = UserPrimitives;

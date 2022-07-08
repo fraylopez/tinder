@@ -1,9 +1,9 @@
 import { InitialStateController } from "../../../../controllers/state/InitialStateController";
 import { MenuItem } from "./MenuItem";
-import { CreateProfileAction } from "../actions/CreateProfileAction";
+import { CreateUserAction } from "../actions/CreateUserAction";
 
-export class CreateProfileMenuItem extends MenuItem {
+export class CreateUserMenuItem extends MenuItem {
   constructor(controller: InitialStateController) {
-    super("Create a profile", new CreateProfileAction(controller));
+    super("Create user", new CreateUserAction(controller));
   }
 }

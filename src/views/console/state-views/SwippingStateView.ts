@@ -1,5 +1,6 @@
 import { SwippingStateController } from "../../../controllers/state/SwippingStateController";
 import { Session } from "../../../models/Session";
+import { SwippingProfilesView } from "../user/SwippingProfilesView";
 import { StateView } from "./StateView";
 
 export class SwippingStateView extends StateView<SwippingStateController> {
@@ -8,6 +9,6 @@ export class SwippingStateView extends StateView<SwippingStateController> {
   }
 
   render(): void {
-    this.console.writeln(`this is swipping view with controller ${this.controller.constructor.name}`);
+    new SwippingProfilesView(this.controller).render();
   }
 }

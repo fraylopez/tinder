@@ -1,10 +1,10 @@
-import { FileSystemProfilePersistenceService } from "../infrastructure/file-system/FileSystemProfilePersistenceService";
-import { Profile } from "../models/Profile";
+import { FileSystemUserPersistenceService } from "../infrastructure/file-system/FileSystemUserPersistenceService";
+import { User } from "../models/User";
 
 export class LoginController {
-  constructor(private persistenceService: FileSystemProfilePersistenceService) {}
+  constructor(private persistenceService: FileSystemUserPersistenceService) {}
 
-  public control(name: string): Profile | null {
-    return this.persistenceService.find(name);
+  public control(id: string): User | null {
+    return this.persistenceService.find(id);
   }
 }

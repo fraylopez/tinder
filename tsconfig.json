@@ -23,5 +23,5 @@
     "noStrictGenericChecks": true
   },
   "exclude": ["node_modules", "dist"],
-  "include": ["src/**/*.ts"]
+  "include": ["src/**/*.ts", "test/**/*.test.ts"]
 }

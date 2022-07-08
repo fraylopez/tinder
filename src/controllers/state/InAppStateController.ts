@@ -1,13 +1,20 @@
+import { Transition } from "../../models/navigation/Transition";
 import { Profile } from "../../models/Profile";
+import { Session } from "../../models/Session";
 import { StateController } from "./StateControllers";
 
 export class InAppStateController extends StateController {
-  public swipe(): void {
-    //
+  constructor(session: Session) {
+    super(session);
+  }
+
+  public startSwipping(): void {
+    this.session.transit(Transition.START_SWIPPING);
   }
 
   public getProfile(): Profile {
-    this.session.next();
-    return this.session.getProfile();
+    const profile = this.session.getProfile();
+    this.session.transit(Transition.GET_PROFILE);
+    return profile;
   }
 }

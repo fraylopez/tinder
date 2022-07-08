@@ -1,15 +1,12 @@
-import { FileSystemProfilePersistenceService } from "../infrastructure/file-system/FileSystemProfilePersistenceService";
-import { Profile } from "../models/Profile";
+import { FileSystemUserPersistenceService } from "../infrastructure/file-system/FileSystemUserPersistenceService";
 import { ProfilePrimitives } from "../models/ProfilePrimitives";
+import { User } from "../models/User";
 
 export class EditProfileController {
-  constructor(
-    private readonly profile: Profile,
-    private readonly persistenceService: FileSystemProfilePersistenceService
-  ) {}
+  constructor(private readonly user: User, private readonly persistenceService: FileSystemUserPersistenceService) {}
 
   public control(profilePrimitives: ProfilePrimitives): void {
-    this.profile.updateWithPrimitives(profilePrimitives);
-    this.persistenceService.update(this.profile);
+    this.user.updateProfile(profilePrimitives);
+    this.persistenceService.update(this.user);
   }
 }

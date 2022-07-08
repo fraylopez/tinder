@@ -5,6 +5,7 @@ actor User
 
 usecase Login
 usecase Swipe
+usecase CreateUser 
 usecase CreateProfile 
 
 usecase GetProfile 
@@ -18,7 +19,8 @@ usecase StartSwipping
 usecase SendMessage
 usecase OpenConversation
 
-User --> CreateProfile
+User --> CreateUser
+CreateUser ..> CreateProfile: extends
 User --> DeleteProfile
 User --> EditProfile
 User --> GetProfile

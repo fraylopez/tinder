@@ -10,7 +10,7 @@ state MATCH_LIST
 INITIAL --> IN_APP
 note on link
 Login
-CreateProfile
+CreateUser
 end note
 IN_APP --> SWIPING
 note on link
@@ -52,6 +52,7 @@ end note
 PROFILE --> INITIAL
 note on link
 DeleteProfile
+logout
 end note
 
 CONVERSATION --> PROFILE
@@ -66,17 +67,6 @@ SWIPING --> CONVERSATION
 note on link
 OpenConversation
 end note
-CONVERSATION --> SWIPING
-note on link
-StartSwiping
-end note
-
-SWIPING --> IN_APP
-note on link
-Swipe
-end note
-
-
 
 
 @enduml

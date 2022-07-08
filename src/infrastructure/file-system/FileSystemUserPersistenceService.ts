@@ -1,7 +1,6 @@
 import * as fs from "fs";
-import { Swipe } from "../../models/Swipe";
+import { Profile } from "../../models/Profile";
 import { User } from "../../models/User";
-import { FileSystemProfilePersistenceService } from "./FileSystemProfilePersistenceService";
 import { FileSystemUser } from "./models/FileSystemUser";
 
 export class FileSystemUserPersistenceService {
@@ -18,15 +17,25 @@ export class FileSystemUserPersistenceService {
     //
   }
 
+  public create(user: User): void {
+    const model: FileSystemUser = user.toPrimitives();
+    const stringifiedProfiles = fs.readFileSync("./src/data/users.json", "utf8");
+    if (stringifiedProfiles) {
+      const parsedJson = JSON.parse(stringifiedProfiles) as FileSystemUser[];
+      fs.writeFileSync("./src/data/users.json", JSON.stringify([...parsedJson, model]));
+    } else {
+      fs.writeFileSync("./src/data/users.json", JSON.stringify([model]));
+    }
+  }
+
   public find(id: string): User | null {
     const users = fs.readFileSync("./src/data/users.json", "utf8");
     const array: FileSystemUser[] = JSON.parse(users) as FileSystemUser[];
-    const foundUser = array.find((profile: FileSystemUser) => profile.id === id);
+    const foundUser = array.find((user: FileSystemUser) => user.id === id);
     if (!foundUser) {
       return null;
     }
-    const profile = FileSystemProfilePersistenceService.getInstance().find(foundUser.id);
-    return new User(profile!, this.getSwipes(foundUser));
+    return User.fromPrimitives(foundUser);
   }
 
   private parsedJson(): FileSystemUser[] {
@@ -34,27 +43,33 @@ export class FileSystemUserPersistenceService {
     return JSON.parse(stringified) as FileSystemUser[];
   }
 
-  update(user: User) {
+  public delete(user: User) {
     const parsedJson = this.parsedJson();
 
-    parsedJson.forEach((userItem: FileSystemUser, index: number) => {
-      if (userItem.id === user.getId()) {
-        parsedJson[index] = {
-          id: user.getId(),
-          swipes: user.toPrimitives().swipes.map((swipe) => ({
-            direction: swipe.direction,
-            to: swipe.candidate.name,
-          })),
-        };
+    parsedJson.forEach((fileSystemUser: FileSystemUser, index: number) => {
+      if (fileSystemUser.id === user.getId()) {
+        parsedJson.splice(index, 1);
+      }
+    });
+    fs.writeFileSync("./src/data/users.json", JSON.stringify(parsedJson));
+  }
+
+  public getCandidatesProfiles(user: User): Profile[] {
+    const parsedJson = this.parsedJson();
+    return parsedJson.map((userJSON) => {
+      return Profile.fromPrimitives(userJSON.profile);
+    });
+  }
+
+  public update(user: User) {
+    const parsedJson = this.parsedJson();
+
+    parsedJson.forEach((fileSystemUser: FileSystemUser, index: number) => {
+      if (fileSystemUser.id === user.getId()) {
+        parsedJson[index] = user.toPrimitives();
       }
     });
 
     fs.writeFileSync("./src/data/users.json", JSON.stringify(parsedJson));
-  }
-
-  private getSwipes(user: FileSystemUser): Swipe[] {
-    return user.swipes.map(
-      (swipe) => new Swipe(swipe.direction, FileSystemProfilePersistenceService.getInstance().find(swipe.to)!)
-    );
   }
 }

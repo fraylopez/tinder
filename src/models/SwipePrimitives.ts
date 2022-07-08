@@ -1,6 +1,6 @@
-import { ProfilePrimitives } from "./ProfilePrimitives";
+import { SwipeDirection } from "./SwipeDirection";
 
 export interface SwipePrimitives {
-  candidate: ProfilePrimitives;
-  direction: boolean;
+  to: string;
+  direction: SwipeDirection;
 }

@@ -1,20 +1,34 @@
 import { Profile } from "./Profile";
+import { SwipeDirection } from "./SwipeDirection";
 import { SwipePrimitives } from "./SwipePrimitives";
 
 export class Swipe {
-  // true = right
-  // false = left
-  constructor(private direction: boolean, private candidate: Profile) {}
-
-  public isRight(): boolean {
-    return this.direction === true;
+  static fromPrimitives(swipe: SwipePrimitives): Swipe {
+    return new Swipe(swipe.direction, swipe.to);
   }
 
-  public static fromPrimitives(swipe: SwipePrimitives): Swipe {
-    return new Swipe(swipe.direction, Profile.fromPrimitives(swipe.candidate));
+  constructor(private direction: SwipeDirection, private to: string) {}
+
+  public isRight(): boolean {
+    return this.direction === SwipeDirection.Right;
+  }
+
+  public equals(swipe: Swipe): boolean {
+    return this.to === swipe.to && this.direction === swipe.direction;
+  }
+
+  public getTo(): string {
+    return this.to;
+  }
+
+  public canLike(profile: Profile): boolean {
+    return this.to === profile.getId();
   }
 
   public toPrimitives(): SwipePrimitives {
-    return { candidate: this.candidate.toPrimitives(), direction: this.direction };
+    return {
+      direction: this.direction,
+      to: this.to,
+    };
   }
 }
