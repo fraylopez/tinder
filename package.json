@@ -1,8 +1,8 @@
 {
   "scripts": {
-    "start": "ts-node src/Tinder.ts",
+    "start": "ts-node src/client/Tinder.ts",
     "lint": "eslint --ext .ts .",
-    "doc:classes": "tplant -A -i src/Tinder.ts -p ./ > docs/src/classes.puml"
+    "doc:classes": "tplant -A -i src/client/Tinder.ts -p ./ > docs/src/classes.puml"
   },
   "dependencies": {
     "readline-sync": "^1.4.10",

@@ -1,5 +1,5 @@
-import { ProfileStateController } from "../../../controllers/state/ProfileStateController";
-import { Session } from "../../../models/Session";
+import { ProfileStateController } from "../../../../server/controllers/state/ProfileStateController";
+import { Session } from "../../../../server/models/Session";
 import { Menu } from "./Menu";
 import { DeleteProfileMenuItem } from "./items/DeleteProfileMenuItem";
 import { BackMenuItem } from "./items/BackMenuItem";

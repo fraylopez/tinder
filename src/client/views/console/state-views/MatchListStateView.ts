@@ -1,5 +1,5 @@
-import { MatchListStateController } from "../../../controllers/state/MatchListController";
-import { Session } from "../../../models/Session";
+import { MatchListStateController } from "../../../../server/controllers/state/MatchListController";
+import { Session } from "../../../../server/models/Session";
 import { StateView } from "./StateView";
 
 export class MatchListStateView extends StateView {

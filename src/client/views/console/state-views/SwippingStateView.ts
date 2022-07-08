@@ -1,5 +1,5 @@
-import { SwippingStateController } from "../../../controllers/state/SwippingStateController";
-import { Session } from "../../../models/Session";
+import { SwippingStateController } from "../../../../server/controllers/state/SwippingStateController";
+import { Session } from "../../../../server/models/Session";
 import { SwippingProfilesView } from "../user/SwippingProfilesView";
 import { StateView } from "./StateView";
 

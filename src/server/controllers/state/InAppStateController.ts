@@ -1,6 +1,6 @@
 import { Transition } from "../../models/navigation/Transition";
-import { Profile } from "../../models/Profile";
-import { Session } from "../../models/Session";
+import { Profile } from "../../../server/models/Profile";
+import { Session } from "../../../server/models/Session";
 import { StateController } from "./StateControllers";
 
 export class InAppStateController extends StateController {

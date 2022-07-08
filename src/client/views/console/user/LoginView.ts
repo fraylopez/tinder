@@ -1,4 +1,4 @@
-import { InitialStateController } from "../../../controllers/state/InitialStateController";
+import { InitialStateController } from "../../../../server/controllers/state/InitialStateController";
 import { ConsoleView } from "../ConsoleView";
 
 export class LoginView extends ConsoleView {

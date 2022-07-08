@@ -1,4 +1,4 @@
-import { InAppStateController } from "../../../../controllers/state/InAppStateController";
+import { InAppStateController } from "../../../../../server/controllers/state/InAppStateController";
 import { ConsoleView } from "../../ConsoleView";
 import { ProfileView } from "../../user/ProfileView";
 import { IMenuItemAction } from "./IMenuItemAction";

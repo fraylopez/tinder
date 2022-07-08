@@ -1,4 +1,4 @@
-import { GetUserController } from "../../../controllers/GetUserController";
+import { GetUserController } from "../../../../server/controllers/GetUserController";
 import { ConsoleView } from "../ConsoleView";
 import { ProfileView } from "./ProfileView";
 

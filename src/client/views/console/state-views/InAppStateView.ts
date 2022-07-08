@@ -1,5 +1,5 @@
-import { InAppStateController } from "../../../controllers/state/InAppStateController";
-import { Session } from "../../../models/Session";
+import { InAppStateController } from "../../../../server/controllers/state/InAppStateController";
+import { Session } from "../../../../server/models/Session";
 import { MenuView } from "../menus/MenuView";
 import { InAppStateMenu } from "../menus/InAppStateMenu";
 import { StateView } from "./StateView";

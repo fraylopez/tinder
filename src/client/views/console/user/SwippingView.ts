@@ -1,6 +1,6 @@
-import { SwippingStateController } from "../../../controllers/state/SwippingStateController";
-import { Profile } from "../../../models/Profile";
-import { SwipeDirection } from "../../../models/SwipeDirection";
+import { SwippingStateController } from "../../../../server/controllers/state/SwippingStateController";
+import { Profile } from "../../../../server/models/Profile";
+import { SwipeDirection } from "../../../../server/models/SwipeDirection";
 import { ConsoleView } from "../ConsoleView";
 import { ProfileView } from "./ProfileView";
 

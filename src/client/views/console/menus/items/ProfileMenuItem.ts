@@ -1,4 +1,4 @@
-import { InAppStateController } from "../../../../controllers/state/InAppStateController";
+import { InAppStateController } from "../../../../../server/controllers/state/InAppStateController";
 import { ProfileMenuAction } from "../actions/ProfileMenuAction";
 import { MenuItem } from "./MenuItem";
 

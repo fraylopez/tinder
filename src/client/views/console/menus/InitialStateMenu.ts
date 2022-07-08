@@ -1,5 +1,5 @@
-import { InitialStateController } from "../../../controllers/state/InitialStateController";
-import { Session } from "../../../models/Session";
+import { InitialStateController } from "../../../../server/controllers/state/InitialStateController";
+import { Session } from "../../../../server/models/Session";
 import { Menu } from "./Menu";
 import { LoginMenuItem } from "./items/LoginMenuItem";
 import { CreateUserMenuItem } from "./items/CreateUserMenuItem";

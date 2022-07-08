@@ -1,4 +1,4 @@
-import { ProfileStateController } from "../../../../controllers/state/ProfileStateController";
+import { ProfileStateController } from "../../../../../server/controllers/state/ProfileStateController";
 import { MenuItem } from "./MenuItem";
 import { DeleteProfileMenuAction } from "../actions/DeleteProfileMenuAction";
 

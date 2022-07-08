@@ -1,4 +1,4 @@
-import { InitialStateController } from "../../../../controllers/state/InitialStateController";
+import { InitialStateController } from "../../../../../server/controllers/state/InitialStateController";
 import { MenuItem } from "./MenuItem";
 import { CreateUserAction } from "../actions/CreateUserAction";
 

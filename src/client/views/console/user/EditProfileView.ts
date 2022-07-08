@@ -1,4 +1,4 @@
-import { ProfileStateController } from "../../../controllers/state/ProfileStateController";
+import { ProfileStateController } from "../../../../server/controllers/state/ProfileStateController";
 import { ConsoleView } from "../ConsoleView";
 
 export class EditProfileView extends ConsoleView {

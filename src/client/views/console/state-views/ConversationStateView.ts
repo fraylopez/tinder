@@ -1,5 +1,5 @@
-import { ConversationStateController } from "../../../controllers/state/ConversationStateController";
-import { Session } from "../../../models/Session";
+import { ConversationStateController } from "../../../../server/controllers/state/ConversationStateController";
+import { Session } from "../../../../server/models/Session";
 import { StateView } from "./StateView";
 
 export class ConversationStateView extends StateView {

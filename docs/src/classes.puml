@@ -1,4 +1,18 @@
 @startuml
+interface MatchPrimitives {
+    +id: string
+}
+class Match {
+    -id: string
+    +toPrimitives(): MatchPrimitives
+    +{static} fromPrimitives(match: MatchPrimitives): Match
+}
+class MatchesContainer {
+    -matches: Match[]
+    +add(match: Match): void
+    +toPrimitives(): MatchPrimitives[]
+    +{static} fromPrimitives(matches: MatchPrimitives[]): MatchesContainer
+}
 interface ProfilePrimitives {
     +name: string
     +age: number
@@ -9,6 +23,7 @@ class Profile {
     -name: string
     -age: number
     -gender: string
+    +getId(): string
     +getName(): string
     +getAge(): number
     +getGender(): string
@@ -17,29 +32,108 @@ class Profile {
     +updateWithPrimitives(profilePrimitives: ProfilePrimitives): void
     +{static} fromPrimitives(primitives: ProfilePrimitives): Profile
 }
-enum AppState {
+enum SwipeDirection {
+    Left
+    Right
+}
+interface SwipePrimitives {
+    +to: string
+    +direction: SwipeDirection
+}
+class Swipe {
+    -direction: SwipeDirection
+    -to: string
+    +isRight(): boolean
+    +equals(swipe: Swipe): boolean
+    +getTo(): string
+    +canLike(profile: Profile): boolean
+    +toPrimitives(): SwipePrimitives
+    +{static} fromPrimitives(swipe: SwipePrimitives): Swipe
+}
+class SwipesContainer {
+    -swipes: Swipe[]
+    +in(swipe: Swipe): boolean
+    +add(direction: SwipeDirection, candidate: Profile): void
+    +toPrimitives(): SwipePrimitives[]
+    +{static} fromPrimitives(swipes: SwipePrimitives[]): SwipesContainer
+}
+interface UserPrimitives {
+    +id: string
+    +profile: ProfilePrimitives
+    +swipes: SwipePrimitives[]
+    +matches: MatchPrimitives[]
+}
+class User {
+    -id: string
+    -profile: Profile
+    -swipesContainer: SwipesContainer
+    -matchesContainer: MatchesContainer
+    +swipe(direction: SwipeDirection, candidate: Profile): void
+    +like(swipe: Swipe): void
+    +getProfile(): Profile
+    +getId(): string
+    +equals(profile: Profile): boolean
+    +getName(): string
+    +updateProfile(profilePrimitives: ProfilePrimitives): void
+    +toPrimitives(): UserPrimitives
+    +{static} fromPrimitives(primites: UserPrimitives): User
+}
+enum State {
     INITIAL
-    INAPP
+    IN_APP
+    SWIPPING
     PROFILE
-    SWIPING
     CONVERSATION
     MATCH_LIST
 }
-class Session {
-    -state: AppState
-    -profile?: Profile | undefined
-    +login(profile: Profile): void
-    +logOut(): void
-    +getProfile(): Profile
-    +getState(): AppState
-    +getUserProfileName(): string
-    +isLoggedIn(): boolean
-    +next(): void
+enum Transition {
+    LOGIN
+    CREATE_USER
+    START_SWIPPING
+    GET_PROFILE
+    OPEN_CONVERSATION
+    GET_MATCHES
+    BACK
+}
+abstract class Node {
+    -nodes: Map<Transition, Node>
+    -name: State
+    +transit(transition: Transition): Node
+    +getName(): State
+    #addTransition(transition: Transition, node: Node): void
+    +removeBack(): void
+    #addBackTransition(node: Node): void
+}
+class ProfileNode extends Node
+class MatchListNode extends Node
+class ConversationNode extends Node
+class SwippingNode extends Node
+class InAppNode extends Node
+class InitialNode extends Node
+class Navigator {
+    -currentNode: Node
+    +getCurrentState(): State
+    +transit(transition: Transition): void
+    +restart(transitions: Transition[]): void
+    +logout(): void
     +back(): void
-    -getCurrentStateIndex(): number
+}
+class Session {
+    -navigator: Navigator
+    -user?: User | undefined
+    +login(user: User): void
+    +logOut(): void
+    +getUser(): User
+    +getState(): State
+    +transit(transition: Transition): void
+    +getUserName(): string
+    +isLoggedIn(): boolean
+    +getProfile(): Profile
+    +back(): void
 }
 abstract class StateController {
     #session: Session
+    +back(): void
 }
 class ConversationStateController extends StateController
 class Console {
@@ -62,7 +156,7 @@ class ConversationStateView extends StateView {
     +render(): void
 }
 class InAppStateController extends StateController {
-    +swipe(): void
+    +startSwipping(): void
     +getProfile(): Profile
 }
 abstract class Menu {
@@ -104,48 +198,43 @@ class ProfileMenuAction extends ConsoleView implements IMenuItemAction {
     +execute(): void
 }
 class ProfileMenuItem extends MenuItem
-class SwipeMenuAction implements IMenuItemAction {
+class StartSwipingMenuAction implements IMenuItemAction {
     -controller: InAppStateController
     +execute(): void
 }
-class SwipeMenuItem extends MenuItem
+class StartSwipingMenuItem extends MenuItem
 class InAppStateMenu extends Menu
 class InAppStateView extends StateView {
     +render(): void
 }
-interface FileSystemProfile {
-    +name: string
-    +age: number
-    +gender: string
+class FileSystemUserPersistenceService {
+    +create(user: User): void
+    +find(id: string): User | null
+    -parsedJson(): UserPrimitives[]
+    +delete(user: User): void
+    +getCandidatesProfiles(user: User): Profile[]
+    +update(user: User): void
+    -{static} instance: FileSystemUserPersistenceService
+    +{static} getInstance(): FileSystemUserPersistenceService
 }
-class FileSystemProfilePersistenceService {
-    +find(name: string): Profile | null
-    +create(profile: Profile): void
-    -parsedJson(): FileSystemProfile[]
-    +delete(profile: Profile): void
-    +update(profile: Profile): void
-    +getProfiles(): Profile[]
-    -{static} instance: FileSystemProfilePersistenceService
-    +{static} getInstance(): FileSystemProfilePersistenceService
+class CreateUserController {
+    -persistenceService: FileSystemUserPersistenceService
+    +control(name: string, age: number, gender: string, id: string): void
 }
-class CreateProfileController {
-    -persistenceService: FileSystemProfilePersistenceService
-    +control(name: string, age: number, gender: string): void
-}
-class GetProfileController {
-    -persistenceService: FileSystemProfilePersistenceService
-    +control(name: string): Profile | null
+class GetUserController {
+    -persistenceService: FileSystemUserPersistenceService
+    +control(id: string): User | null
 }
 class LoginController {
-    -persistenceService: FileSystemProfilePersistenceService
-    +control(name: string): Profile | null
+    -persistenceService: FileSystemUserPersistenceService
+    +control(id: string): User | null
 }
 class InitialStateController extends StateController {
-    -createProfileController: CreateProfileController
+    -createUserController: CreateUserController
     -loginController: LoginController
-    -getProfileController: GetProfileController
+    -getUserController: GetUserController
     +login(name: string): void
-    +createProfile(name: string, age: number, gender: string): void
+    +createUser(name: string, age: number, gender: string): void
 }
 class LoginView extends ConsoleView {
     -controller: InitialStateController
@@ -157,15 +246,26 @@ class LoginAction extends ConsoleView implements IMenuItemAction {
     +execute(): void
 }
 class LoginMenuItem extends MenuItem
-class CreateProfileView extends ConsoleView {
-    -controller: InitialStateController
-    +render(): void
+abstract class ReactComponent<TState> extends ConsoleView {
+    -eventEmiter: EventEmitter
+    #state?: TState | undefined
+    -mount(): void
+    #setState(state: TState): void
+    +{abstract} componentDidMount(): void | Promise<void>
+    +{abstract} render(): void
 }
-class CreateProfileAction extends ConsoleView implements IMenuItemAction {
+class CreateUserView extends ReactComponent {
+    -result?: void | { error?: any; } | undefined
+    -controller: InitialStateController
+    +componentDidMount(): void
+    +render(): void
+    -renderResult(): void
+}
+class CreateUserAction extends ConsoleView implements IMenuItemAction {
     -controller: InitialStateController
     +execute(): void
 }
-class CreateProfileMenuItem extends MenuItem
+class CreateUserMenuItem extends MenuItem
 class InitialStateMenu extends Menu
 class InitialStateView extends StateView {
     +render(): void
@@ -175,13 +275,13 @@ class MatchListStateView extends StateView {
     +render(): void
 }
 class DeleteProfileController {
-    -profile: Profile
-    -persistenceService: FileSystemProfilePersistenceService
+    -user: User
+    -persistenceService: FileSystemUserPersistenceService
     +control(): void
 }
 class EditProfileController {
-    -profile: Profile
-    -persistenceService: FileSystemProfilePersistenceService
+    -user: User
+    -persistenceService: FileSystemUserPersistenceService
     +control(profilePrimitives: ProfilePrimitives): void
 }
 class ProfileStateController extends StateController {
@@ -215,12 +315,34 @@ class ProfileMenu extends Menu
 class ProfileStateView extends StateView {
     +render(): void
 }
-class SwippingStateController extends StateController
+class GetProfilesToSwipeController {
+    -persistenceService: FileSystemUserPersistenceService
+    +control(user: User): Profile[]
+}
+class SwippingController {
+    -persistenceService: FileSystemUserPersistenceService
+    +control(user: User, direction: SwipeDirection, candidate: Profile): void
+}
+class SwippingStateController extends StateController {
+    -getProfilesToSwipeController: GetProfilesToSwipeController
+    -swippingController: SwippingController
+    +swipe(direction: SwipeDirection, candidate: Profile): void
+    +getProfilesToSwipe(): Profile[]
+}
+class SwippingView extends ConsoleView {
+    -controller: SwippingStateController
+    +render(candidate: Profile): void
+    -askForDirection(): SwipeDirection
+}
+class SwippingProfilesView extends ConsoleView {
+    -controller: SwippingStateController
+    +render(): void
+}
 class SwippingStateView extends StateView {
     +render(): void
 }
 class ConsoleViewFactory {
-    -views: Map<AppState, StateView<StateController>>
+    -views: Map<State, StateView<StateController>>
     -session: Session
     +render(): void
 }
@@ -229,8 +351,41 @@ class Tinder {
     -session: Session
     +render(): void
 }
+Match --> "1" MatchPrimitives
+MatchesContainer --> "*" Match
+MatchesContainer --> "1" Match
+MatchesContainer --> "*" MatchPrimitives
+MatchesContainer --> "1" MatchPrimitives
 Profile --> "1" ProfilePrimitives
-Session --> "1" AppState
+SwipePrimitives --> "1" SwipeDirection
+Swipe --> "1" SwipeDirection
+Swipe --> "1" Profile
+Swipe --> "1" SwipePrimitives
+SwipesContainer --> "*" Swipe
+SwipesContainer --> "1" Swipe
+SwipesContainer --> "1" SwipeDirection
+SwipesContainer --> "1" Profile
+SwipesContainer --> "*" SwipePrimitives
+SwipesContainer --> "1" SwipePrimitives
+UserPrimitives --> "1" ProfilePrimitives
+UserPrimitives --> "*" SwipePrimitives
+UserPrimitives --> "*" MatchPrimitives
+User --> "1" Profile
+User --> "1" SwipesContainer
+User --> "1" MatchesContainer
+User --> "1" SwipeDirection
+User --> "1" Swipe
+User --> "1" ProfilePrimitives
+User --> "1" UserPrimitives
+Node --> "1" Transition
+Node --> "1" State
+Navigator --> "1" Node
+Navigator --> "1" State
+Navigator --> "1" Transition
+Session --> "1" Navigator
+Session --> "1" User
+Session --> "1" State
+Session --> "1" Transition
 Session --> "1" Profile
 StateController --> "1" Session
 ConsoleView --> "1" Console
@@ -244,34 +399,50 @@ MenuView --> "1" Menu
 MenuView --> "1" IMenuItemAction
 ProfileView --> "1" Profile
 ProfileMenuAction --> "1" InAppStateController
-SwipeMenuAction --> "1" InAppStateController
-FileSystemProfilePersistenceService --> "1" Profile
-FileSystemProfilePersistenceService --> "*" FileSystemProfile
-FileSystemProfilePersistenceService --> "*" Profile
-CreateProfileController --> "1" FileSystemProfilePersistenceService
-GetProfileController --> "1" FileSystemProfilePersistenceService
-GetProfileController --> "1" Profile
-LoginController --> "1" FileSystemProfilePersistenceService
-LoginController --> "1" Profile
-InitialStateController --> "1" CreateProfileController
+StartSwipingMenuAction --> "1" InAppStateController
+FileSystemUserPersistenceService --> "1" User
+FileSystemUserPersistenceService --> "*" UserPrimitives
+FileSystemUserPersistenceService --> "*" Profile
+CreateUserController --> "1" FileSystemUserPersistenceService
+GetUserController --> "1" FileSystemUserPersistenceService
+GetUserController --> "1" User
+LoginController --> "1" FileSystemUserPersistenceService
+LoginController --> "1" User
+InitialStateController --> "1" CreateUserController
 InitialStateController --> "1" LoginController
-InitialStateController --> "1" GetProfileController
+InitialStateController --> "1" GetUserController
 LoginView --> "1" InitialStateController
 LoginAction --> "1" Session
 LoginAction --> "1" InitialStateController
-CreateProfileView --> "1" InitialStateController
-CreateProfileAction --> "1" InitialStateController
-DeleteProfileController --> "1" Profile
-DeleteProfileController --> "1" FileSystemProfilePersistenceService
-EditProfileController --> "1" Profile
-EditProfileController --> "1" FileSystemProfilePersistenceService
+CreateUserView --> "1" InitialStateController
+CreateUserAction --> "1" InitialStateController
+DeleteProfileController --> "1" User
+DeleteProfileController --> "1" FileSystemUserPersistenceService
+EditProfileController --> "1" User
+EditProfileController --> "1" FileSystemUserPersistenceService
 EditProfileController --> "1" ProfilePrimitives
 DeleteProfileView --> "1" ProfileStateController
 DeleteProfileMenuAction --> "1" ProfileStateController
 BackMenuAction --> "1" Session
 EditProfileView --> "1" ProfileStateController
 EditProfileMenuAction --> "1" ProfileStateController
-ConsoleViewFactory --> "1" AppState
+GetProfilesToSwipeController --> "1" FileSystemUserPersistenceService
+GetProfilesToSwipeController --> "1" User
+GetProfilesToSwipeController --> "*" Profile
+SwippingController --> "1" FileSystemUserPersistenceService
+SwippingController --> "1" User
+SwippingController --> "1" SwipeDirection
+SwippingController --> "1" Profile
+SwippingStateController --> "1" GetProfilesToSwipeController
+SwippingStateController --> "1" SwippingController
+SwippingStateController --> "1" SwipeDirection
+SwippingStateController --> "1" Profile
+SwippingStateController --> "*" Profile
+SwippingView --> "1" SwippingStateController
+SwippingView --> "1" Profile
+SwippingView --> "1" SwipeDirection
+SwippingProfilesView --> "1" SwippingStateController
+ConsoleViewFactory --> "1" State
 ConsoleViewFactory --> "1" StateView
 ConsoleViewFactory --> "1" StateController
 ConsoleViewFactory --> "1" Session

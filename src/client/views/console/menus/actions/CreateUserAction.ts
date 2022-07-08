@@ -1,4 +1,4 @@
-import { InitialStateController } from "../../../../controllers/state/InitialStateController";
+import { InitialStateController } from "../../../../../server/controllers/state/InitialStateController";
 import { ConsoleView } from "../../ConsoleView";
 import { CreateUserView } from "../../user/CreateUserView";
 import { IMenuItemAction } from "./IMenuItemAction";

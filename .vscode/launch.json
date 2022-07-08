@@ -8,8 +8,15 @@
       "type": "node",
       "request": "launch",
       "name": "Debug Tinder",
-      "runtimeArgs": ["-r", "ts-node/register"],
-      "args": ["${workspaceFolder}/src/Tinder.ts", "--timeout", "999999"],
+      "runtimeArgs": [
+        "-r",
+        "ts-node/register"
+      ],
+      "args": [
+        "${workspaceFolder}/src/client/Tinder.ts",
+        "--timeout",
+        "999999"
+      ],
       "console": "integratedTerminal"
     }
   ]

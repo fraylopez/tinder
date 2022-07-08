@@ -1,5 +1,5 @@
 /* eslint-disable max-classes-per-file */
-import { Session } from "./models/Session";
+import { Session } from "../server/models/Session";
 import { ConsoleViewFactory } from "./views/console/state-views/ConsoleViewFactory";
 
 export class Tinder {

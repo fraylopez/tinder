@@ -11,8 +11,8 @@ export class InitialStateController extends StateController {
   private readonly loginController: LoginController;
   private readonly getUserController: GetUserController;
 
-  constructor(session: Session) {
-    super(session);
+  constructor() {
+    super(new Session());
     this.createUserController = new CreateUserController(FileSystemUserPersistenceService.getInstance());
     this.loginController = new LoginController(FileSystemUserPersistenceService.getInstance());
     this.getUserController = new GetUserController(FileSystemUserPersistenceService.getInstance());

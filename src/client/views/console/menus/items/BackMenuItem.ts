@@ -1,4 +1,4 @@
-import { Session } from "../../../../models/Session";
+import { Session } from "../../../../../server/models/Session";
 import { MenuItem } from "./MenuItem";
 import { BackMenuAction } from "../actions/BackMenuAction";
 

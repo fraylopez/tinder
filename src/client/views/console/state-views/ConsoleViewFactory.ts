@@ -1,6 +1,6 @@
 import assert from "assert";
-import { State } from "../../../models/navigation/State";
-import { Session } from "../../../models/Session";
+import { State } from "../../../../server/models/navigation/State";
+import { Session } from "../../../../server/models/Session";
 import { ConversationStateView } from "./ConversationStateView";
 import { InAppStateView } from "./InAppStateView";
 import { InitialStateView } from "./InitialStateView";

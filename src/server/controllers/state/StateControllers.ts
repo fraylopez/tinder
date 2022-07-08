@@ -1,5 +1,4 @@
-/* eslint-disable max-classes-per-file */
-import { Session } from "../../models/Session";
+import { Session } from "../../../server/models/Session";
 
 export abstract class StateController {
   protected session: Session;

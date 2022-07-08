@@ -1,5 +1,5 @@
-import { Session } from "../../../models/Session";
-import { ProfileStateController } from "../../../controllers/state/ProfileStateController";
+import { Session } from "../../../../server/models/Session";
+import { ProfileStateController } from "../../../../server/controllers/state/ProfileStateController";
 import { StateView } from "./StateView";
 import { MenuView } from "../menus/MenuView";
 import { ProfileMenu } from "../menus/ProfileMenu";

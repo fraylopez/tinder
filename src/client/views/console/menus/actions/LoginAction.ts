@@ -1,5 +1,5 @@
-import { InitialStateController } from "../../../../controllers/state/InitialStateController";
-import { Session } from "../../../../models/Session";
+import { InitialStateController } from "../../../../../server/controllers/state/InitialStateController";
+import { Session } from "../../../../../server/models/Session";
 import { ConsoleView } from "../../ConsoleView";
 import { LoginView } from "../../user/LoginView";
 import { IMenuItemAction } from "./IMenuItemAction";
